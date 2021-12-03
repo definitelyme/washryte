@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # generic_argument_factories: true
+          create_to_json: true
+          explicit_to_json: true
+          include_if_null: false
+      freezed:
+        options:
+          union_key: type
+          union_value_case: snake

@@ -1,0 +1,2 @@
+-keep class com.github.chinloyal.pusher_client.** { *; }
+-keep class com.github.olubunmitosin.laravel_flutter_pusher.** { *; }

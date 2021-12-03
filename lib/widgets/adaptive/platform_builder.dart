@@ -1,0 +1,25 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:washryte/utils/utils.dart';
+
+typedef _PlatformBuilder = Widget Function(BuildContext context);
+
+class PlatformBuilder extends StatelessWidget {
+  final _PlatformBuilder? cupertino;
+  final _PlatformBuilder? material;
+
+  const PlatformBuilder({
+    Key? key,
+    _PlatformBuilder? cupertino,
+    _PlatformBuilder? material,
+  })  : cupertino = cupertino,
+        material = material,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isIOS || Platform.isMacOS) return cupertino?.call(context) ?? Utils.nothing;
+    return material?.call(context) ?? Utils.nothing;
+  }
+}
