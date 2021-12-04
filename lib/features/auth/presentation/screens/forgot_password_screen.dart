@@ -12,19 +12,11 @@ import 'package:washryte/widgets/vertical_spacer.dart';
 import 'package:washryte/widgets/widgets.dart';
 
 /// A stateless widget to render ForgotPasswordScreen.
-class ForgotPasswordScreen extends StatelessWidget with AutoRouteWrapper {
-  // static final _controller = TextEditingController();
-  static const dropdownBorderRadius = BorderRadius.only(
-    topLeft: Radius.circular(Utils.inputBorderRadius),
-    bottomLeft: Radius.circular(Utils.inputBorderRadius),
-  );
-
-  static const dropdownErrorBorder = UnderlineInputBorder(
-    borderSide: BorderSide(color: Palette.errorRed, width: 1.5),
-    borderRadius: dropdownBorderRadius,
-  );
-
+class ForgotPasswordScreen extends StatefulWidget with AutoRouteWrapper {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -54,135 +46,11 @@ class ForgotPasswordScreen extends StatelessWidget with AutoRouteWrapper {
       ),
     );
   }
+}
 
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with AutomaticKeepAliveClientMixin<ForgotPasswordScreen> {
   @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(scaffoldBackgroundColor: Colors.white),
-      child: AdaptiveScaffold(
-        adaptiveToolbar: const AdaptiveToolbar(),
-        body: CustomScrollView(
-          clipBehavior: Clip.antiAlias,
-          controller: ScrollController(),
-          physics: Utils.physics,
-          slivers: [
-            BlocBuilder<AuthCubit, AuthState>(
-              builder: (c, formType) => SliverPadding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: App.sidePadding,
-                ).copyWith(top: App.longest * 0.02),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed(
-                    [
-                      SafeArea(
-                        child: SizedBox(
-                          height: 0.6.sw,
-                          child: Center(
-                            child: SizedBox.square(
-                              dimension: 0.4.sw,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: Palette.accent20,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(0.09.sw),
-                                  child: AppAssets.passwordReset,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.05.sw),
-                      //
-                      AdaptiveText(
-                        'Forgot Password?',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 26.sp,
-                      ),
-                      //
-                      VerticalSpace(height: 0.03.sw),
-                      //
-                      AdaptiveText.rich(
-                        const TextSpan(children: [
-                          TextSpan(text: 'Please enter the '),
-                          TextSpan(
-                            text: 'phone number',
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          TextSpan(
-                            text: ' connected to your '
-                                'account to reset password.',
-                          ),
-                        ]),
-                        softWrap: true,
-                        wrapWords: true,
-                        maxLines: 3,
-                        textAlign: TextAlign.left,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 17.sp,
-                      ),
-                      //
-                      VerticalSpace(height: 0.03.sw),
-                      //
-                      App.platform.fold(
-                        material: () => const Hero(
-                          tag: Const.emailLabelHeroTag,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextFormInputLabel(text: 'Phone Number'),
-                          ),
-                        ),
-                        cupertino: () => const SizedBox.shrink(),
-                      ),
-                      //
-                      App.platform.fold(
-                        material: () => _phoneInput(),
-                        cupertino: () => CupertinoFormSection(
-                          children: [_phoneInput()],
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.1.sw),
-                      //
-                      Align(
-                        alignment: Alignment.center,
-                        child: BlocBuilder<AuthCubit, AuthState>(
-                          builder: (c, s) => CountdownWidget(
-                            duration: !s.user.phone.isValid
-                                ? const Duration(seconds: 0)
-                                : env.flavor.fold(
-                                    dev: () => const Duration(minutes: 1),
-                                    prod: () => const Duration(minutes: 2, seconds: 5),
-                                  ),
-                            child: (callback) => Hero(
-                              tag: Const.authButtonHeroTag,
-                              child: AppButton(
-                                text: 'Request OTP',
-                                isLoading: s.isLoading,
-                                onPressed: () async {
-                                  final _isSuccessful = await c.read<AuthCubit>().forgotPassword();
-                                  if (_isSuccessful) callback();
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.1.sw),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  bool get wantKeepAlive => true;
 
   Widget _emailInput() => EmailFormField<AuthCubit, AuthState>(
         disabled: (s) => s.isLoading,
@@ -193,17 +61,176 @@ class ForgotPasswordScreen extends StatelessWidget with AutoRouteWrapper {
         onChanged: (it, str) => it.emailChanged(str),
       );
 
-  Widget _phoneInput() => PhoneFormField<AuthCubit, AuthState>(
-        disabled: (s) => s.isLoading,
-        validate: (s) => s.validate,
-        field: (s) => s.user.phone,
-        controller: (s) => s.phoneTextController,
-        response: (s) => s.status,
-        errorField: (error) => error.errors?.value,
-        // onPickerBuilder: (cubit, country) {
-        //   if (cubit.state.selectedCountry == null) cubit.countryChanged(country);
-        // },
-        // onCountryChanged: (cubit, country) => cubit.countryChanged(country),
-        onChanged: (cubit, str) => cubit.phoneNumberChanged(str),
-      );
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    return Theme(
+      data: Theme.of(context).copyWith(scaffoldBackgroundColor: Colors.white),
+      child: AdaptiveScaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverOverlapAbsorber(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              sliver: SliverSafeArea(
+                top: false,
+                sliver: SliverAppBar(
+                  pinned: true,
+                  stretch: true,
+                  // snap: false,
+                  floating: true,
+                  // primary: true,
+                  forceElevated: innerBoxIsScrolled,
+                  elevation: 0,
+                  expandedHeight: 0.35.h,
+                  backgroundColor: Colors.transparent,
+                  leading: LayoutBuilder(
+                    builder: (context, constraints) => Center(
+                      child: Material(
+                        color: Colors.white,
+                        elevation: 0,
+                        borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+                        child: InkWell(
+                          onTap: navigator.pop,
+                          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+                          child: const Padding(
+                            padding: EdgeInsets.all(7.0),
+                            child: Icon(Icons.keyboard_backspace_rounded, color: Colors.black87),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  flexibleSpace: Stack(
+                    children: [
+                      const Positioned.fill(child: SizedBox.expand()),
+                      //
+                      Positioned.fill(
+                        bottom: 0.09.h,
+                        child: const FlexibleSpaceBar(
+                          stretchModes: [
+                            StretchMode.zoomBackground,
+                            StretchMode.blurBackground,
+                            StretchMode.fadeTitle,
+                          ],
+                          background: DecoratedBox(
+                            decoration: BoxDecoration(color: Palette.accentColor),
+                          ),
+                        ),
+                      ),
+                      //
+                      Positioned.fill(
+                        top: 0.06.h,
+                        left: 0.1.w,
+                        right: 0.1.w,
+                        bottom: 0.03.h,
+                        child: Builder(builder: (context) {
+                          log.w('Innerbox is scrolled ==> $innerBoxIsScrolled');
+
+                          return AnimatedVisibility(
+                            visible: !innerBoxIsScrolled,
+                            child: AppAssets.passwordReset,
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+          body: Builder(
+            builder: (ctx) => CustomScrollView(
+              shrinkWrap: true,
+              primary: true,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                SliverOverlapInjector(
+                  handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                ),
+                //
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 0.06.w),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate.fixed(
+                      [
+                        AdaptiveText(
+                          'Forgot Password?',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 26.sp,
+                        ),
+                        //
+                        VerticalSpace(height: 0.015.h),
+                        //
+                        AdaptiveText(
+                          'Enter the email address you used in opening an account',
+                          softWrap: true,
+                          wrapWords: true,
+                          maxLines: 3,
+                          textAlign: TextAlign.left,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17.sp,
+                        ),
+                        //
+                        VerticalSpace(height: 0.02.h),
+                        //
+                        App.platform.fold(
+                          material: () => const Hero(
+                            tag: Const.emailLabelHeroTag,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: TextFormInputLabel(text: 'Email'),
+                            ),
+                          ),
+                          cupertino: () => const SizedBox.shrink(),
+                        ),
+                        //
+                        App.platform.fold(
+                          material: () => _emailInput(),
+                          cupertino: () => CupertinoFormSection(
+                            children: [_emailInput()],
+                          ),
+                        ),
+                        //
+                        VerticalSpace(height: 0.05.h),
+                        //
+                        Align(
+                          alignment: Alignment.center,
+                          child: BlocBuilder<AuthCubit, AuthState>(
+                            builder: (c, s) => CountdownWidget(
+                              duration: !s.user.phone.isValid
+                                  ? const Duration(seconds: 0)
+                                  : env.flavor.fold(
+                                      dev: () => const Duration(minutes: 1),
+                                      prod: () => const Duration(minutes: 2, seconds: 5),
+                                    ),
+                              child: (callback) => Hero(
+                                tag: Const.authButtonHeroTag,
+                                child: AppButton(
+                                  text: 'Send Reset Link',
+                                  isLoading: s.isLoading,
+                                  onPressed: () async {
+                                    final _isSuccessful = await c.read<AuthCubit>().forgotPassword();
+                                    if (_isSuccessful) callback();
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //
+                        VerticalSpace(height: 0.1.sw),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
