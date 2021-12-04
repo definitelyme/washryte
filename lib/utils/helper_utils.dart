@@ -57,13 +57,12 @@ const List<String> _guestAuthRoutes = [
   LoginRoute.name,
   SignupRoute.name,
   GetStartedRoute.name,
-  SignupRoute.name,
   ForgotPasswordRoute.name,
   SocialsAuthRoute.name,
 ];
 
 void navigateToLogin() {
-  if (_guestAuthRoutes.any((el) => el != navigator.current.name)) navigator.navigate(const LoginRoute());
+  if (!_guestAuthRoutes.contains(navigator.current.name)) navigator.navigate(const LoginRoute());
 }
 
 void navigateToSocials() {

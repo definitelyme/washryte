@@ -1,8 +1,14 @@
 library get_started_screen.dart;
 
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:washryte/features/auth/presentation/managers/managers.dart';
+import 'package:washryte/features/auth/presentation/widgets/oauth_widgets.dart';
+import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 
@@ -12,7 +18,32 @@ class GetStartedScreen extends StatelessWidget with AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return BlocProvider(
+      create: (_) => getIt<AuthCubit>(),
+      child: BlocListener<AuthCubit, AuthState>(
+        listenWhen: (p, c) =>
+            p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||
+            (c.status.getOrElse(() => null) != null &&
+                (c.status.getOrElse(() => null)!.response.maybeMap(
+                      error: (f) => f.fold(
+                        is41101: () {
+                          WidgetsBinding.instance?.addPostFrameCallback((_) => navigateToSocials());
+                          return false;
+                        },
+                        orElse: () => false,
+                      ),
+                      orElse: () => false,
+                    ))),
+        listener: (c, s) => s.status.fold(
+          () => null,
+          (th) => th?.response.map(
+            error: (f) => PopupDialog.error(message: f.message).render(c),
+            success: (s) => PopupDialog.success(message: s.message).render(c),
+          ),
+        ),
+        child: this,
+      ),
+    );
   }
 
   @override
@@ -32,166 +63,139 @@ class GetStartedScreen extends StatelessWidget with AutoRouteWrapper {
                 width: 1.w,
                 child: Stack(
                   children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      // bottom: App.longest * 0.15,
+                    Positioned.fill(
                       child: Center(
                         child: Image.asset(
                           AppAssets.onboarding,
-                          width: 1.sw,
-                          height: 0.7.h,
+                          width: 1.w,
+                          height: 1.h,
                           fit: BoxFit.fill,
                         ),
                       ),
                     ),
                     //
+                    const Positioned.fill(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment(0.0, -1.8),
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black12,
+                              Colors.black26,
+                              Colors.black38,
+                              Colors.black54,
+                              Colors.black87,
+                              Colors.black87,
+                              Colors.black87,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    //
                     Positioned(
-                      top: 0.53.h,
+                      top: 0.5.h,
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      child: Material(
-                        color: App.resolveColor(
-                          Palette.cardColorLight,
-                          dark: Palette.cardColorDark,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(32),
-                          topRight: Radius.circular(32),
-                        ),
-                        child: SafeArea(
-                          top: false,
-                          left: true,
-                          right: true,
-                          bottom: true,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: App.sidePadding,
-                            ).copyWith(top: 0.03.h),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Flexible(
-                                    flex: 3,
-                                    child: AdaptiveText(
-                                      'Welcome to washryte!',
-                                      maxLines: 1,
-                                      minFontSize: 13,
-                                      fontSize: 27.sp,
-                                      fontWeight: FontWeight.w700,
-                                      softWrap: false,
-                                      wrapWords: false,
-                                    ),
+                      child: SafeArea(
+                        top: false,
+                        left: true,
+                        right: true,
+                        bottom: true,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: App.sidePadding,
+                          ).copyWith(top: 0.03.h),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 3,
+                                  child: AdaptiveText(
+                                    'Welcome to WashRyte Laundry',
+                                    maxLines: 1,
+                                    minFontSize: 13,
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.w800,
+                                    textColor: Colors.white,
+                                    softWrap: false,
+                                    wrapWords: false,
                                   ),
-                                  //
-                                  VerticalSpace(height: 0.03.sw),
-                                  //
-                                  Flexible(
-                                    flex: 5,
-                                    child: AdaptiveText(
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porta ipsum',
-                                      textAlign: TextAlign.center,
-                                      maxLines: 3,
-                                      minFontSize: 13,
-                                      fontSize: 20.sp,
-                                      wordSpacing: 2.0,
-                                      softWrap: true,
-                                      wrapWords: true,
-                                    ),
+                                ),
+                                //
+                                VerticalSpace(height: 0.01.sw),
+                                //
+                                Flexible(
+                                  flex: 5,
+                                  child: AdaptiveText(
+                                    'Have your clothes picked up for dry cleaning and delivered to you after wash.',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 3,
+                                    minFontSize: 13,
+                                    fontSize: 18.sp,
+                                    textColor: Colors.white,
+                                    wordSpacing: 2.0,
+                                    softWrap: true,
+                                    wrapWords: true,
                                   ),
-                                  //
-                                  VerticalSpace(height: 0.04.sw),
-                                  //
-                                  Expanded(
-                                    flex: 11,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: AppButton(
-                                            text: 'Create Account',
-                                            fontWeight: FontWeight.w600,
-                                            onPressed: () => navigator.pushAndPopUntil(
-                                              const SignupRoute(),
-                                              predicate: (_) => false,
-                                            ),
+                                ),
+                                //
+                                VerticalSpace(height: 0.02.sw),
+                                //
+                                Expanded(
+                                  flex: 15,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        Platform.isIOS || Platform.isMacOS ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Flexible(
+                                        flex: 2,
+                                        child: AppButton(
+                                          text: 'Create Account',
+                                          fontWeight: FontWeight.w600,
+                                          onPressed: () => navigator.pushAndPopUntil(
+                                            const SignupRoute(),
+                                            predicate: (_) => false,
                                           ),
                                         ),
-                                        //
-                                        VerticalSpace(height: 0.03.sw),
-                                        //
-                                        Flexible(
-                                          child: AppOutlinedButton(
-                                            text: 'Login',
-                                            fontWeight: FontWeight.w600,
-                                            textColor: Palette.accentColor,
-                                            onPressed: () => navigator.pushAndPopUntil(
-                                              const LoginRoute(),
-                                              predicate: (_) => false,
-                                            ),
+                                      ),
+                                      //
+                                      VerticalSpace(height: 0.01.h),
+                                      //
+                                      Flexible(
+                                        flex: 2,
+                                        child: AppOutlinedButton(
+                                          text: 'Login',
+                                          fontWeight: FontWeight.w600,
+                                          textColor: Palette.accentColor,
+                                          splashColor: Colors.white24,
+                                          onPressed: () => navigator.pushAndPopUntil(
+                                            const LoginRoute(),
+                                            predicate: (_) => false,
                                           ),
                                         ),
-                                        //
-                                        VerticalSpace(height: 0.03.sw),
-                                        //
-                                        Flexible(
-                                          child: AdaptiveButton(
-                                            text: 'Continue As Guest',
-                                            fontWeight: FontWeight.w600,
-                                            textColor: Colors.black,
-                                            textColorDark: Colors.white,
-                                            splashColor: Colors.black12,
-                                            backgroundColor: Colors.transparent,
-                                            onPressed: () => App.showAlertDialog(
-                                              context: context,
-                                              useRootNavigator: true,
-                                              useSafeArea: true,
-                                              barrierDismissible: false,
-                                              barrierColor: Utils.foldTheme(
-                                                light: () => Colors.grey.shade800.withOpacity(0.55),
-                                                dark: () => Colors.white54,
-                                              ),
-                                              builder: (_) => AdaptiveAlertdialog(
-                                                title: 'Continue as Guest?',
-                                                content: 'Limited functionality '
-                                                    'until registration.',
-                                                firstButtonText: 'Continue',
-                                                // secondButtonText: ,
-                                                secondSplashColor: Colors.black12,
-                                                secondTextStyle: const TextStyle(
-                                                  color: Palette.accentColor,
-                                                ),
-                                                secondBgColor: Palette.accentColor.withOpacity(0.15),
-                                                onFirstPressed: () => navigator.pushAndPopUntil(
-                                                  const DashboardRoute(),
-                                                  predicate: (_) => false,
-                                                ),
-                                                cupertinoSecondButtonText: 'Free Sign Up',
-                                                onSecondPressed: () => navigator.replaceAll(
-                                                  [const SignupRoute()],
-                                                ),
-                                                materialSecondButton: AppOutlinedButton(
-                                                  text: 'Free Sign Up',
-                                                  height: 0.045.h,
-                                                  fontSize: 16.sp,
-                                                  onPressed: () => navigator.replaceAll(
-                                                    [const SignupRoute()],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                      ),
+                                      //
+                                      VerticalSpace(height: 0.005.h),
+                                      //
+                                      Expanded(
+                                        flex: 5,
+                                        child: MyHero(
+                                          tag: Const.oauthBtnHeroTag,
+                                          type: MaterialType.transparency,
+                                          child: OAuthWidgets(cubit: context.read<AuthCubit>()),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                  //
-                                  VerticalSpace(height: 0.03.sw),
-                                ],
-                              ),
+                                ),
+                                //
+                                VerticalSpace(height: 0.03.sw),
+                              ],
                             ),
                           ),
                         ),

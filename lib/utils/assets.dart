@@ -87,15 +87,10 @@ mixin AppAssets {
     _riderEnroute,
   ];
 
-  static SvgPicture google([Color? color]) => SvgPicture.asset(
+  static SvgPicture get google => SvgPicture.asset(
         '$AUTH_SVG_DIR/google.svg',
         height: 23,
         width: 23,
-        color: color ??
-            Utils.foldTheme(
-              light: () => null,
-              dark: () => Colors.white70,
-            ),
         fit: BoxFit.contain,
       );
 

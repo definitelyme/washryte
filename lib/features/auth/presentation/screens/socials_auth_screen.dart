@@ -265,19 +265,23 @@ class _SocialsAuthScreenState extends State<SocialsAuthScreen> {
                         VerticalSpace(height: 0.06.sw),
                         //
                         if (user != null)
-                          user.provider.when(
-                            regular: () => Utils.nothing,
-                            google: () => OAuthWidgets(
-                              cubit: c.read<AuthCubit>(),
-                              google: false,
-                              email: true,
-                              apple: true,
-                            ),
-                            apple: () => OAuthWidgets(
-                              cubit: c.read<AuthCubit>(),
-                              apple: false,
-                              email: true,
-                              google: true,
+                          MyHero(
+                            tag: Const.oauthBtnHeroTag,
+                            type: MaterialType.transparency,
+                            child: user.provider.when(
+                              regular: () => Utils.nothing,
+                              google: () => OAuthWidgets(
+                                cubit: c.read<AuthCubit>(),
+                                google: false,
+                                email: true,
+                                apple: true,
+                              ),
+                              apple: () => OAuthWidgets(
+                                cubit: c.read<AuthCubit>(),
+                                apple: false,
+                                email: true,
+                                google: true,
+                              ),
                             ),
                           ),
                       ],

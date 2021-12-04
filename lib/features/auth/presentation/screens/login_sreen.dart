@@ -89,141 +89,150 @@ class _LoginScreenState extends State<LoginScreen> with AutomaticKeepAliveClient
 
     return WillPopScope(
       onWillPop: maybePop,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          scaffoldBackgroundColor: App.resolveColor(
-            Colors.white,
-            dark: Palette.secondaryColor,
-          ),
-        ),
-        child: AdaptiveScaffold(
-          body: CustomScrollView(
-            shrinkWrap: true,
-            clipBehavior: Clip.antiAlias,
-            controller: ScrollController(),
-            physics: Utils.physics,
-            scrollDirection: Axis.vertical,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: App.sidePadding).copyWith(top: App.longest * 0.02),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed([
-                    SafeArea(
-                      child: SizedBox(
-                        height: 0.25.h,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 0.08.sw),
-                            child: Image.asset(AppAssets.logo),
-                          ),
-                        ),
-                      ),
-                    ),
-                    //
-                    VerticalSpace(height: 0.05.sw),
-                    //
-                    Text(
-                      'Welcome Back Patriot!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 27.sp,
-                      ),
-                    ),
-                    //
-                    VerticalSpace(height: 0.03.sw),
-                  ]),
+      child: AdaptiveScaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Center(
+                child: Image.asset(
+                  AppAssets.onboarding,
+                  width: 1.w,
+                  height: 1.h,
+                  fit: BoxFit.fill,
                 ),
               ),
-              //
-              SliverList(
-                delegate: SliverChildListDelegate.fixed([
-                  Form(
-                    key: AuthState.loginFormKey,
-                    onChanged: () => Form.of(primaryFocus!.context!)?.save(),
-                    child: const AutofillGroup(child: _FormLayout()),
+            ),
+            //
+            const Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment(0.0, -1.8),
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black12,
+                      Colors.black26,
+                      Colors.black38,
+                      Colors.black54,
+                      Colors.black87,
+                      Colors.black87,
+                      Colors.black87,
+                    ],
                   ),
-                ]),
+                ),
               ),
-              //
-              SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: App.sidePadding).copyWith(top: App.longest * 0.02),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed([
-                    App.platform.fold(
-                      material: () => VerticalSpace(height: 0.07.sw),
-                      cupertino: () => VerticalSpace(height: 0.02.sw),
+            ),
+            //
+            Positioned.fill(
+              child: Center(
+                child: SingleChildScrollView(
+                  clipBehavior: Clip.antiAlias,
+                  controller: ScrollController(),
+                  physics: Utils.physics,
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.symmetric(horizontal: 0.06.w),
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(Utils.buttonRadius),
                     ),
-                    //
-                    BlocBuilder<AuthCubit, AuthState>(
-                      buildWhen: (p, c) => p.isLoading != c.isLoading,
-                      builder: (c, s) => Hero(
-                        tag: Const.authButtonHeroTag,
-                        child: AppButton(
-                          text: 'Login',
-                          isLoading: s.isLoading,
-                          onPressed: () {
-                            TextInput.finishAutofillContext();
-                            c.read<AuthCubit>().login();
-                          },
-                        ),
-                      ),
-                    ),
-                    //
-                    VerticalSpace(height: 0.06.sw),
-                    //
-                    const OrWidget('Login with socials'),
-                    //
-                    VerticalSpace(height: 0.06.sw),
-                    //
-                    Hero(
-                      tag: Const.oauthBtnHeroTag,
-                      child: Center(
-                        child: OAuthWidgets(cubit: context.read<AuthCubit>()),
-                      ),
-                    ),
-                    //
-                    VerticalSpace(height: 0.05.sw),
-                    //
-                    Hero(
-                      tag: Const.loginAndSignupSwitchTag,
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: AdaptiveText.rich(
-                              TextSpan(children: [
-                                const TextSpan(text: 'Don\'t have an account? '),
-                                TextSpan(
-                                  text: 'Sign Up',
-                                  recognizer: TapGestureRecognizer()..onTap = () => navigator.navigate(const SignupRoute()),
-                                  style: TextStyle(
-                                    color: Utils.foldTheme(
-                                      context: context,
-                                      light: () => Palette.accentColor,
-                                      dark: () => Palette.accentColor.shade100,
-                                    ),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ]),
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: Utils.labelLetterSpacing,
-                              textAlign: TextAlign.center,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: App.sidePadding).copyWith(top: 0.03.h),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: AdaptiveText(
+                              'Login',
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: Utils.letterSpacing,
                             ),
                           ),
-                        ),
+                          //
+                          Padding(
+                            padding: EdgeInsets.only(top: 0.02.h),
+                            child: Form(
+                              key: AuthState.loginFormKey,
+                              onChanged: () => Form.of(primaryFocus!.context!)?.save(),
+                              child: const AutofillGroup(child: _FormLayout()),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.03.h),
+                          //
+                          BlocBuilder<AuthCubit, AuthState>(
+                            buildWhen: (p, c) => p.isLoading != c.isLoading,
+                            builder: (c, s) => Hero(
+                              tag: Const.authButtonHeroTag,
+                              child: AppButton(
+                                text: 'Login',
+                                isLoading: s.isLoading,
+                                onPressed: () {
+                                  TextInput.finishAutofillContext();
+                                  c.read<AuthCubit>().login();
+                                },
+                              ),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          const OrWidget(),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          MyHero(
+                            tag: Const.oauthBtnHeroTag,
+                            type: MaterialType.transparency,
+                            child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
+                          ),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          Hero(
+                            tag: Const.loginAndSignupSwitchTag,
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                  child: AdaptiveText.rich(
+                                    TextSpan(children: [
+                                      const TextSpan(text: 'Don\'t have an account? '),
+                                      TextSpan(
+                                        text: 'Sign Up',
+                                        recognizer: TapGestureRecognizer()..onTap = () => navigator.navigate(const SignupRoute()),
+                                        style: TextStyle(
+                                          color: Utils.foldTheme(
+                                            context: context,
+                                            light: () => Palette.accentColor,
+                                            dark: () => Palette.accentColor.shade100,
+                                          ),
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ]),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: Utils.labelLetterSpacing,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.1.sw),
+                        ],
                       ),
                     ),
-                    //
-                    VerticalSpace(height: 0.1.sw),
-                  ]),
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -235,68 +244,63 @@ class _FormLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: App.sidePadding),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Material(
-            color: Colors.transparent,
-            child: Hero(
-              tag: Const.emailLabelHeroTag,
-              child: TextFormInputLabel(text: 'Email Address'),
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Material(
+          color: Colors.transparent,
+          child: Hero(
+            tag: Const.emailLabelHeroTag,
+            child: TextFormInputLabel(text: 'Email'),
           ),
-          //
-          EmailFormField<AuthCubit, AuthState>(
-            useHero: true,
-            disabled: (s) => s.isLoading,
-            validate: (s) => s.validate,
-            field: (s) => s.user.email,
-            focus: AuthState.emailFocus,
-            next: AuthState.passwordFocus,
-            response: (s) => s.status,
-            onChanged: (fn, str) => fn.emailChanged(str),
+        ),
+        //
+        EmailFormField<AuthCubit, AuthState>(
+          useHero: true,
+          disabled: (s) => s.isLoading,
+          validate: (s) => s.validate,
+          field: (s) => s.user.email,
+          focus: AuthState.emailFocus,
+          next: AuthState.passwordFocus,
+          response: (s) => s.status,
+          onChanged: (fn, str) => fn.emailChanged(str),
+        ),
+        //
+        VerticalSpace(height: 0.04.sw),
+        //
+        const Material(
+          color: Colors.transparent,
+          child: Hero(
+            tag: Const.passwordLabelHeroTag,
+            child: TextFormInputLabel(text: 'Password'),
           ),
-          //
-          VerticalSpace(height: 0.04.sw),
-          //
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Material(
-                color: Colors.transparent,
-                child: Hero(
-                  tag: Const.passwordLabelHeroTag,
-                  child: TextFormInputLabel(text: 'Password'),
-                ),
-              ),
-              //
-              TextFormInputLabel(
-                text: 'Forgot Password?',
-                textColor: Palette.accentColor.shade400,
-                onPressed: () => navigator.push(const ForgotPasswordRoute()),
-              ),
-            ],
+        ),
+        //
+        PasswordFormField<AuthCubit, AuthState>(
+          isNew: false,
+          useHero: true,
+          heroTag: Const.passwordFieldHeroTag,
+          disabled: (s) => s.isLoading,
+          validate: (s) => s.validate,
+          isObscured: (s) => s.isPasswordHidden,
+          field: (s) => s.user.password,
+          focus: AuthState.passwordFocus,
+          response: (s) => s.status,
+          errorField: (f) => f.errors?.password,
+          onChanged: (fn, str) => fn.passwordChanged(str),
+          onToggle: (it) => it.togglePasswordVisibility(),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextFormInputLabel(
+            text: 'Forgot Password?',
+            textColor: Utils.foldTheme(light: () => Colors.black, dark: () => Colors.white),
+            fontWeight: FontWeight.w600,
+            onPressed: () => navigator.push(const ForgotPasswordRoute()),
           ),
-          //
-          PasswordFormField<AuthCubit, AuthState>(
-            isNew: false,
-            useHero: true,
-            heroTag: Const.passwordFieldHeroTag,
-            disabled: (s) => s.isLoading,
-            validate: (s) => s.validate,
-            isObscured: (s) => s.isPasswordHidden,
-            field: (s) => s.user.password,
-            focus: AuthState.passwordFocus,
-            response: (s) => s.status,
-            errorField: (f) => f.errors?.password,
-            onChanged: (fn, str) => fn.passwordChanged(str),
-            onToggle: (it) => it.togglePasswordVisibility(),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

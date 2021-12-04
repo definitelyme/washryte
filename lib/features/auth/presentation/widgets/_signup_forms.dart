@@ -9,54 +9,19 @@ class _FormLayout extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFormInputLabel(text: 'First Name'),
-                  //
-                  NameFormField<AuthCubit, AuthState>(
-                    prefix: 'First Name',
-                    disabled: (s) => s.isLoading,
-                    validate: (s) => s.validate,
-                    field: (s) => s.user.firstName,
-                    focus: AuthState.firstNameFocus,
-                    next: AuthState.lastNameFocus,
-                    onChanged: (it, str) => it.firstNameChanged(str),
-                  ),
-                ],
-              ),
-            ),
-            //
-            HorizontalSpace(width: 0.03.sw),
-            //
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFormInputLabel(text: 'Last Name'),
-                  //
-                  NameFormField<AuthCubit, AuthState>(
-                    prefix: 'Last Name',
-                    disabled: (s) => s.isLoading,
-                    validate: (s) => s.validate,
-                    field: (s) => s.user.lastName,
-                    focus: AuthState.lastNameFocus,
-                    next: AuthState.newEmailFocus,
-                    onChanged: (it, str) => it.lastNameChanged(str),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        const TextFormInputLabel(text: 'Full Name'),
+        //
+        NameFormField<AuthCubit, AuthState>(
+          prefix: 'First Name',
+          disabled: (s) => s.isLoading,
+          validate: (s) => s.validate,
+          field: (s) => s.user.firstName,
+          focus: AuthState.firstNameFocus,
+          next: AuthState.lastNameFocus,
+          onChanged: (it, str) => it.firstNameChanged(str),
         ),
         //
-        VerticalSpace(height: 0.04.sw),
+        VerticalSpace(height: 0.005.h),
         //
         const Material(
           type: MaterialType.transparency,
@@ -77,7 +42,7 @@ class _FormLayout extends StatelessWidget {
           onChanged: (it, str) => it.emailChanged(str),
         ),
         //
-        VerticalSpace(height: 0.04.sw),
+        VerticalSpace(height: 0.005.h),
         //
         const TextFormInputLabel(text: 'Phone Number'),
         //
@@ -92,7 +57,7 @@ class _FormLayout extends StatelessWidget {
           onChanged: (cubit, str) => cubit.phoneNumberChanged(str),
         ),
         //
-        VerticalSpace(height: 0.04.sw),
+        VerticalSpace(height: 0.005.h),
         //
         const Material(
           type: MaterialType.transparency,

@@ -95,122 +95,149 @@ class _SignupScreenState extends State<SignupScreen> with AutomaticKeepAliveClie
 
     return WillPopScope(
       onWillPop: maybePop,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          scaffoldBackgroundColor: App.resolveColor(
-            Colors.white,
-            dark: Palette.secondaryColor,
-          ),
-        ),
-        child: AdaptiveScaffold(
-          adaptiveToolbar: AdaptiveToolbar(
-            title: 'Create Account',
-            implyLeading: App.platform.fold(
-              material: () => false,
-              cupertino: () => true,
+      child: AdaptiveScaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Center(
+                child: Image.asset(
+                  AppAssets.onboarding,
+                  width: 1.w,
+                  height: 1.h,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            showCustomLeading: App.platform.fold(
-              material: () => null,
-              cupertino: () => true,
-            ),
-            leadingAction: navigator.pop,
-          ),
-          body: CustomScrollView(
-            shrinkWrap: true,
-            clipBehavior: Clip.antiAlias,
-            controller: ScrollController(),
-            physics: Utils.physics,
-            scrollDirection: Axis.vertical,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: App.sidePadding,
-                ).copyWith(top: App.longest * 0.02),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed(
-                    [
-                      Form(
-                        key: AuthState.signupFormKey,
-                        onChanged: () => Form.of(primaryFocus!.context!)?.save(),
-                        child: const SafeArea(child: AutofillGroup(child: _FormLayout())),
-                      ),
-                      //
-                      VerticalSpace(height: 0.04.sw),
-                      //
-                      const PPsTermsWidget(),
-                      //
-                      VerticalSpace(height: 0.1.sw),
-                      //
-                      BlocBuilder<AuthCubit, AuthState>(
-                        builder: (c, s) => Hero(
-                          tag: Const.authButtonHeroTag,
-                          child: AppButton(
-                            text: 'Create Account',
-                            isLoading: s.isLoading,
-                            onPressed: () {
-                              TextInput.finishAutofillContext();
-                              c.read<AuthCubit>().createAccount();
-                            },
-                          ),
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.07.sw),
-                      //
-                      const OrWidget(),
-                      //
-                      VerticalSpace(height: 0.06.sw),
-                      //
-                      Hero(
-                        tag: Const.oauthBtnHeroTag,
-                        child: Center(
-                          child: OAuthWidgets(cubit: context.read<AuthCubit>()),
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.05.sw),
-                      //
-                      Hero(
-                        tag: Const.loginAndSignupSwitchTag,
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: AdaptiveText.rich(
-                                TextSpan(children: [
-                                  const TextSpan(text: 'Already have an account? '),
-                                  TextSpan(
-                                    text: 'Log In',
-                                    recognizer: tapRecognizer,
-                                    style: TextStyle(
-                                      color: Utils.foldTheme(
-                                        context: context,
-                                        light: () => Palette.accentColor,
-                                        dark: () => Palette.accentColor.shade100,
-                                      ),
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ]),
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: Utils.labelLetterSpacing,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      //
-                      VerticalSpace(height: 0.1.sw),
+            //
+            const Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment(0.0, -1.8),
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black12,
+                      Colors.black26,
+                      Colors.black38,
+                      Colors.black54,
+                      Colors.black87,
+                      Colors.black87,
+                      Colors.black87,
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            //
+            Positioned.fill(
+              child: Center(
+                child: SingleChildScrollView(
+                  clipBehavior: Clip.antiAlias,
+                  controller: ScrollController(),
+                  physics: Utils.physics,
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.symmetric(horizontal: 0.06.w),
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(Utils.buttonRadius),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: App.sidePadding).copyWith(top: 0.03.h),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: AdaptiveText(
+                              'Create Account',
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: Utils.letterSpacing,
+                            ),
+                          ),
+                          //
+                          Padding(
+                            padding: EdgeInsets.only(top: 0.02.h),
+                            child: Form(
+                              key: AuthState.signupFormKey,
+                              onChanged: () => Form.of(primaryFocus!.context!)?.save(),
+                              child: const AutofillGroup(child: _FormLayout()),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          BlocBuilder<AuthCubit, AuthState>(
+                            builder: (c, s) => Hero(
+                              tag: Const.authButtonHeroTag,
+                              child: AppButton(
+                                text: 'Create Account',
+                                isLoading: s.isLoading,
+                                onPressed: () {
+                                  TextInput.finishAutofillContext();
+                                  c.read<AuthCubit>().createAccount();
+                                },
+                              ),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          const OrWidget(),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          MyHero(
+                            tag: Const.oauthBtnHeroTag,
+                            type: MaterialType.transparency,
+                            child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
+                          ),
+                          //
+                          VerticalSpace(height: 0.02.h),
+                          //
+                          Hero(
+                            tag: Const.loginAndSignupSwitchTag,
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: AdaptiveText.rich(
+                                    TextSpan(children: [
+                                      const TextSpan(text: 'Already have an account? '),
+                                      TextSpan(
+                                        text: 'Log In',
+                                        recognizer: tapRecognizer,
+                                        style: TextStyle(
+                                          color: Utils.foldTheme(
+                                            context: context,
+                                            light: () => Palette.accentColor,
+                                            dark: () => Palette.accentColor.shade100,
+                                          ),
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ]),
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: Utils.labelLetterSpacing,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          //
+                          VerticalSpace(height: 0.1.sw),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

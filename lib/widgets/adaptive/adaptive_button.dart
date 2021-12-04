@@ -292,13 +292,12 @@ class AdaptiveButton extends StatelessWidget {
         maxFontSize: maxFontSize,
         softWrap: true,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          fontFamily: fontFamily,
-          wordSpacing: wordSpacing,
-          color: App.resolveColor(textColor, dark: textColorDark),
-        ).merge(textStyle),
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        wordSpacing: wordSpacing,
+        textColor: textColor,
+        textColorDark: textColorDark,
+        style: TextStyle(fontFamily: fontFamily).merge(textStyle),
       );
 
   Widget _child(BuildContext ctx) => Visibility(

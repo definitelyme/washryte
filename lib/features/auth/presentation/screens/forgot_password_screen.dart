@@ -69,72 +69,68 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Automa
       data: Theme.of(context).copyWith(scaffoldBackgroundColor: Colors.white),
       child: AdaptiveScaffold(
         body: NestedScrollView(
+          controller: ScrollController(),
+          floatHeaderSlivers: true,
+          physics: Utils.physics,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverOverlapAbsorber(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: SliverSafeArea(
-                top: false,
-                sliver: SliverAppBar(
-                  pinned: true,
-                  stretch: true,
-                  // snap: false,
-                  floating: true,
-                  // primary: true,
-                  forceElevated: innerBoxIsScrolled,
-                  elevation: 0,
-                  expandedHeight: 0.35.h,
-                  backgroundColor: Colors.transparent,
-                  leading: LayoutBuilder(
-                    builder: (context, constraints) => Center(
-                      child: Material(
-                        color: Colors.white,
-                        elevation: 0,
+              sliver: SliverAppBar(
+                pinned: true,
+                stretch: false,
+                snap: false,
+                floating: true,
+                primary: true,
+                forceElevated: innerBoxIsScrolled,
+                elevation: 0,
+                expandedHeight: 0.35.h,
+                backgroundColor: Colors.transparent,
+                leading: LayoutBuilder(
+                  builder: (context, constraints) => Center(
+                    child: Material(
+                      color: Colors.white,
+                      elevation: 0,
+                      borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+                      child: InkWell(
+                        onTap: navigator.pop,
                         borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-                        child: InkWell(
-                          onTap: navigator.pop,
-                          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-                          child: const Padding(
-                            padding: EdgeInsets.all(7.0),
-                            child: Icon(Icons.keyboard_backspace_rounded, color: Colors.black87),
-                          ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(7.0),
+                          child: Icon(Icons.keyboard_backspace_rounded, color: Colors.black87),
                         ),
                       ),
                     ),
                   ),
-                  flexibleSpace: Stack(
-                    children: [
-                      const Positioned.fill(child: SizedBox.expand()),
-                      //
-                      Positioned.fill(
-                        bottom: 0.09.h,
-                        child: const FlexibleSpaceBar(
-                          stretchModes: [
-                            StretchMode.zoomBackground,
-                            StretchMode.blurBackground,
-                            StretchMode.fadeTitle,
-                          ],
-                          background: DecoratedBox(
-                            decoration: BoxDecoration(color: Palette.accentColor),
-                          ),
+                ),
+                flexibleSpace: Stack(
+                  children: [
+                    const Positioned.fill(child: SizedBox.expand()),
+                    //
+                    Positioned.fill(
+                      bottom: 0.09.h,
+                      child: const FlexibleSpaceBar(
+                        stretchModes: [
+                          StretchMode.zoomBackground,
+                          StretchMode.blurBackground,
+                          StretchMode.fadeTitle,
+                        ],
+                        background: DecoratedBox(
+                          decoration: BoxDecoration(color: Palette.accentColor),
                         ),
                       ),
-                      //
-                      Positioned.fill(
-                        top: 0.06.h,
-                        left: 0.1.w,
-                        right: 0.1.w,
-                        bottom: 0.03.h,
-                        child: Builder(builder: (context) {
-                          log.w('Innerbox is scrolled ==> $innerBoxIsScrolled');
-
-                          return AnimatedVisibility(
-                            visible: !innerBoxIsScrolled,
-                            child: AppAssets.passwordReset,
-                          );
-                        }),
+                    ),
+                    //
+                    Positioned.fill(
+                      top: 0.06.h,
+                      left: 0.1.w,
+                      right: 0.1.w,
+                      bottom: 0.03.h,
+                      child: AnimatedVisibility(
+                        visible: !innerBoxIsScrolled,
+                        child: AppAssets.passwordReset,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -142,7 +138,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Automa
           body: Builder(
             builder: (ctx) => CustomScrollView(
               shrinkWrap: true,
-              primary: true,
+              primary: false,
               physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

@@ -38,6 +38,8 @@ class AuthWatcherCubit extends Cubit<AuthWatcherState> {
     // Get current user
     final _req = await _facade.currentUser;
 
+    // await signOut();
+
     // Cancel previous subscription
     await unsubscribeAuthChanges;
 
