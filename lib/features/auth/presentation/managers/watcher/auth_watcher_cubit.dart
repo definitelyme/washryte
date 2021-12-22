@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:washryte/core/data/index.dart';
-import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/features/auth/domain/index.dart';
@@ -101,6 +100,18 @@ class AuthWatcherCubit extends Cubit<AuthWatcherState> {
       isAuthenticated: false,
       user: null,
       option: none(),
+    ));
+  }
+
+  void signInAnonymously() {
+    emit(state.copyWith(
+      isAuthenticated: true,
+      user: User.blank(
+        email: EmailAddress('johndoe@gmail.com'),
+        firstName: DisplayName('John'),
+        lastName: DisplayName('Doe'),
+        phone: Phone('+1 (123) 456-7890'),
+      ),
     ));
   }
 

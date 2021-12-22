@@ -7,3 +7,4 @@ export 'place_entities/details/place_geometry.dart';
 export 'place_entities/details/place_opening_hours.dart';
 export 'place_entities/details/address_component.dart';
 export 'media/index.dart';
+export 'promotion/promotion.dart';

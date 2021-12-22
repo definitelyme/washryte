@@ -3,7 +3,7 @@ import 'package:washryte/utils/utils.dart';
 
 class Destination {
   final int id;
-  final Widget asset;
+  final String asset;
   final String title;
 
   const Destination({
@@ -12,14 +12,14 @@ class Destination {
     required this.asset,
   });
 
-  static List<Destination> get list => [
-        Destination(id: 0, title: 'Home', asset: AppAssets.dashboardHome),
+  static List<Destination> get list => const [
+        Destination(id: 0, title: 'Home', asset: AppAssets.dashboardHomeAsset),
         //
-        Destination(id: 1, title: 'Timeline', asset: AppAssets.dashboardTimeline),
+        Destination(id: 1, title: 'Timeline', asset: AppAssets.dashboardTimelineAsset),
         //
-        Destination(id: 2, title: 'Notifications', asset: AppAssets.dashboardNotification),
+        Destination(id: 2, title: 'Notifications', asset: AppAssets.dashboardNotificationAsset),
         //
-        Destination(id: 3, title: 'Profile', asset: AppAssets.dashboardHome),
+        Destination(id: 3, title: 'Profile', asset: AppAssets.dashboardHomeAsset),
       ];
 
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:washryte/config/secrets.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 

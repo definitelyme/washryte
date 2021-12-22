@@ -15,7 +15,7 @@ _$_AddressComponentDTO _$$_AddressComponentDTOFromJson(
               ?.map((e) =>
                   const AddressComponentTypeSerializer().fromJson(e as String?))
               .toList() ??
-          [],
+          const [],
     );
 
 Map<String, dynamic> _$$_AddressComponentDTOToJson(

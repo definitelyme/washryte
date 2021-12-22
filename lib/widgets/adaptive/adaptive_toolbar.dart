@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -94,26 +95,24 @@ class AdaptiveToolbar {
         ),
       );
 
-  Widget? get _materialLeading => showCustomLeading ?? navigator.canNavigateBack
-      ? Semantics.fromProperties(
-          properties: SemanticsProperties(
-            label: tooltip,
-            hint: tooltip,
-            button: true,
-          ),
-          child: Tooltip(
-            message: tooltip ?? 'Back',
-            child: IconButton(
-              icon: leadingIcon ?? const Icon(Icons.keyboard_backspace_rounded),
-              onPressed: leadingAction ?? navigator.navigateBack,
-              color: buttonColor ??
-                  Utils.computeLuminance(
-                    Theme.of(App.context).scaffoldBackgroundColor,
-                  ),
-            ),
-          ),
-        )
-      : null;
+  Widget? get _materialLeading =>
+      showCustomLeading ?? (!navigator.isRoot && getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren)
+          ? Semantics.fromProperties(
+              properties: SemanticsProperties(
+                label: tooltip,
+                hint: tooltip,
+                button: true,
+              ),
+              child: Tooltip(
+                message: tooltip ?? 'Back',
+                child: IconButton(
+                  icon: leadingIcon ?? const Icon(Icons.keyboard_backspace_rounded),
+                  onPressed: leadingAction ?? navigator.pop,
+                  color: buttonColor ?? Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor),
+                ),
+              ),
+            )
+          : null;
 
   Widget get _cupertinoLeading => Semantics.fromProperties(
         properties: SemanticsProperties(
@@ -125,13 +124,10 @@ class AdaptiveToolbar {
           message: tooltip ?? 'Close',
           child: leadingIcon ??
               GestureDetector(
-                onTap: leadingAction ?? navigator.navigateBack,
+                onTap: leadingAction ?? navigator.pop,
                 child: AdaptiveText(
                   cupertinoLeading,
-                  style: cupertinoLeadingStyle ??
-                      TextStyle(
-                        color: Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor),
-                      ),
+                  style: cupertinoLeadingStyle ?? TextStyle(color: Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor)),
                 ),
               ),
         ),
@@ -172,7 +168,8 @@ class AdaptiveToolbar {
                 ),
                 leading: cupertinoImplyLeading
                     ? null
-                    : showCustomLeading ?? navigator.canNavigateBack
+                    : showCustomLeading ??
+                            (!navigator.isRoot && getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren)
                         ? _cupertinoLeading
                         : null,
               ),

@@ -238,27 +238,27 @@ class _$_AuthWatcherState extends _AuthWatcherState {
       this.status = const None()})
       : super._();
 
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isLoading;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isLoggingOut;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isAuthenticated;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isListeningForAuthChanges;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isListeningForUserChanges;
   @override
   final User? user;
-  @JsonKey(defaultValue: const None())
+  @JsonKey()
   @override
   final Option<User?> option;
-  @JsonKey(defaultValue: const None())
+  @JsonKey()
   @override
   final Option<AppHttpResponse?> status;
 
@@ -272,34 +272,31 @@ class _$_AuthWatcherState extends _AuthWatcherState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AuthWatcherState &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.isLoggingOut, isLoggingOut) ||
-                other.isLoggingOut == isLoggingOut) &&
-            (identical(other.isAuthenticated, isAuthenticated) ||
-                other.isAuthenticated == isAuthenticated) &&
-            (identical(other.isListeningForAuthChanges,
-                    isListeningForAuthChanges) ||
-                other.isListeningForAuthChanges == isListeningForAuthChanges) &&
-            (identical(other.isListeningForUserChanges,
-                    isListeningForUserChanges) ||
-                other.isListeningForUserChanges == isListeningForUserChanges) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.option, option) || other.option == option) &&
-            (identical(other.status, status) || other.status == status));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other.isLoggingOut, isLoggingOut) &&
+            const DeepCollectionEquality()
+                .equals(other.isAuthenticated, isAuthenticated) &&
+            const DeepCollectionEquality().equals(
+                other.isListeningForAuthChanges, isListeningForAuthChanges) &&
+            const DeepCollectionEquality().equals(
+                other.isListeningForUserChanges, isListeningForUserChanges) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other.option, option) &&
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      isLoading,
-      isLoggingOut,
-      isAuthenticated,
-      isListeningForAuthChanges,
-      isListeningForUserChanges,
-      user,
-      option,
-      status);
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isLoggingOut),
+      const DeepCollectionEquality().hash(isAuthenticated),
+      const DeepCollectionEquality().hash(isListeningForAuthChanges),
+      const DeepCollectionEquality().hash(isListeningForUserChanges),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(option),
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override

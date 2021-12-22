@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
-import 'package:washryte/widgets/text_form_input_label.dart';
-import 'package:washryte/widgets/vertical_spacer.dart';
 import 'package:washryte/widgets/widgets.dart';
 
 /// A stateless widget to render ForgotPasswordScreen.

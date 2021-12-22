@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:washryte/manager/locator/locator.dart';
-import 'package:washryte/manager/router/export.dart';
 import 'package:washryte/manager/theme/theme.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
@@ -17,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
@@ -75,7 +73,7 @@ class Utils {
   /// Create Singleton start ///
   static final Utils _singleton = Utils._();
 
-  double get sidePadding => shortest * 0.042;
+  double get sidePadding => shortest * 0.05;
   double get topPadding => shortest * 0.03;
   static const double distanceKMConverter = 0.001;
   static const Widget nothing = SizedBox.shrink();

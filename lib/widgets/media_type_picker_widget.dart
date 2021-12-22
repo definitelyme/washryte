@@ -1,6 +1,5 @@
 library media_type_picker_widget.dart;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washryte/features/dashboard/presentation/widgets/index.dart';
 import 'package:washryte/utils/utils.dart';

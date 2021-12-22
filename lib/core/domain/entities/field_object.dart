@@ -1,7 +1,6 @@
 import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 @immutable

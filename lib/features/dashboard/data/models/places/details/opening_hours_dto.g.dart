@@ -12,7 +12,7 @@ _$_OpeningHoursDTO _$$_OpeningHoursDTOFromJson(Map<String, dynamic> json) =>
       periods: (json['periods'] as List<dynamic>?)
               ?.map((e) => PeriodDTO.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [],
+          const [],
       weekdayText: (json['weekday_text'] as List<dynamic>?)
               ?.map((e) => e as String?)
               .toList() ??

@@ -27,7 +27,7 @@ _$_PlaceDetailDTO _$$_PlaceDetailDTOFromJson(Map<String, dynamic> json) =>
       reference: json['reference'] as String?,
       types:
           (json['types'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              [],
+              const [],
       url: json['url'] as String?,
       website: json['website'] as String?,
       geometry: json['geometry'] == null

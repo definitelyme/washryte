@@ -202,6 +202,7 @@ class AppHttpClient extends DioForNative {
           // For DioErrorType.response, we are guaranteed to have a
           // response object present on the exception.
           final response = e.response;
+          // ignore: unnecessary_type_check
           if (response == null || response is! Response) {
             // This should never happen, judging by the current source code
             // for Dio.

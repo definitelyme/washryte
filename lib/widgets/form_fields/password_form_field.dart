@@ -44,7 +44,7 @@ class PasswordFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState>
     this.focus,
     this.next,
     this.response,
-    this.useHero = true,
+    this.useHero = false,
     this.isNew = true,
     required this.isObscured,
     this.onToggle,

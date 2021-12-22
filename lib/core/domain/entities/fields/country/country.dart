@@ -1,6 +1,5 @@
 import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'country.freezed.dart';
 

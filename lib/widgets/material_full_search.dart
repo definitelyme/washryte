@@ -1,4 +1,3 @@
-import 'package:washryte/utils/palette.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:search_page/search_page.dart';

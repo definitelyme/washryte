@@ -1,6 +1,5 @@
 library router.dart;
 
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:washryte/core/presentation/index.dart';
 import 'package:washryte/features/auth/presentation/screens/index.dart';
@@ -77,7 +76,23 @@ import 'package:washryte/manager/router/guards/guards.dart';
     //
     dashboardRouter,
     //
-    ...settingsRoutes,
+    ...profileRoutes,
+    //
+    AdaptiveRoute(
+      fullMatch: true,
+      maintainState: true,
+      usesPathAsKey: true,
+      page: RequestServiceScreen,
+      cupertinoPageTitle: 'Request Service',
+    ),
+    //
+    AdaptiveRoute(
+      fullMatch: true,
+      maintainState: true,
+      usesPathAsKey: true,
+      page: TrackOrderScreen,
+      cupertinoPageTitle: 'Track Orders',
+    ),
     //
     AdaptiveRoute(
       fullMatch: true,
@@ -177,22 +192,31 @@ const dashboardRouter = AutoRoute(
   ],
 );
 
-const settingsRoutes = [
+const profileRoutes = [
   AdaptiveRoute(
     fullMatch: true,
     maintainState: true,
     usesPathAsKey: true,
-    page: SettingsScreen,
-    cupertinoPageTitle: 'Settings',
+    page: ProfileViewScreen,
+    cupertinoPageTitle: 'Profile',
     guards: [AuthGuard],
   ),
   //
-  // AdaptiveRoute(
-  //   fullMatch: true,
-  //   maintainState: true,
-  //   usesPathAsKey: true,
-  //   page: LinkedAccountScreen,
-  //   cupertinoPageTitle: 'Linked Accounts',
-  //   guards: [AuthGuard],
-  // ),
+  AdaptiveRoute(
+    fullMatch: true,
+    maintainState: true,
+    usesPathAsKey: true,
+    page: ProfileEditScreen,
+    cupertinoPageTitle: 'Edit Profile',
+    guards: [AuthGuard],
+  ),
+  //
+  AdaptiveRoute(
+    fullMatch: true,
+    maintainState: true,
+    usesPathAsKey: true,
+    page: OrderHistoryScreen,
+    cupertinoPageTitle: 'Edit Profile',
+    guards: [AuthGuard],
+  ),
 ];

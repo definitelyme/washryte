@@ -361,21 +361,28 @@ class _$ErrorResponse extends ErrorResponse with Failure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ErrorResponse &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.messageTxt, messageTxt) ||
-                other.messageTxt == messageTxt) &&
-            (identical(other.details, details) || other.details == details) &&
-            (identical(other.error, error) || other.error == error) &&
-            (identical(other.errors, errors) || other.errors == errors) &&
-            (identical(other.pop, pop) || other.pop == pop) &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality().equals(other.code, code) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.messageTxt, messageTxt) &&
+            const DeepCollectionEquality().equals(other.details, details) &&
+            const DeepCollectionEquality().equals(other.error, error) &&
+            const DeepCollectionEquality().equals(other.errors, errors) &&
+            const DeepCollectionEquality().equals(other.pop, pop) &&
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, code, status, messageTxt,
-      details, error, errors, pop, exception);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(code),
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(messageTxt),
+      const DeepCollectionEquality().hash(details),
+      const DeepCollectionEquality().hash(error),
+      const DeepCollectionEquality().hash(errors),
+      const DeepCollectionEquality().hash(pop),
+      const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -648,18 +655,24 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SuccessfulResponse &&
-            (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.messageTxt, messageTxt) ||
-                other.messageTxt == messageTxt) &&
-            (identical(other.details, details) || other.details == details) &&
-            (identical(other.pop, pop) || other.pop == pop) &&
-            (identical(other.show, show) || other.show == show));
+            const DeepCollectionEquality().equals(other.uuid, uuid) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.messageTxt, messageTxt) &&
+            const DeepCollectionEquality().equals(other.details, details) &&
+            const DeepCollectionEquality().equals(other.pop, pop) &&
+            const DeepCollectionEquality().equals(other.show, show));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uuid, status, messageTxt, details, pop, show);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(uuid),
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(messageTxt),
+      const DeepCollectionEquality().hash(details),
+      const DeepCollectionEquality().hash(pop),
+      const DeepCollectionEquality().hash(show));
 
   @JsonKey(ignore: true)
   @override

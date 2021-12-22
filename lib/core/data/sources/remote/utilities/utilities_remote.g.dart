@@ -9,7 +9,7 @@ part of utilities_remote.dart;
 class _UtilitiesRemote implements UtilitiesRemote {
   _UtilitiesRemote(this._dio, {this.baseUrl});
 
-  final Dio _dio;
+  final AppHttpClient _dio;
 
   String? baseUrl;
 

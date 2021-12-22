@@ -8,10 +8,9 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i9;
 
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/material.dart' as _i7;
 import 'package:washryte/core/presentation/index.dart' as _i4;
 import 'package:washryte/features/auth/presentation/screens/index.dart' as _i2;
@@ -77,11 +76,35 @@ class AppRouter extends _i5.RootStackRouter {
       return _i5.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i3.DashboardScreen());
     },
-    SettingsRoute.name: (routeData) {
+    ProfileViewRoute.name: (routeData) {
       return _i5.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: const _i3.SettingsScreen(),
-          title: 'Settings');
+          child: const _i3.ProfileViewScreen(),
+          title: 'Profile');
+    },
+    ProfileEditRoute.name: (routeData) {
+      return _i5.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: const _i3.ProfileEditScreen(),
+          title: 'Edit Profile');
+    },
+    OrderHistoryRoute.name: (routeData) {
+      return _i5.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: const _i3.OrderHistoryScreen(),
+          title: 'Edit Profile');
+    },
+    RequestServiceRoute.name: (routeData) {
+      return _i5.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: const _i3.RequestServiceScreen(),
+          title: 'Request Service');
+    },
+    TrackOrderRoute.name: (routeData) {
+      return _i5.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: const _i3.TrackOrderScreen(),
+          title: 'Track Orders');
     },
     FAQRoute.name: (routeData) {
       return _i5.AdaptivePage<dynamic>(
@@ -238,11 +261,27 @@ class AppRouter extends _i5.RootStackRouter {
                         fullMatch: true)
                   ])
             ]),
-        _i5.RouteConfig(SettingsRoute.name,
-            path: '/settings-screen',
+        _i5.RouteConfig(ProfileViewRoute.name,
+            path: '/profile-view-screen',
             fullMatch: true,
             usesPathAsKey: true,
             guards: [authGuard]),
+        _i5.RouteConfig(ProfileEditRoute.name,
+            path: '/profile-edit-screen',
+            fullMatch: true,
+            usesPathAsKey: true,
+            guards: [authGuard]),
+        _i5.RouteConfig(OrderHistoryRoute.name,
+            path: '/order-history-screen',
+            fullMatch: true,
+            usesPathAsKey: true,
+            guards: [authGuard]),
+        _i5.RouteConfig(RequestServiceRoute.name,
+            path: '/request-service-screen',
+            fullMatch: true,
+            usesPathAsKey: true),
+        _i5.RouteConfig(TrackOrderRoute.name,
+            path: '/track-order-screen', fullMatch: true, usesPathAsKey: true),
         _i5.RouteConfig(FAQRoute.name,
             path: '/f-aq-screen', fullMatch: true, usesPathAsKey: true),
         _i5.RouteConfig(ContactSupportRoute.name,
@@ -324,11 +363,39 @@ class DashboardRoute extends _i5.PageRouteInfo<void> {
   static const String name = 'DashboardRoute';
 }
 
-/// generated route for [_i3.SettingsScreen]
-class SettingsRoute extends _i5.PageRouteInfo<void> {
-  const SettingsRoute() : super(name, path: '/settings-screen');
+/// generated route for [_i3.ProfileViewScreen]
+class ProfileViewRoute extends _i5.PageRouteInfo<void> {
+  const ProfileViewRoute() : super(name, path: '/profile-view-screen');
 
-  static const String name = 'SettingsRoute';
+  static const String name = 'ProfileViewRoute';
+}
+
+/// generated route for [_i3.ProfileEditScreen]
+class ProfileEditRoute extends _i5.PageRouteInfo<void> {
+  const ProfileEditRoute() : super(name, path: '/profile-edit-screen');
+
+  static const String name = 'ProfileEditRoute';
+}
+
+/// generated route for [_i3.OrderHistoryScreen]
+class OrderHistoryRoute extends _i5.PageRouteInfo<void> {
+  const OrderHistoryRoute() : super(name, path: '/order-history-screen');
+
+  static const String name = 'OrderHistoryRoute';
+}
+
+/// generated route for [_i3.RequestServiceScreen]
+class RequestServiceRoute extends _i5.PageRouteInfo<void> {
+  const RequestServiceRoute() : super(name, path: '/request-service-screen');
+
+  static const String name = 'RequestServiceRoute';
+}
+
+/// generated route for [_i3.TrackOrderScreen]
+class TrackOrderRoute extends _i5.PageRouteInfo<void> {
+  const TrackOrderRoute() : super(name, path: '/track-order-screen');
+
+  static const String name = 'TrackOrderRoute';
 }
 
 /// generated route for [_i3.FAQScreen]
@@ -361,7 +428,7 @@ class NotificationRoute extends _i5.PageRouteInfo<void> {
 
 /// generated route for [_i4.NotConnectedScreen]
 class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
-  NotConnectedRoute({_i9.Key? key, required _i10.Future<dynamic> future})
+  NotConnectedRoute({_i7.Key? key, required _i9.Future<dynamic> future})
       : super(name,
             path: '/not-connected-screen',
             args: NotConnectedRouteArgs(key: key, future: future));
@@ -372,9 +439,9 @@ class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
 class NotConnectedRouteArgs {
   const NotConnectedRouteArgs({this.key, required this.future});
 
-  final _i9.Key? key;
+  final _i7.Key? key;
 
-  final _i10.Future<dynamic> future;
+  final _i9.Future<dynamic> future;
 
   @override
   String toString() {

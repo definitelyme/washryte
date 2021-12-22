@@ -389,48 +389,41 @@ class _$_UserDTO extends _UserDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserDTO &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.oldPassword, oldPassword) ||
-                other.oldPassword == oldPassword) &&
-            (identical(other.confirmation, confirmation) ||
-                other.confirmation == confirmation) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.provider, provider) ||
-                other.provider == provider) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.deletedAt, deletedAt) ||
-                other.deletedAt == deletedAt));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.firstName, firstName) &&
+            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.oldPassword, oldPassword) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmation, confirmation) &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.provider, provider) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.deletedAt, deletedAt));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
-      token,
-      firstName,
-      lastName,
-      email,
-      phone,
-      password,
-      oldPassword,
-      confirmation,
-      image,
-      provider,
-      createdAt,
-      updatedAt,
-      deletedAt);
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(firstName),
+      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(oldPassword),
+      const DeepCollectionEquality().hash(confirmation),
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(provider),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(deletedAt));
 
   @JsonKey(ignore: true)
   @override

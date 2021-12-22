@@ -2,7 +2,6 @@ import 'package:washryte/manager/theme/theme.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 enum _AutoSizeTextType { standard, rich }
 

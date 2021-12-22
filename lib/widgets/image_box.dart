@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum _ImageType { asset, network, file }
@@ -64,6 +63,16 @@ class ImageBox extends StatefulWidget {
     this.applyConstraintToReplacement = false,
   })  : _type = _ImageType.file,
         super(key: key);
+
+  ImageProvider get provider => _type.when(
+        asset: AssetImage('$photo'),
+        network: CachedNetworkImageProvider(
+          '$photo',
+          maxHeight: (height == double.infinity ? 1.w : height).toInt(),
+          maxWidth: (width == double.infinity ? 1.w : width).toInt(),
+        ),
+        file: FileImage(File('$photo')),
+      );
 
   @override
   State<ImageBox> createState() => _ImageBoxState();

@@ -206,24 +206,24 @@ class _$_GlobalPreferenceState implements _GlobalPreferenceState {
       this.supportImages = const KtList.empty(),
       this.status = const None()});
 
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isLoading;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool validate;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool signedInRecently;
-  @JsonKey(defaultValue: FeedbackType.inquiry)
+  @JsonKey()
   @override
   final FeedbackType feedbackType;
   @override
   final BasicTextField<String?> supportMessage;
-  @JsonKey(defaultValue: const KtList.empty())
+  @JsonKey()
   @override
   final KtList<File> supportImages;
-  @JsonKey(defaultValue: const None())
+  @JsonKey()
   @override
   final Option<AppHttpResponse?> status;
 
@@ -237,24 +237,29 @@ class _$_GlobalPreferenceState implements _GlobalPreferenceState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GlobalPreferenceState &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.validate, validate) ||
-                other.validate == validate) &&
-            (identical(other.signedInRecently, signedInRecently) ||
-                other.signedInRecently == signedInRecently) &&
-            (identical(other.feedbackType, feedbackType) ||
-                other.feedbackType == feedbackType) &&
-            (identical(other.supportMessage, supportMessage) ||
-                other.supportMessage == supportMessage) &&
-            (identical(other.supportImages, supportImages) ||
-                other.supportImages == supportImages) &&
-            (identical(other.status, status) || other.status == status));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.validate, validate) &&
+            const DeepCollectionEquality()
+                .equals(other.signedInRecently, signedInRecently) &&
+            const DeepCollectionEquality()
+                .equals(other.feedbackType, feedbackType) &&
+            const DeepCollectionEquality()
+                .equals(other.supportMessage, supportMessage) &&
+            const DeepCollectionEquality()
+                .equals(other.supportImages, supportImages) &&
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, validate,
-      signedInRecently, feedbackType, supportMessage, supportImages, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(validate),
+      const DeepCollectionEquality().hash(signedInRecently),
+      const DeepCollectionEquality().hash(feedbackType),
+      const DeepCollectionEquality().hash(supportMessage),
+      const DeepCollectionEquality().hash(supportImages),
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override

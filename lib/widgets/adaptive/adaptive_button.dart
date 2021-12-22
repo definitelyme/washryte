@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:washryte/utils/utils.dart';
-import 'package:washryte/utils/extensions/button_type_extension.dart';
 
 class AdaptiveButton extends StatelessWidget {
   final String? text;

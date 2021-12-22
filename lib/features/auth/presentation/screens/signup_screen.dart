@@ -1,7 +1,6 @@
 library signup_screen.dart;
 
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:washryte/core/presentation/index.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';
 import 'package:washryte/features/auth/presentation/widgets/oauth_widgets.dart';
-import 'package:washryte/features/auth/presentation/widgets/pps_terms_widget.dart';
 import 'package:washryte/manager/locator/locator.dart';
-import 'package:washryte/manager/router/export.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 

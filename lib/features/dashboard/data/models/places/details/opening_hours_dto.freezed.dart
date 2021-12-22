@@ -159,7 +159,7 @@ class _$_OpeningHoursDTO extends _OpeningHoursDTO with DiagnosticableTreeMixin {
   @override
   @JsonKey(name: 'open_now')
   final bool? openNow;
-  @JsonKey(defaultValue: const [])
+  @JsonKey()
   @override
   final List<PeriodDTO> periods;
   @override
@@ -186,7 +186,7 @@ class _$_OpeningHoursDTO extends _OpeningHoursDTO with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _OpeningHoursDTO &&
-            (identical(other.openNow, openNow) || other.openNow == openNow) &&
+            const DeepCollectionEquality().equals(other.openNow, openNow) &&
             const DeepCollectionEquality().equals(other.periods, periods) &&
             const DeepCollectionEquality()
                 .equals(other.weekdayText, weekdayText));
@@ -195,7 +195,7 @@ class _$_OpeningHoursDTO extends _OpeningHoursDTO with DiagnosticableTreeMixin {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      openNow,
+      const DeepCollectionEquality().hash(openNow),
       const DeepCollectionEquality().hash(periods),
       const DeepCollectionEquality().hash(weekdayText));
 
@@ -400,12 +400,15 @@ class _$_PeriodDTO with DiagnosticableTreeMixin implements _PeriodDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PeriodDTO &&
-            (identical(other.close, close) || other.close == close) &&
-            (identical(other.open, open) || other.open == open));
+            const DeepCollectionEquality().equals(other.close, close) &&
+            const DeepCollectionEquality().equals(other.open, open));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, close, open);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(close),
+      const DeepCollectionEquality().hash(open));
 
   @JsonKey(ignore: true)
   @override
@@ -568,12 +571,15 @@ class _$_HoursDTO with DiagnosticableTreeMixin implements _HoursDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _HoursDTO &&
-            (identical(other.day, day) || other.day == day) &&
-            (identical(other.time, time) || other.time == time));
+            const DeepCollectionEquality().equals(other.day, day) &&
+            const DeepCollectionEquality().equals(other.time, time));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, day, time);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(day),
+      const DeepCollectionEquality().hash(time));
 
   @JsonKey(ignore: true)
   @override

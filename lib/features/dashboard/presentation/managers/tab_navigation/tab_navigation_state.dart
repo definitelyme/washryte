@@ -4,7 +4,9 @@ part of 'tab_navigation_cubit.dart';
 @immutable
 class TabNavigationState with _$TabNavigationState {
   const factory TabNavigationState({
+    TabsRouter? tabRouter,
     @Default(0) int currentIndex,
+    @Default(0) int selectedTab,
     @Default(0) int previousIndex,
     @Default(false) bool isLoading,
     @Default(true) bool isInit,

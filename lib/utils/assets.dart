@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:washryte/utils/utils.dart';
 
@@ -44,9 +43,9 @@ mixin AppAssets {
   static const String guestAvatarPng = '$DASHBOARD_IMAGES_DIR/guest_user.png';
 
   /// DASHBOARD - SVG
-  static const String _dashboardHome = '$DASHBOARD_SVG_DIR/home.svg';
-  static const String _dashboardTimeline = '$DASHBOARD_SVG_DIR/timeline.svg';
-  static const String _dashboardNotification = '$DASHBOARD_SVG_DIR/notification.svg';
+  static const String dashboardHomeAsset = '$DASHBOARD_SVG_DIR/home.svg';
+  static const String dashboardTimelineAsset = '$DASHBOARD_SVG_DIR/timeline.svg';
+  static const String dashboardNotificationAsset = '$DASHBOARD_SVG_DIR/notification.svg';
   static const String _ironingService = '$DASHBOARD_SVG_DIR/ironing_service.svg';
   static const String _householdService = '$DASHBOARD_SVG_DIR/household_service.svg';
   static const String _washingService = '$DASHBOARD_SVG_DIR/washing_service.svg';
@@ -54,6 +53,7 @@ mixin AppAssets {
 
   /// DASHBAORD - PNG
   static const String carouselImg1 = '$DASHBOARD_IMAGES_DIR/carousel_img_1.png';
+  static const String carouselImg2 = '$DASHBOARD_IMAGES_DIR/carousel_img_2.png';
 
   // EMPTY STATES
   static const String _noConnectivity = '$DASHBOARD_SVG_DIR/no_connectivity.svg';
@@ -78,9 +78,9 @@ mixin AppAssets {
     guestAvatarSvg,
     _noConnectivity,
     _passwordReset,
-    _dashboardHome,
-    _dashboardTimeline,
-    _dashboardNotification,
+    dashboardHomeAsset,
+    dashboardTimelineAsset,
+    dashboardNotificationAsset,
     _ironingService,
     _householdService,
     _washingService,
@@ -239,20 +239,26 @@ mixin AppAssets {
     fit: BoxFit.contain,
   );
 
-  static SvgPicture dashboardHome = SvgPicture.asset(
-    _dashboardHome,
-    fit: BoxFit.contain,
-  );
+  static SvgPicture dashboardHome([Size size = const Size(25, 25)]) => SvgPicture.asset(
+        dashboardHomeAsset,
+        width: size.width,
+        height: size.height,
+        fit: BoxFit.contain,
+      );
 
-  static SvgPicture dashboardTimeline = SvgPicture.asset(
-    _dashboardTimeline,
-    fit: BoxFit.contain,
-  );
+  static SvgPicture dashboardTimeline([Size size = const Size(25, 25)]) => SvgPicture.asset(
+        dashboardTimelineAsset,
+        width: size.width,
+        height: size.height,
+        fit: BoxFit.contain,
+      );
 
-  static SvgPicture dashboardNotification = SvgPicture.asset(
-    _dashboardNotification,
-    fit: BoxFit.contain,
-  );
+  static SvgPicture dashboardNotification([Size size = const Size(25, 25)]) => SvgPicture.asset(
+        dashboardNotificationAsset,
+        width: size.width,
+        height: size.height,
+        fit: BoxFit.contain,
+      );
 
   static SvgPicture ironingService = SvgPicture.asset(
     _ironingService,

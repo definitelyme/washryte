@@ -3,7 +3,6 @@ library get_started_screen.dart;
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';

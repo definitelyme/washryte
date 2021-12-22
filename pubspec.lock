@@ -8,13 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "31.0.0"
-  ably_flutter:
-    dependency: "direct main"
-    description:
-      name: ably_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.7"
   analyzer:
     dependency: transitive
     description:
@@ -28,7 +21,7 @@ packages:
       name: another_flushbar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.26"
+    version: "1.10.28"
   archive:
     dependency: transitive
     description:
@@ -49,13 +42,15 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   auto_route:
     dependency: "direct main"
     description:
-      name: auto_route
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: auto_route
+      ref: HEAD
+      resolved-ref: a07eb7811ca4cfde215f81515d1edcf5bfe94e35
+      url: "https://github.com/Agondev/auto_route_library"
+    source: git
     version: "3.1.3"
   auto_route_generator:
     dependency: "direct dev"
@@ -189,7 +184,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -301,7 +296,21 @@ packages:
       name: cupertino_list_tile
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "0.2.1"
+  cupertino_progress_bar:
+    dependency: transitive
+    description:
+      name: cupertino_progress_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.2.0"
+  cupertino_stepper:
+    dependency: transitive
+    description:
+      name: cupertino_stepper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   dart_style:
     dependency: transitive
     description:
@@ -315,7 +324,7 @@ packages:
       name: dartz
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   date_format:
     dependency: "direct main"
     description:
@@ -337,6 +346,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.3"
+  enough_platform_widgets:
+    dependency: "direct main"
+    description:
+      name: enough_platform_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   enum_to_string:
     dependency: "direct main"
     description:
@@ -372,69 +388,62 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-  firebase:
-    dependency: transitive
-    description:
-      name: firebase
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "9.0.2"
   firebase_analytics:
     dependency: "direct main"
     description:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.3.4"
+    version: "9.0.4"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_analytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.3"
   firebase_analytics_web:
     dependency: transitive
     description:
       name: firebase_analytics_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0+1"
+    version: "0.4.0+4"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.1"
+    version: "1.10.6"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.2.3"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.0"
+    version: "1.5.3"
   firebase_crashlytics:
     dependency: "direct main"
     description:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.4"
   firebase_crashlytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_crashlytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.7"
+    version: "3.1.11"
   fixnum:
     dependency: transitive
     description:
@@ -515,7 +524,7 @@ packages:
     source: hosted
     version: "1.3.2"
   flutter_platform_widgets:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_platform_widgets
       url: "https://pub.dartlang.org"
@@ -543,12 +552,12 @@ packages:
     source: hosted
     version: "5.1.0"
   flutter_svg:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.23.0+1"
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -572,14 +581,14 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -817,7 +826,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: transitive
     description:
@@ -873,21 +882,21 @@ packages:
       name: path_drawing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1+1"
+    version: "1.0.0"
   path_parsing:
     dependency: transitive
     description:
       name: path_parsing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1"
+    version: "1.0.0"
   path_provider:
     dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.7"
+    version: "2.0.8"
   path_provider_android:
     dependency: transitive
     description:
@@ -937,6 +946,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.3.0"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.7.0"
   petitparser:
     dependency: transitive
     description:
@@ -1025,8 +1048,8 @@ packages:
     dependency: "direct dev"
     description:
       path: generator
-      ref: trevorwang-master
-      resolved-ref: "7b2a9b9fdd09fa7384315f43fc91725737e2135d"
+      ref: "ft/app_http_client"
+      resolved-ref: b606790db2d07355418836f43eaf270750e5ed6a
       url: "git://github.com/Flutter-Fox/retrofit.dart.git"
     source: git
     version: "3.0.0"
@@ -1092,7 +1115,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.11"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1314,7 +1337,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   timeago:
     dependency: "direct main"
     description:
@@ -1433,7 +1456,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   watcher:
     dependency: transitive
     description:
@@ -1477,5 +1500,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.2 <3.0.0"
+  dart: ">=2.15.0-268.18.beta <3.0.0"
   flutter: ">=2.5.0"

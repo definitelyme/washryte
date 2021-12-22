@@ -1,6 +1,5 @@
 import 'package:washryte/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:washryte/utils/utils.dart';
 
 class TextFormInputLabel extends StatelessWidget {

@@ -11,15 +11,16 @@ part 'tab_navigation_state.dart';
 
 @injectable
 class TabNavigationCubit extends HydratedCubit<TabNavigationState> {
-  static const String _kTabPersistKey = 'persisted-tab';
+  static const String _kBottomTabKey = 'persisted-tab';
+  // static const String _kSingleRestaurantTabKey = 'single-restaurant-tabbar-key';
 
   TabNavigationCubit() : super(TabNavigationState.initial());
 
   @override
   TabNavigationState? fromJson(Map<String, dynamic> json) {
     try {
-      final _index = json[_kTabPersistKey] as int;
-      return state.copyWith(currentIndex: _index, previousIndex: _index);
+      final _index = json[_kBottomTabKey] as int;
+      return state.copyWith(currentIndex: _index);
     } catch (_) {
       return null;
     }
@@ -28,23 +29,22 @@ class TabNavigationCubit extends HydratedCubit<TabNavigationState> {
   @override
   Map<String, dynamic>? toJson(TabNavigationState state) {
     if (state != TabNavigationState.initial())
-      return <String, dynamic>{_kTabPersistKey: state.currentIndex};
+      return <String, dynamic>{_kBottomTabKey: state.currentIndex};
     else
       return null;
   }
 
-  void init(BuildContext context) {
+  void init() {
     emit(state.copyWith(isInit: false));
-    context.tabsRouter.setActiveIndex(state.currentIndex);
+    state.tabRouter?.setActiveIndex(state.currentIndex);
   }
 
-  void setCurrentIndex(BuildContext context, [int index = 0]) {
-    emit(state.copyWith(
-      previousIndex: state.currentIndex,
-      currentIndex: index,
-    ));
-    context.tabsRouter.setActiveIndex(index);
-  }
+  void updateTabsRouter(TabsRouter? router) => emit(state.copyWith(tabRouter: router ?? state.tabRouter));
 
-  void reset() => emit(state.copyWith(currentIndex: 0, previousIndex: 0));
+  void setCurrentIndex([TabsRouter? router, int index = 0]) {
+    updateTabsRouter(router);
+
+    emit(state.copyWith(currentIndex: index));
+    state.tabRouter?.setActiveIndex(index);
+  }
 }

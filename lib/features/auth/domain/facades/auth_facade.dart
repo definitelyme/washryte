@@ -3,7 +3,6 @@ library auth_facade.dart;
 import 'dart:io';
 
 import 'package:washryte/core/data/index.dart';
-import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/manager/locator/locator.dart';

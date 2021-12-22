@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashPositionedLoader extends StatefulWidget {
@@ -19,9 +18,7 @@ class SplashPositionedLoader extends StatefulWidget {
 }
 
 class _SplashPositionedLoaderState extends State<SplashPositionedLoader>
-    with
-        TickerProviderStateMixin,
-        AutomaticKeepAliveClientMixin<SplashPositionedLoader> {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<SplashPositionedLoader> {
   late AnimationController _controller;
   @override
   bool get wantKeepAlive => true;

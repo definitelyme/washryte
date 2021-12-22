@@ -1,8 +1,6 @@
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/adaptive/adaptive.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class DropdownFieldWidget<Model> extends StatelessWidget {
   static const EdgeInsetsGeometry kdropdownContentPadding = EdgeInsets.symmetric(vertical: 7.0, horizontal: 12.0);
@@ -10,8 +8,8 @@ class DropdownFieldWidget<Model> extends StatelessWidget {
   static const double kdropdownHeight = 46;
   static const double kErrorHeightDiff = 21;
 
-  final String? Function(Model?)? text;
-  final Widget? Function(Model?)? child;
+  final String? Function(Model)? text;
+  final Widget? Function(Model)? child;
   final void Function(Model?) onChanged;
   final bool alignedDropdown;
   final AlignmentDirectional alignment;
@@ -42,15 +40,16 @@ class DropdownFieldWidget<Model> extends StatelessWidget {
   final bool isExpanded;
   final double? itemFontSize;
   final FontWeight? itemFontWeight;
-  final List<Model?> items;
+  final List<Model> items;
   final int maxLines;
   final double? menuMaxHeight;
   final double minFontSize;
   final double? radius;
-  final Model? selected;
+  final Model selected;
   final ShapeBorder? shape;
   final Color? splashColor;
   final bool validate;
+  final TextOverflow overflow;
   final List<Widget> Function(BuildContext)? selectedItemBuilder;
 
   const DropdownFieldWidget({
@@ -97,6 +96,7 @@ class DropdownFieldWidget<Model> extends StatelessWidget {
     this.menuMaxHeight,
     this.decoration,
     this.selectedItemBuilder,
+    this.overflow = TextOverflow.ellipsis,
   }) : super(key: key);
 
   // bool get _showErrors => validate == true && !errorText.isNullOrBlank;
@@ -163,7 +163,7 @@ class DropdownFieldWidget<Model> extends StatelessWidget {
                             '${text?.call(iv)}',
                             maxLines: maxLines,
                             minFontSize: minFontSize,
-                            overflow: TextOverflow.ellipsis,
+                            overflow: overflow,
                             softWrap: true,
                             fontSize: itemFontSize,
                             fontWeight: itemFontWeight,
@@ -185,7 +185,7 @@ class DropdownFieldWidget<Model> extends StatelessWidget {
                                     '${text?.call(item) ?? "- Please set 'text' property -"}',
                                     maxLines: maxLines,
                                     minFontSize: minFontSize,
-                                    overflow: TextOverflow.ellipsis,
+                                    overflow: overflow,
                                     softWrap: true,
                                     fontSize: itemFontSize,
                                     fontWeight: itemFontWeight,

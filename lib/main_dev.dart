@@ -1,11 +1,9 @@
 library main_dev.dart;
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:washryte/app.dart';
-import 'package:washryte/config/env.dart';
 import 'package:washryte/utils/utils.dart';
 
 void main() async {

@@ -4,11 +4,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:washryte/app.dart';
-import 'package:washryte/config/env.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 

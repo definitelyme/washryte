@@ -1,7 +1,6 @@
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 /// A stateless widget to render AppOutlinedButton.
 class AppOutlinedButton extends StatelessWidget {

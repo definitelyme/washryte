@@ -16,7 +16,6 @@ import 'package:washryte/core/data/index.dart';
 import 'package:washryte/features/auth/data/repositories/repos.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/manager/router/guards/guards.dart';
-import 'package:washryte/manager/router/guards/guest_guard.dart';
 import 'package:washryte/utils/utils.dart';
 
 part 'http_client_module.part.dart';
@@ -30,7 +29,7 @@ abstract class Modules {
   Future<AppDatabase> get database async => await $FloorAppDatabase.databaseBuilder(Const.database).build();
 
   @lazySingleton
-  FirebaseAnalytics get firebaseAnalytics => FirebaseAnalytics()..logAppOpen();
+  FirebaseAnalytics get firebaseAnalytics => FirebaseAnalytics.instance..logAppOpen();
 
   @preResolve
   Future<FirebaseApp> get firebaseApp => Firebase.initializeApp();

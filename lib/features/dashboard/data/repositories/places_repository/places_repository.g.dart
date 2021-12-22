@@ -9,7 +9,7 @@ part of places_repository.dart;
 class _PlacesRepository implements PlacesRepository {
   _PlacesRepository(this._dio, {this.baseUrl});
 
-  final Dio _dio;
+  final AppHttpClient _dio;
 
   String? baseUrl;
 
