@@ -7,10 +7,13 @@
 // **************************************************************************
 // AutoRouteGenerator
 // **************************************************************************
+//
+// ignore_for_file: type=lint
 
-import 'dart:async' as _i9;
+import 'dart:async' as _i10;
 
 import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/material.dart' as _i7;
 import 'package:washryte/core/presentation/index.dart' as _i4;
 import 'package:washryte/features/auth/presentation/screens/index.dart' as _i2;
@@ -306,130 +309,161 @@ class AppRouter extends _i5.RootStackRouter {
       ];
 }
 
-/// generated route for [_i1.SplashScreen]
+/// generated route for
+/// [_i1.SplashScreen]
 class SplashRoute extends _i5.PageRouteInfo<void> {
-  const SplashRoute() : super(name, path: '/');
+  const SplashRoute() : super(SplashRoute.name, path: '/');
 
   static const String name = 'SplashRoute';
 }
 
-/// generated route for [_i1.GetStartedScreen]
+/// generated route for
+/// [_i1.GetStartedScreen]
 class GetStartedRoute extends _i5.PageRouteInfo<void> {
-  const GetStartedRoute() : super(name, path: '/get-started-screen');
+  const GetStartedRoute()
+      : super(GetStartedRoute.name, path: '/get-started-screen');
 
   static const String name = 'GetStartedRoute';
 }
 
-/// generated route for [_i2.LoginScreen]
+/// generated route for
+/// [_i2.LoginScreen]
 class LoginRoute extends _i5.PageRouteInfo<void> {
-  const LoginRoute() : super(name, path: '/login-screen');
+  const LoginRoute() : super(LoginRoute.name, path: '/login-screen');
 
   static const String name = 'LoginRoute';
 }
 
-/// generated route for [_i2.SignupScreen]
+/// generated route for
+/// [_i2.SignupScreen]
 class SignupRoute extends _i5.PageRouteInfo<void> {
-  const SignupRoute() : super(name, path: '/signup-screen');
+  const SignupRoute() : super(SignupRoute.name, path: '/signup-screen');
 
   static const String name = 'SignupRoute';
 }
 
-/// generated route for [_i2.ForgotPasswordScreen]
+/// generated route for
+/// [_i2.ForgotPasswordScreen]
 class ForgotPasswordRoute extends _i5.PageRouteInfo<void> {
-  const ForgotPasswordRoute() : super(name, path: '/forgot-password-screen');
+  const ForgotPasswordRoute()
+      : super(ForgotPasswordRoute.name, path: '/forgot-password-screen');
 
   static const String name = 'ForgotPasswordRoute';
 }
 
-/// generated route for [_i2.SocialsAuthScreen]
+/// generated route for
+/// [_i2.SocialsAuthScreen]
 class SocialsAuthRoute extends _i5.PageRouteInfo<void> {
-  const SocialsAuthRoute() : super(name, path: '/socials-auth-screen');
+  const SocialsAuthRoute()
+      : super(SocialsAuthRoute.name, path: '/socials-auth-screen');
 
   static const String name = 'SocialsAuthRoute';
 }
 
-/// generated route for [_i2.PasswordResetScreen]
+/// generated route for
+/// [_i2.PasswordResetScreen]
 class PasswordResetRoute extends _i5.PageRouteInfo<void> {
-  const PasswordResetRoute() : super(name, path: '/password-reset-screen');
+  const PasswordResetRoute()
+      : super(PasswordResetRoute.name, path: '/password-reset-screen');
 
   static const String name = 'PasswordResetRoute';
 }
 
-/// generated route for [_i3.DashboardScreen]
+/// generated route for
+/// [_i3.DashboardScreen]
 class DashboardRoute extends _i5.PageRouteInfo<void> {
   const DashboardRoute({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'bottom-navigation', initialChildren: children);
+      : super(DashboardRoute.name,
+            path: 'bottom-navigation', initialChildren: children);
 
   static const String name = 'DashboardRoute';
 }
 
-/// generated route for [_i3.ProfileViewScreen]
+/// generated route for
+/// [_i3.ProfileViewScreen]
 class ProfileViewRoute extends _i5.PageRouteInfo<void> {
-  const ProfileViewRoute() : super(name, path: '/profile-view-screen');
+  const ProfileViewRoute()
+      : super(ProfileViewRoute.name, path: '/profile-view-screen');
 
   static const String name = 'ProfileViewRoute';
 }
 
-/// generated route for [_i3.ProfileEditScreen]
+/// generated route for
+/// [_i3.ProfileEditScreen]
 class ProfileEditRoute extends _i5.PageRouteInfo<void> {
-  const ProfileEditRoute() : super(name, path: '/profile-edit-screen');
+  const ProfileEditRoute()
+      : super(ProfileEditRoute.name, path: '/profile-edit-screen');
 
   static const String name = 'ProfileEditRoute';
 }
 
-/// generated route for [_i3.OrderHistoryScreen]
+/// generated route for
+/// [_i3.OrderHistoryScreen]
 class OrderHistoryRoute extends _i5.PageRouteInfo<void> {
-  const OrderHistoryRoute() : super(name, path: '/order-history-screen');
+  const OrderHistoryRoute()
+      : super(OrderHistoryRoute.name, path: '/order-history-screen');
 
   static const String name = 'OrderHistoryRoute';
 }
 
-/// generated route for [_i3.RequestServiceScreen]
+/// generated route for
+/// [_i3.RequestServiceScreen]
 class RequestServiceRoute extends _i5.PageRouteInfo<void> {
-  const RequestServiceRoute() : super(name, path: '/request-service-screen');
+  const RequestServiceRoute()
+      : super(RequestServiceRoute.name, path: '/request-service-screen');
 
   static const String name = 'RequestServiceRoute';
 }
 
-/// generated route for [_i3.TrackOrderScreen]
+/// generated route for
+/// [_i3.TrackOrderScreen]
 class TrackOrderRoute extends _i5.PageRouteInfo<void> {
-  const TrackOrderRoute() : super(name, path: '/track-order-screen');
+  const TrackOrderRoute()
+      : super(TrackOrderRoute.name, path: '/track-order-screen');
 
   static const String name = 'TrackOrderRoute';
 }
 
-/// generated route for [_i3.FAQScreen]
+/// generated route for
+/// [_i3.FAQScreen]
 class FAQRoute extends _i5.PageRouteInfo<void> {
-  const FAQRoute() : super(name, path: '/f-aq-screen');
+  const FAQRoute() : super(FAQRoute.name, path: '/f-aq-screen');
 
   static const String name = 'FAQRoute';
 }
 
-/// generated route for [_i3.ContactSupportScreen]
+/// generated route for
+/// [_i3.ContactSupportScreen]
 class ContactSupportRoute extends _i5.PageRouteInfo<void> {
-  const ContactSupportRoute() : super(name, path: '/contact-support-screen');
+  const ContactSupportRoute()
+      : super(ContactSupportRoute.name, path: '/contact-support-screen');
 
   static const String name = 'ContactSupportRoute';
 }
 
-/// generated route for [_i3.PrivacyPolicyScreen]
+/// generated route for
+/// [_i3.PrivacyPolicyScreen]
 class PrivacyPolicyRoute extends _i5.PageRouteInfo<void> {
-  const PrivacyPolicyRoute() : super(name, path: '/privacy-policy-screen');
+  const PrivacyPolicyRoute()
+      : super(PrivacyPolicyRoute.name, path: '/privacy-policy-screen');
 
   static const String name = 'PrivacyPolicyRoute';
 }
 
-/// generated route for [_i3.NotificationScreen]
+/// generated route for
+/// [_i3.NotificationScreen]
 class NotificationRoute extends _i5.PageRouteInfo<void> {
-  const NotificationRoute() : super(name, path: '/notification-screen');
+  const NotificationRoute()
+      : super(NotificationRoute.name, path: '/notification-screen');
 
   static const String name = 'NotificationRoute';
 }
 
-/// generated route for [_i4.NotConnectedScreen]
+/// generated route for
+/// [_i4.NotConnectedScreen]
 class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
-  NotConnectedRoute({_i7.Key? key, required _i9.Future<dynamic> future})
-      : super(name,
+  NotConnectedRoute({_i9.Key? key, required _i10.Future<dynamic> future})
+      : super(NotConnectedRoute.name,
             path: '/not-connected-screen',
             args: NotConnectedRouteArgs(key: key, future: future));
 
@@ -439,9 +473,9 @@ class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
 class NotConnectedRouteArgs {
   const NotConnectedRouteArgs({this.key, required this.future});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
-  final _i9.Future<dynamic> future;
+  final _i10.Future<dynamic> future;
 
   @override
   String toString() {
@@ -449,69 +483,80 @@ class NotConnectedRouteArgs {
   }
 }
 
-/// generated route for [_i4.NoHistoryScreen]
+/// generated route for
+/// [_i4.NoHistoryScreen]
 class NoHistoryRoute extends _i5.PageRouteInfo<void> {
-  const NoHistoryRoute() : super(name, path: '/no-history-screen');
+  const NoHistoryRoute()
+      : super(NoHistoryRoute.name, path: '/no-history-screen');
 
   static const String name = 'NoHistoryRoute';
 }
 
-/// generated route for [_i5.EmptyRouterPage]
+/// generated route for
+/// [_i5.EmptyRouterPage]
 class HomeRouter extends _i5.PageRouteInfo<void> {
   const HomeRouter({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'home', initialChildren: children);
+      : super(HomeRouter.name, path: 'home', initialChildren: children);
 
   static const String name = 'HomeRouter';
 }
 
-/// generated route for [_i5.EmptyRouterPage]
+/// generated route for
+/// [_i5.EmptyRouterPage]
 class InsightRouter extends _i5.PageRouteInfo<void> {
   const InsightRouter({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'insight', initialChildren: children);
+      : super(InsightRouter.name, path: 'insight', initialChildren: children);
 
   static const String name = 'InsightRouter';
 }
 
-/// generated route for [_i5.EmptyRouterPage]
+/// generated route for
+/// [_i5.EmptyRouterPage]
 class NotificationPostRouter extends _i5.PageRouteInfo<void> {
   const NotificationPostRouter({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'notification', initialChildren: children);
+      : super(NotificationPostRouter.name,
+            path: 'notification', initialChildren: children);
 
   static const String name = 'NotificationPostRouter';
 }
 
-/// generated route for [_i5.EmptyRouterPage]
+/// generated route for
+/// [_i5.EmptyRouterPage]
 class ProfileRouter extends _i5.PageRouteInfo<void> {
   const ProfileRouter({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'account', initialChildren: children);
+      : super(ProfileRouter.name, path: 'account', initialChildren: children);
 
   static const String name = 'ProfileRouter';
 }
 
-/// generated route for [_i6.HomePage]
+/// generated route for
+/// [_i6.HomePage]
 class HomePage extends _i5.PageRouteInfo<void> {
-  const HomePage() : super(name, path: '');
+  const HomePage() : super(HomePage.name, path: '');
 
   static const String name = 'HomePage';
 }
 
-/// generated route for [_i6.InsightPage]
+/// generated route for
+/// [_i6.InsightPage]
 class InsightPage extends _i5.PageRouteInfo<void> {
-  const InsightPage() : super(name, path: '');
+  const InsightPage() : super(InsightPage.name, path: '');
 
   static const String name = 'InsightPage';
 }
 
-/// generated route for [_i6.NotificationPage]
+/// generated route for
+/// [_i6.NotificationPage]
 class NotificationPage extends _i5.PageRouteInfo<void> {
-  const NotificationPage() : super(name, path: '');
+  const NotificationPage() : super(NotificationPage.name, path: '');
 
   static const String name = 'NotificationPage';
 }
 
-/// generated route for [_i6.ProfilePage]
+/// generated route for
+/// [_i6.ProfilePage]
 class ProfilePage extends _i5.PageRouteInfo<void> {
-  const ProfilePage() : super(name, path: '');
+  const ProfilePage() : super(ProfilePage.name, path: '');
 
   static const String name = 'ProfilePage';
 }

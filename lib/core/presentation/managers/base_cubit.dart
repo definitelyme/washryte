@@ -3,7 +3,7 @@ import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/features/dashboard/domain/entities/index.dart';
 import 'package:washryte/manager/locator/locator.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';

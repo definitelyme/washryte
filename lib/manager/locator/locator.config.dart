@@ -4,7 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:connectivity/connectivity.dart' as _i8;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i8;
 import 'package:dio/dio.dart' as _i9;
 import 'package:firebase_analytics/firebase_analytics.dart' as _i10;
 import 'package:firebase_core/firebase_core.dart' as _i11;

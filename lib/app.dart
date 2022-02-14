@@ -52,6 +52,7 @@ class Washryte extends StatelessWidget {
                     gravity: ToastGravity.BOTTOM,
                     fontSize: 17.sp,
                   );
+                  return;
                 }),
               ),
             ),

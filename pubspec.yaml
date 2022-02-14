@@ -6,7 +6,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.15.0-268.18.beta <3.0.0"
+  sdk: ">=2.16.0-134.5.beta <3.0.0"
 
 dependencies:
   flutter:
@@ -23,29 +23,34 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.4
   # Draw SVG files on a Flutter Widget.
-  flutter_svg: ^1.0.0
+  flutter_svg: ^1.0.3
   ###
   ### Firebase Packages ###
   ###
-  firebase_core: ^1.10.5
+  firebase_core: ^1.12.0
   # A Flutter plugin to use the Google Analytics for Firebase API.
-  firebase_analytics: ^9.0.3
+  firebase_analytics: ^9.1.0
   # Crashlytics helps you to collect analytics and
   # details about crashes and errors that occur in your app.
-  firebase_crashlytics: ^2.4.3
+  firebase_crashlytics: ^2.5.0
+  # Flutter plugin for Firebase Cloud Messaging, a cross-platform
+  # messaging solution that lets you reliably deliver messages on Android and iOS.
+  firebase_messaging: ^11.2.6
+  # A complete solution to create Local Notifications and Push Notifications.
+  awesome_notifications: ^0.6.21
   # Google services & Authentication
-  google_sign_in: ^5.2.1
+  google_sign_in: ^5.2.3
   # Flutter bridge to initiate Sign in with Apple (on iOS, macOS, and Android).
   # Includes support for keychain entries as well as signing in with an Apple ID.
-  sign_in_with_apple: ^3.2.0
+  sign_in_with_apple: ^3.3.0
   # Customize App font
-  google_fonts: ^2.1.0
+  google_fonts: ^2.2.0
   # Permission plugin for Flutter.
   # This plugin provides a cross-platform (iOS, Android) API to request and check permissions.
-  permission_handler: ^8.2.5
+  permission_handler: ^8.3.0
   # This plugin allows Flutter apps to discover network connectivity
   # and configure themselves accordingly.
-  connectivity: ^3.0.6
+  connectivity_plus: ^2.2.0
   # Check Internet connectivity
   internet_connection_checker: ^0.0.1+3
   # Service locator
@@ -58,9 +63,9 @@ dependencies:
   # Pretty Dio logger is a Dio interceptor that logs network calls in a pretty, easy to read format.
   pretty_dio_logger: ^1.1.1
   # Dio HTTP cache interceptor with multiple stores respecting HTTP directives (or not).
-  dio_cache_interceptor: ^3.0.3
+  dio_cache_interceptor: ^3.2.2
   # Flutter BloC for state management
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
   # Automatically persists and restores bloc states
   hydrated_bloc: ^8.0.0
   # Custom event transformers inspired by ember concurrency.
@@ -72,7 +77,7 @@ dependencies:
   # - Immutable value types
   # - EnumClass, classes that behave like enums
   # - JSON serialization
-  built_value: ^8.1.3
+  built_value: ^8.1.4
   # Provides: Immutable collections
   built_collection: ^5.1.1
   # Functional Programming
@@ -84,12 +89,12 @@ dependencies:
   # Flutter widget that automatically resizes text to fit perfectly within its bounds
   auto_size_text: ^3.0.0
   # simplifies dependency injection
-  injectable: ^1.5.0
+  injectable: ^1.5.3
   # provides internationalization
   # and localization facilities
   intl: ^0.17.0
   # A declarative routing solution
-  auto_route: ^3.1.3
+  auto_route: ^3.2.2
   # A collection of loading indicators animated with flutter.
   flutter_spinkit: ^5.1.0
   # Shimmer Skeleton Library.
@@ -99,9 +104,9 @@ dependencies:
   # - other with No BuildContext
   fluttertoast: ^8.0.8
   # Wraps platform-specific persistent storage for simple data
-  shared_preferences: ^2.0.11
+  shared_preferences: ^2.0.12
   # A Flutter plugin for finding commonly used locations on the filesystem.
-  path_provider: ^2.0.8
+  path_provider: ^2.0.9
   # A port of Kotlin's Kotlin Standard library for Dart/Flutter projects.
   kt_dart: ^0.10.0
   # A port of the Rails/ActiveSupport inflector library to Dart.
@@ -113,27 +118,27 @@ dependencies:
   json_annotation: ^4.4.0
   # retrofit.dart is a type conversion dio client generator
   # using source_gen and inspired by Chopper and Retrofit.
-  retrofit: ^3.0.0
+  retrofit: ^3.0.1+1
   # Floor provides a neat SQLite abstraction for your Flutter applications
   # inspired by the Room persistence library.
   floor: ^1.2.0
   # Use this package if you need more customization when notifying your user.
   another_flushbar: ^1.10.28
   # A simple API to format dates.
-  date_format: ^2.0.4
+  date_format: ^2.0.5
   # A flutter library to show images from the internet
   # and keep them in the cache directory.
   cached_network_image: ^3.1.0+1
   # Approximate how your app looks and performs on another device.
   # device_preview: ^1.0.0-alpha.15
   # A flutter package which provides a simple way to Showcase/Highlight your widgets step by step.
-  showcaseview: ^1.1.3
+  showcaseview: ^1.1.4
   # A flutter plugin for adapting screen and font size.Let your UI
   # display a reasonable layout on different screen sizes!
-  flutter_screenutil: ^5.0.1
+  flutter_screenutil: ^5.2.0
   # A Flutter plugin for iOS and Android for picking images from the image library,
   # and taking new pictures with the camera.
-  image_picker: ^0.8.4+4
+  image_picker: ^0.8.4+8
   # Cupertino version of the stock Material ListTile in Flutter.
   # PS: This is not a pixel perfect interpretation of the iOS Human Interface Guidelines.
   cupertino_list_tile: ^0.2.1
@@ -160,17 +165,15 @@ dependencies:
   # A library useful for creating fuzzy timestamps. (e.g. "15 minutes ago")
   timeago: ^3.1.0
   # Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes.
-  url_launcher: ^6.0.16
+  url_launcher: ^6.0.18
   # A carousel slider widget, support infinite scroll and custom child widget.
   carousel_slider: ^4.0.0
 
 dependency_overrides:
   async: ^2.8.2
   provider: ^6.0.1
-  auto_route:
-    git:
-      url: https://github.com/Agondev/auto_route_library
-      path: auto_route
+  analyzer: ^2.8.0
+  # dart_style: ">=2.2.0 <=2.2.0"
 
 dev_dependencies:
   flutter_test:
@@ -183,17 +186,17 @@ dev_dependencies:
   # Pedantic does a great job keeping the project with similar code styles
   pedantic: ^1.11.1
   # Code Generators
-  build_runner: ^2.1.4
+  build_runner: ^2.1.7
   freezed: ^1.1.0
-  injectable_generator: ^1.5.2
-  built_value_generator: ^8.1.3
-  auto_route_generator: ^3.1.0
+  injectable_generator: ^1.5.3
+  built_value_generator: ^8.1.4
+  auto_route_generator: ^3.2.1
   retrofit_generator:
     git:
       url: git://github.com/Flutter-Fox/retrofit.dart.git
       ref: ft/app_http_client
       path: generator/
-  json_serializable: ^6.1.1
+  json_serializable: ^6.1.4
   floor_generator:
     git:
       url: git://github.com/Flutter-Fox/floor.git
