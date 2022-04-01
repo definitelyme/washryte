@@ -18,8 +18,9 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
                     ))),
         listener: (c, s) => s.status.fold(
           () => null,
-          (it) => it?.response.map(
-            error: (f) => PopupDialog.error(message: f.message).render(c),
+          (th) => th?.response.map(
+            info: (i) => PopupDialog.info(message: i.message).render(c),
+            error: (f) => PopupDialog.error(message: f.message, show: f.show).render(c),
             success: (s) => PopupDialog.success(
               message: s.message,
               listener: (_) => _?.fold(
@@ -28,12 +29,7 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
             ).render(c),
           ),
         ),
-        child: SingleChildScrollView(
-          clipBehavior: Clip.antiAlias,
-          controller: ScrollController(),
-          physics: Utils.physics,
-          scrollDirection: Axis.vertical,
-          padding: MediaQuery.of(context).viewInsets,
+        child: AdaptiveBottomSheet(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -51,30 +47,30 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
               //
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: App.sidePadding),
-                child: App.platform.fold(
-                  material: () => const _MaterialUpdateForm(),
-                  cupertino: () => const _CupertinoUpdateForm(),
-                ),
+                child: const _FormLayout(),
               ),
               //
               VerticalSpace(height: 0.04.sw),
               //
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: App.sidePadding),
-                child: BlocBuilder<AuthCubit, AuthState>(
-                  buildWhen: (p, c) => p.isLoading != c.isLoading,
-                  builder: (c, s) => Hero(
-                    tag: Const.profileLogoutBtnHerotag,
-                    child: AppButton(
-                      text: 'Save Changes',
-                      isLoading: s.isLoading,
-                      onPressed: c.read<AuthCubit>().updatePassword,
+              SafeArea(
+                top: false,
+                left: false,
+                right: false,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: App.sidePadding),
+                  child: BlocBuilder<AuthCubit, AuthState>(
+                    buildWhen: (p, c) => p.isLoading != c.isLoading,
+                    builder: (c, s) => Hero(
+                      tag: Const.profileLogoutBtnHerotag,
+                      child: AppButton(
+                        text: 'Save Changes',
+                        isLoading: s.isLoading,
+                        onPressed: c.read<AuthCubit>().updatePassword,
+                      ),
                     ),
                   ),
                 ),
               ),
-              //
-              VerticalSpace(height: 0.03.h),
             ],
           ),
         ),
@@ -83,8 +79,8 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
   }
 }
 
-class _MaterialUpdateForm extends StatelessWidget {
-  const _MaterialUpdateForm({Key? key}) : super(key: key);
+class _FormLayout extends StatelessWidget {
+  const _FormLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +92,17 @@ class _MaterialUpdateForm extends StatelessWidget {
         //
         PasswordFormField<AuthCubit, AuthState>(
           isNew: false,
+          useHero: false,
           disabled: (s) => s.isLoading,
           validate: (s) => s.validate,
-          isObscured: (s) => s.isPasswordHidden,
+          isObscured: (s) => s.isOldPasswordHidden,
           field: (s) => s.oldPassword,
           focus: AuthState.oldPasswordFocus,
           next: AuthState.passwordFocus,
           response: (s) => s.status,
           errorField: (f) => f.errors?.oldPassword,
           onChanged: (fn, str) => fn.oldPasswordChanged(str),
-          onToggle: (it) => it.togglePasswordVisibility(),
+          onToggle: (it) => it.toggleOldPasswordVisibility(),
         ),
         //
         VerticalSpace(height: 0.03.sw),
@@ -114,6 +111,7 @@ class _MaterialUpdateForm extends StatelessWidget {
         //
         PasswordFormField<AuthCubit, AuthState>(
           isNew: true,
+          useHero: false,
           disabled: (s) => s.isLoading,
           validate: (s) => s.validate,
           isObscured: (s) => s.isPasswordHidden,
@@ -132,87 +130,24 @@ class _MaterialUpdateForm extends StatelessWidget {
         //
         PasswordFormField<AuthCubit, AuthState>(
           isNew: true,
+          useHero: false,
           disabled: (s) => s.isLoading,
           validate: (s) => s.validate,
           isObscured: (s) => s.isPasswordHidden,
-          field: (s) => s.confirmPassword,
+          field: (s) => s.user.confirmation,
           focus: AuthState.passwordConfirmationFocus,
           response: (s) => s.status,
           onChanged: (fn, str) => fn.passwordConfirmationChanged(str),
           suffixIcon: (s) => Visibility(
-            visible: s.confirmPassword.isValid && s.isPasswordHidden,
-            child: Icon(
-              s.passwordMatches ? Icons.check_circle : Icons.cancel_rounded,
-              color: s.passwordMatches ? Palette.successGreen : Palette.errorRed,
-              size: 25,
+            visible: s.user.confirmation.isValid && s.isPasswordHidden,
+            child: Padding(
+              padding: Utils.platform_(cupertino: const EdgeInsets.only(right: 10), material: EdgeInsets.zero)!,
+              child: Icon(
+                s.passwordMatches ? Icons.check_circle : Icons.cancel_rounded,
+                color: s.passwordMatches ? Palette.successGreen : Palette.errorRed,
+                size: 25,
+              ),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CupertinoUpdateForm extends StatelessWidget {
-  const _CupertinoUpdateForm({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoFormSection.insetGrouped(
-      backgroundColor: Colors.transparent,
-      margin: EdgeInsets.zero,
-      children: [
-        PasswordFormField<AuthCubit, AuthState>(
-          prefix: 'Old Password',
-          isNew: false,
-          disabled: (s) => s.isLoading,
-          validate: (s) => s.validate,
-          isObscured: (s) => s.isPasswordHidden,
-          field: (s) => s.oldPassword,
-          focus: AuthState.oldPasswordFocus,
-          next: AuthState.passwordFocus,
-          response: (s) => s.status,
-          errorField: (f) => f.errors?.oldPassword,
-          onChanged: (fn, str) => fn.oldPasswordChanged(str),
-          cupertinoFormType: CupertinoFormType.textfield,
-          suffixMode: (s) => OverlayVisibilityMode.always,
-          onToggle: (it) => it.togglePasswordVisibility(),
-        ),
-        //
-        PasswordFormField<AuthCubit, AuthState>(
-          prefix: 'New Password',
-          isNew: true,
-          disabled: (s) => s.isLoading,
-          validate: (s) => s.validate,
-          isObscured: (s) => s.isPasswordHidden,
-          field: (s) => s.user.password,
-          focus: AuthState.passwordFocus,
-          next: AuthState.passwordConfirmationFocus,
-          response: (s) => s.status,
-          errorField: (f) => f.errors?.password,
-          onChanged: (fn, str) => fn.passwordChanged(str),
-          cupertinoFormType: CupertinoFormType.textfield,
-          suffixMode: (s) => OverlayVisibilityMode.always,
-          onToggle: (it) => it.togglePasswordVisibility(),
-        ),
-        //
-        PasswordFormField<AuthCubit, AuthState>(
-          prefix: 'Confirm Password',
-          isNew: true,
-          disabled: (s) => s.isLoading,
-          validate: (s) => s.validate,
-          isObscured: (s) => s.isPasswordHidden,
-          field: (s) => s.confirmPassword,
-          focus: AuthState.passwordConfirmationFocus,
-          response: (s) => s.status,
-          cupertinoFormType: CupertinoFormType.textfield,
-          cupertinoPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
-          materialPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
-          onChanged: (fn, str) => fn.passwordConfirmationChanged(str),
-          suffixIcon: (s) => Icon(
-            s.passwordMatches ? Icons.check_circle : Icons.cancel_rounded,
-            color: s.passwordMatches ? Palette.successGreen : Palette.errorRed,
-            size: 25,
           ),
         ),
       ],

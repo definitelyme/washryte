@@ -20,9 +20,7 @@ part 'package:washryte/core/data/models/user/user_dto.dart';
   CountryDTOFloorConverter,
   AuthProviderFloorConverter,
 ])
-@Database(version: 1, entities: [
-  _$_UserDTO,
-])
+@Database(version: 2, entities: [_$_UserDTO])
 abstract class AppDatabase extends FloorDatabase {
   UserDAO get userDAO;
 }

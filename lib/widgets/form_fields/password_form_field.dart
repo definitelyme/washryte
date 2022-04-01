@@ -4,6 +4,7 @@ import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,7 +45,7 @@ class PasswordFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState>
     this.focus,
     this.next,
     this.response,
-    this.useHero = false,
+    this.useHero = true,
     this.isNew = true,
     required this.isObscured,
     this.onToggle,

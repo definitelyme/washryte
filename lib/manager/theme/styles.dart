@@ -96,40 +96,7 @@ class AppTheme extends HiveObject {
         ),
       );
 
-  /// Light Theme Configurations
-  static AppTheme light() {
-    return AppTheme._(
-      id: LIGHT_THEME_ID,
-      themeMode: ThemeMode.system,
-      brightness: Brightness.light,
-      accentColorBrightness: Brightness.light,
-      primaryColor: platform(cupertino: () => Palette.accentColor),
-      indicatorColor: Colors.white,
-      toggleableActiveColor: Palette.primaryColor.shade800,
-      splashFactory: InkRipple.splashFactory,
-      scaffoldBackgroundColor: Palette.primaryColor,
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: Palette.accentColor,
-        brightness: Brightness.light,
-        primarySwatch: Palette.primaryColor,
-        primaryColorDark: Palette.primaryColor.shade800,
-      ),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      textSelectionThemeData: TextSelectionThemeData(
-        cursorColor: Palette.accentColor,
-        selectionColor: Palette.accentColor.shade200,
-        selectionHandleColor: Palette.accentColor.shade400,
-      ),
-      radioThemeData: RadioThemeData(
-        fillColor: MaterialStateProperty.all(Palette.accentColor),
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-      ),
-      switchThemeData: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(Palette.accentColor),
-        trackColor: MaterialStateProperty.all(Palette.accentColor.withOpacity(0.3)),
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-      ),
-      inputTheme: InputDecorationTheme(
+  static InputDecoration get lightInputDecoration => InputDecoration(
         alignLabelWithHint: true,
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         isDense: true,
@@ -155,6 +122,55 @@ class AppTheme extends HiveObject {
           borderSide: const BorderSide(color: Palette.errorRed, width: 1.3),
           borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
         ),
+      );
+
+  /// Light Theme Configurations
+  static AppTheme light() {
+    return AppTheme._(
+      id: LIGHT_THEME_ID,
+      themeMode: ThemeMode.system,
+      brightness: Brightness.light,
+      accentColorBrightness: Brightness.light,
+      primaryColor: Palette.accentColor,
+      indicatorColor: Colors.white,
+      toggleableActiveColor: Palette.primaryColor.shade800,
+      splashFactory: InkRipple.splashFactory,
+      scaffoldBackgroundColor: Palette.primaryColor,
+      colorScheme: ColorScheme.fromSwatch(
+        accentColor: Palette.accentColor,
+        brightness: Brightness.light,
+        primarySwatch: Palette.primaryColor,
+        primaryColorDark: Palette.primaryColor.shade800,
+      ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      textSelectionThemeData: TextSelectionThemeData(
+        cursorColor: Palette.accentColor,
+        selectionColor: Palette.accentColor.shade300,
+        selectionHandleColor: Palette.accentColor.shade400,
+      ),
+      radioThemeData: RadioThemeData(
+        fillColor: MaterialStateProperty.all(Palette.accentColor),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+      ),
+      switchThemeData: SwitchThemeData(
+        thumbColor: MaterialStateProperty.all(Palette.accentColor),
+        trackColor: MaterialStateProperty.all(Palette.accent20),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+      ),
+      inputTheme: InputDecorationTheme(
+        alignLabelWithHint: lightInputDecoration.alignLabelWithHint!,
+        floatingLabelBehavior: lightInputDecoration.floatingLabelBehavior!,
+        isDense: lightInputDecoration.isDense!,
+        filled: lightInputDecoration.filled!,
+        hintStyle: lightInputDecoration.hintStyle!,
+        labelStyle: lightInputDecoration.labelStyle!,
+        errorStyle: lightInputDecoration.errorStyle!,
+        fillColor: lightInputDecoration.fillColor!,
+        contentPadding: lightInputDecoration.contentPadding!,
+        focusedBorder: lightInputDecoration.focusedBorder!,
+        focusedErrorBorder: lightInputDecoration.focusedErrorBorder!,
+        border: lightInputDecoration.border!,
+        errorBorder: lightInputDecoration.errorBorder!,
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(),
@@ -172,6 +188,34 @@ class AppTheme extends HiveObject {
     );
   }
 
+  static InputDecoration get darkInputDecoration => InputDecoration(
+        alignLabelWithHint: true,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        isDense: true,
+        filled: true,
+        hintStyle: const TextStyle(color: Colors.grey),
+        labelStyle: const TextStyle(color: Colors.grey),
+        errorStyle: const TextStyle(color: Palette.errorRed),
+        fillColor: Palette.secondaryColor.shade400,
+        contentPadding: Utils.inputPadding,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+        ),
+        focusedErrorBorder: UnderlineInputBorder(
+          borderSide: const BorderSide(color: Palette.errorRed, width: 2.0),
+          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderSide: const BorderSide(color: Palette.errorRed, width: 1.3),
+          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
+        ),
+      );
+
   /// Dark Theme Configurations
   static AppTheme dark() {
     return AppTheme._(
@@ -179,7 +223,7 @@ class AppTheme extends HiveObject {
       themeMode: ThemeMode.system,
       brightness: Brightness.dark,
       accentColorBrightness: Brightness.dark,
-      primaryColor: platform(cupertino: () => Palette.accentColor),
+      primaryColor: Palette.accentColor,
       toggleableActiveColor: Palette.secondaryColor.shade800,
       indicatorColor: Colors.white,
       visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -206,31 +250,19 @@ class AppTheme extends HiveObject {
         selectionHandleColor: Palette.accentColor,
       ),
       inputTheme: InputDecorationTheme(
-        alignLabelWithHint: true,
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        isDense: true,
-        filled: true,
-        hintStyle: const TextStyle(color: Colors.grey),
-        labelStyle: const TextStyle(color: Colors.grey),
-        errorStyle: const TextStyle(color: Palette.errorRed),
-        fillColor: Palette.secondaryColor.shade400,
-        contentPadding: Utils.inputPadding,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: const BorderSide(color: Palette.errorRed, width: 2.0),
-          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderSide: const BorderSide(color: Palette.errorRed, width: 1.3),
-          borderRadius: BorderRadius.circular(Utils.inputBorderRadius),
-        ),
+        alignLabelWithHint: darkInputDecoration.alignLabelWithHint!,
+        floatingLabelBehavior: darkInputDecoration.floatingLabelBehavior!,
+        isDense: darkInputDecoration.isDense!,
+        filled: darkInputDecoration.filled!,
+        hintStyle: darkInputDecoration.hintStyle!,
+        labelStyle: darkInputDecoration.labelStyle!,
+        errorStyle: darkInputDecoration.errorStyle!,
+        fillColor: darkInputDecoration.fillColor!,
+        contentPadding: darkInputDecoration.contentPadding!,
+        focusedBorder: darkInputDecoration.focusedBorder!,
+        focusedErrorBorder: darkInputDecoration.focusedErrorBorder!,
+        border: darkInputDecoration.border!,
+        errorBorder: darkInputDecoration.errorBorder!,
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(),
@@ -242,8 +274,8 @@ class AppTheme extends HiveObject {
         bodyText1: TextStyle(),
         bodyText2: TextStyle(),
       ).apply(
-        displayColor: Colors.white, // For headline 1 - 6
-        bodyColor: Colors.white, // For every other text style
+        displayColor: const Color(0xFFBFBFBF), // For headline 1 - 6
+        bodyColor: const Color(0xFFBFBFBF), // For every other text style
       ),
     );
   }
@@ -268,7 +300,7 @@ class AppTheme extends HiveObject {
       buttonTheme: _buttonThemeData,
       radioTheme: _radioThemeData,
       switchTheme: _switchThemeData,
-      textTheme: GoogleFonts.manropeTextTheme(_textTheme),
+      textTheme: GoogleFonts.nunitoSansTextTheme(_textTheme),
     );
   }
 

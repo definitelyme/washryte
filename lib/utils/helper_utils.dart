@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/manager/theme/theme.dart';
 import 'package:washryte/utils/utils.dart';
@@ -50,47 +51,28 @@ void throwIfNot(bool condition, Object error) {
   if (!condition) throw error;
 }
 
-const List<String> _guestAuthRoutes = [
-  SplashRoute.name,
-  LoginRoute.name,
-  SignupRoute.name,
-  GetStartedRoute.name,
-  ForgotPasswordRoute.name,
-  SocialsAuthRoute.name,
-];
-
-void navigateToLogin() {
-  if (!_guestAuthRoutes.contains(navigator.current.name)) navigator.navigate(const LoginRoute());
-}
-
-void navigateToSocials() {
-  if (navigator.current.name == SocialsAuthRoute.name) navigator.popAndPush(const SocialsAuthRoute());
-
-  if (navigator.current.name != DashboardRoute.name) navigator.pushAndPopUntil(const SocialsAuthRoute(), predicate: (route) => false);
-}
-
 class Utils {
   /// Create Singleton start ///
   static final Utils _singleton = Utils._();
 
-  double get sidePadding => shortest * 0.05;
-  double get topPadding => shortest * 0.03;
-  static const double distanceKMConverter = 0.001;
-  static const Widget nothing = SizedBox.shrink();
   static const Duration autoRetrievalTimeout = Duration(seconds: 40);
   static const double buttonRadius = 8.0;
-  static const double cardRadius = 12.0;
   static const BorderRadius cardBorderRadius = BorderRadius.all(Radius.circular(cardRadius));
-  static const String currency = '₺';
+  static const double cardRadius = 12.0;
+  static const Duration crossFadeDuration = Duration(milliseconds: 400);
+  static const String currency = '₦';
+  static const double distanceKMConverter = 0.001;
   // static const String NGN = 'NGN';
   static const double inputBorderRadius = 8.0;
-  static late Utils instance;
-  static const double labelLetterSpacing = 0.60;
-  static const double letterSpacing = 0.8;
+
   static const EdgeInsets inputPadding = EdgeInsets.symmetric(
     vertical: 14.0,
     horizontal: 12.0,
   );
+
+  static late Utils instance;
+  static const double labelLetterSpacing = 0.60;
+  static const double letterSpacing = 0.8;
   static Logger logger = Logger(
     filter: env.flavor == BuildFlavor.dev ? DevelopmentFilter() : ProductionFilter(),
     printer: HybridPrinter(PrettyPrinter(
@@ -103,10 +85,12 @@ class Utils {
     )),
   );
 
+  static const Widget nothing = SizedBox.shrink();
   static ScrollPhysics physics = Theme.of(navigator.navigatorKey.currentContext!).platform.fold(
         material: () => const ClampingScrollPhysics(),
         cupertino: () => const BouncingScrollPhysics(),
       );
+
   static const Duration willPopTimeout = Duration(seconds: 3);
 
   late BuildContext context;
@@ -119,11 +103,8 @@ class Utils {
   Utils._();
 
   static Future<Directory?> get rootDir async => await getExternalStorageDirectory();
-
   static Future<Directory> get cacheDir async => kIsWeb ? HydratedStorage.webStorageDirectory : await getTemporaryDirectory();
-
   static Future<Directory> get documentsDir async => await getApplicationDocumentsDirectory();
-
   // End ////
 
   Color? get backgroundOverlayColor => App.theme.primaryColor.withOpacity(0.91);
@@ -147,10 +128,8 @@ class Utils {
       );
 
   /// Returns the current route path
-  String get currentRoute => router.current.name;
-
-  /// Returns the current route path
-  String get rootRoute => router.root.stackData.first.name;
+  // String? get currentRoute => navObserver.top?.settings.name;
+  String? get currentRoute => router.current.name;
 
   /// The current [WidgetsBinding], if one has been created.
   WidgetsBinding? get engine => WidgetsBinding.instance;
@@ -169,7 +148,82 @@ class Utils {
 
   GlobalKey<NavigatorState> get key => router.navigatorKey;
 
-  static const Duration crossFadeDuration = Duration(milliseconds: 400);
+  Widget get loadingHourGlass => SpinKitPouringHourGlass(
+        color: App.resolveColor(
+          Palette.accentColor,
+          dark: Colors.white70,
+        )!,
+        size: 34.0,
+        duration: const Duration(milliseconds: 1100),
+      );
+
+  Widget get loadingSpinningLines => SpinKitLoader(
+        color: App.resolveColor(Palette.accentColor, dark: Colors.white70)!,
+        duration: const Duration(milliseconds: 900),
+      );
+
+  Widget get loadingWave => SpinKitWave(
+        color: App.resolveColor(
+          Palette.accentColor,
+          dark: Colors.white70,
+        )!,
+        size: 35.0,
+        duration: const Duration(milliseconds: 1200),
+        itemCount: 8,
+        type: SpinKitWaveType.center,
+      );
+
+  SystemUiOverlayStyle customSystemOverlay({
+    BuildContext? ctx,
+    Brightness? android,
+    Brightness? ios,
+  }) =>
+      SystemUiOverlayStyle(
+        // For Android.
+        // Use [light] for white status bar and [dark] for black status bar.
+        statusBarIconBrightness: android ?? Brightness.dark,
+        // For iOS.
+        // Use [dark] for white status bar and [light] for black status bar.
+        statusBarBrightness: ios ?? (App.isDarkMode(ctx) ? Brightness.dark : Brightness.light),
+      );
+
+  SystemUiOverlayStyle systemUIOverlayStyle([BuildContext? c]) => customSystemOverlay(ctx: c);
+
+  /// give access to Immutable MediaQuery.of(context).size.shortestSide
+  double get longest => MediaQuery.of(context).size.longestSide;
+
+  /// give access to MediaQuery.of(context)
+  MediaQueryData? get mediaQuery => MediaQuery.of(context);
+
+  /// give access to the current platform
+  TargetPlatform get platform => Theme.of(context).platform;
+
+  /// Returns the current route path
+  String get rootRoute => router.root.stackData.first.name;
+
+  /// give access to Immutable MediaQuery.of(context).size.shortestSide
+  double get shortest => MediaQuery.of(context).size.shortestSide;
+
+  double get sidePadding => platform_(cupertino: shortest * 0.03, material: shortest * 0.05)!;
+
+  /// give access to TextTheme.of(context)
+  TextTheme? get textTheme => theme.textTheme;
+
+  /// give access to Theme.of(context)
+  ThemeData get theme => Theme.of(context);
+
+  TextStyle get titleStyle => TextStyle(
+      fontWeight: platform.fold(
+        material: () => FontWeight.w800,
+        cupertino: () => FontWeight.w700,
+      ),
+      fontSize: 25.0.sp,
+      letterSpacing: Utils.letterSpacing);
+
+  double get topPadding => shortest * 0.03;
+
+  /// give access to Immutable MediaQuery.of(context).size.width
+  double get width => MediaQuery.of(context).size.width;
 
   static Widget crossFadeLayoutBuilder(
     Widget firstChild,
@@ -197,36 +251,6 @@ class Utils {
     );
   }
 
-  Widget get loadingHourGlass => SpinKitPouringHourGlass(
-        color: App.resolveColor(
-          Palette.accentColor,
-          dark: Colors.white70,
-        )!,
-        size: 34.0,
-        duration: const Duration(milliseconds: 1100),
-      );
-
-  Widget get loadingSpinningLines => SpinKitSpinningLines(
-        color: App.resolveColor(
-          Palette.accentColor,
-          dark: Colors.white70,
-        )!,
-        size: 34.0,
-        itemCount: 6,
-        duration: const Duration(milliseconds: 900),
-      );
-
-  Widget get loadingWave => SpinKitWave(
-        color: App.resolveColor(
-          Palette.accentColor,
-          dark: Colors.white70,
-        )!,
-        size: 35.0,
-        duration: const Duration(milliseconds: 1200),
-        itemCount: 8,
-        type: SpinKitWaveType.center,
-      );
-
   Color? resolveColor(
     Color? light, {
     Color? dark,
@@ -237,41 +261,13 @@ class Utils {
         material: () => foldTheme(light: () => material?.call()?.value1 ?? light, dark: () => material?.call()?.value2 ?? dark ?? light),
         cupertino: () => CupertinoDynamicColor.resolve(
           CupertinoDynamicColor.withBrightness(
-            color: cupertino?.call()?.value1 ?? light ?? Utils.computeLuminance(Palette.primaryColor),
+            color: foldTheme(light: () => cupertino?.call()?.value1 ?? light, dark: () => cupertino?.call()?.value2 ?? dark ?? light) ??
+                Utils.computeLuminance(Palette.primaryColor),
             darkColor: cupertino?.call()?.value2 ?? dark ?? light ?? Utils.computeLuminance(Palette.secondaryColor),
           ),
-          context,
+          App.context,
         ),
       );
-
-  /// give access to Immutable MediaQuery.of(context).size.shortestSide
-  double get longest => MediaQuery.of(context).size.longestSide;
-
-  /// give access to MediaQuery.of(context)
-  MediaQueryData? get mediaQuery => MediaQuery.of(context);
-
-  /// give access to Immutable MediaQuery.of(context).size.shortestSide
-  double get shortest => MediaQuery.of(context).size.shortestSide;
-
-  /// give access to TextTheme.of(context)
-  TextTheme? get textTheme => theme.textTheme;
-
-  /// give access to Theme.of(context)
-  ThemeData get theme => Theme.of(App.context);
-
-  /// give access to the current platform
-  TargetPlatform get platform => theme.platform;
-
-  /// give access to Immutable MediaQuery.of(context).size.width
-  double get width => MediaQuery.of(context).size.width;
-
-  TextStyle get titleStyle => TextStyle(
-      fontWeight: platform.fold(
-        material: () => FontWeight.w700,
-        cupertino: () => FontWeight.w700,
-      ),
-      fontSize: 25.0.sp,
-      letterSpacing: Utils.letterSpacing);
 
   static Widget circularLoader({
     double? width,
@@ -287,6 +283,18 @@ class Utils {
         radius: radius ?? 14,
         color: App.resolveColor(color),
       );
+
+  static String greeting(TimeOfDay time) {
+    final hour = time.hour;
+
+    if (hour < 12) {
+      return 'Good Morning';
+    } else if (hour < 18) {
+      return 'Good Afternoon';
+    } else {
+      return 'Good Evening';
+    }
+  }
 
   Widget loadingOverlay([Widget? child, Color? color]) => Container(
         color: color ?? App.resolveColor(Palette.primaryColor.shade300.withOpacity(0.65)),
@@ -314,10 +322,6 @@ class Utils {
     return child;
   }
 
-  static void updateContext(BuildContext context) {
-    instance.context = context;
-  }
-
   static T? platform_<T>({
     T? material,
     T? cupertino,
@@ -335,24 +339,23 @@ class Utils {
 
   static DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day, d.hour, d.minute, d.second);
 
+  bool isDarkMode([BuildContext? context]) {
+    final _context = context ?? App.context;
+    return BlocProvider.of<ThemeCubit>(_context).isDarkMode || (MediaQuery.of(_context).platformBrightness == Brightness.dark);
+  }
+
   static T foldTheme<T>({
     required T Function() light,
     T Function()? dark,
     BuildContext? context,
   }) {
-    var isDarkMode = BlocProvider.of<ThemeCubit>(context ?? App.context).isDarkMode ||
-        ((MediaQuery.of(context ?? App.context).platformBrightness == Brightness.dark));
+    var isDarkMode = App.isDarkMode(context);
 
-    return env.flavor.fold(
-      dev: () {
-        if (isDarkMode) {
-          if (dark == null) return light.call();
-          return dark.call();
-        } else
-          return light.call();
-      },
-      prod: () => light.call(),
-    );
+    if (isDarkMode) {
+      if (dark == null) return light.call();
+      return dark.call();
+    } else
+      return light.call();
   }
 
   static Color computeLuminance(Color color) => color.computeLuminance() > 0.5 ? Colors.black : Colors.white;
@@ -449,20 +452,6 @@ class Utils {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: _keyboardClosed ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [loader ?? circularLoader()],
-        ),
-      ),
-    );
-  }
-
-  Widget usernameTimeSeperator() {
-    return Container(
-      width: 4,
-      height: 4,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: foldTheme(
-          light: () => Palette.subTextLight,
-          dark: () => Palette.subTextDark,
         ),
       ),
     );
@@ -625,23 +614,22 @@ class Utils {
     ) as U;
   }
 
-  FutureOr<T> showAdaptiveBottomSheet<T>(
+  Future<T> showAdaptiveBottomSheet<T>(
     BuildContext context, {
     required WidgetBuilder builder,
-    Radius topRadius = const Radius.circular(24),
+    Radius radius = const Radius.circular(24),
     bool isDismissible = true,
     Color? backgroundColor,
     Color? barrierColor,
     double? elevation,
     bool enableDrag = true,
     bool useRootNavigator = true,
-    ShapeBorder shape = const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
     bool expand = false,
     bool bounce = false,
     Duration? duration,
   }) async {
+    final shape = RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: radius));
+
     return await Theme.of(context).platform.fold(
           material: () async => await showMaterialModalBottomSheet(
             context: context,
@@ -668,7 +656,7 @@ class Utils {
             shape: shape,
             expand: expand,
             bounce: bounce,
-            topRadius: topRadius,
+            topRadius: radius,
             duration: duration,
             useRootNavigator: useRootNavigator,
           ) as T,
@@ -684,6 +672,12 @@ class Utils {
     bool useRootNavigator = true,
     RouteSettings? routeSettings,
   }) async {
+    final _barrierColor = barrierColor ??
+        Utils.foldTheme(
+          light: () => Colors.grey.shade800.withOpacity(0.55),
+          dark: () => Colors.black87.withOpacity(0.55),
+        );
+
     if (Platform.isIOS || Platform.isMacOS)
       return (await showCupertinoDialog<U?>(
         context: context,
@@ -696,7 +690,7 @@ class Utils {
       context: context,
       builder: builder,
       barrierDismissible: barrierDismissible,
-      barrierColor: barrierColor,
+      barrierColor: _barrierColor,
       useSafeArea: useSafeArea,
       useRootNavigator: useRootNavigator,
       routeSettings: routeSettings,
@@ -720,6 +714,18 @@ class Utils {
     return age;
   }
 
+  Future<void> logEvent(
+    String event, {
+    Map<String, Object?>? parameters,
+    bool? global,
+  }) async {
+    await getIt<FirebaseAnalytics>().logEvent(
+      name: event,
+      parameters: parameters,
+      callOptions: global != null ? AnalyticsCallOptions(global: global) : null,
+    );
+  }
+
   Future<void> report<T>({
     required T exception,
     required StackTrace stack,
@@ -733,5 +739,25 @@ class Utils {
         printDetails: printDetails,
         reason: reason,
       );
+  }
+
+  Future<void> reportFlutterError<T>(
+    T exception,
+    StackTrace? stack, {
+    String reason = 'Non-fatal Try/Catch Exception',
+  }) async {
+    if (getIt<FirebaseCrashlytics>().isCrashlyticsCollectionEnabled) {
+      final details = FlutterErrorDetails(
+        exception: exception as Object,
+        stack: stack,
+        library: 'Flutter',
+        context: ErrorDescription('$reason'),
+        informationCollector: () sync* {
+          yield DiagnosticsStackTrace('$reason', stack);
+        },
+      );
+
+      await getIt<FirebaseCrashlytics>().recordFlutterError(details);
+    }
   }
 }

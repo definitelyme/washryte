@@ -34,17 +34,19 @@ class TabNavigationCubit extends HydratedCubit<TabNavigationState> {
       return null;
   }
 
-  void init() {
+  void init(BuildContext context) {
     emit(state.copyWith(isInit: false));
-    state.tabRouter?.setActiveIndex(state.currentIndex);
+    context.tabsRouter.setActiveIndex(state.currentIndex);
   }
+
+  void setPreviousIndex(int index) => emit(state.copyWith(previousIndex: index));
+
+  void setCurrentIndex(BuildContext context, [int index = 0]) {
+    emit(state.copyWith(currentIndex: index, previousIndex: state.currentIndex));
+    context.tabsRouter.setActiveIndex(index);
+  }
+
+  void reset() => emit(state.copyWith(currentIndex: 0, previousIndex: 0));
 
   void updateTabsRouter(TabsRouter? router) => emit(state.copyWith(tabRouter: router ?? state.tabRouter));
-
-  void setCurrentIndex([TabsRouter? router, int index = 0]) {
-    updateTabsRouter(router);
-
-    emit(state.copyWith(currentIndex: index));
-    state.tabRouter?.setActiveIndex(index);
-  }
 }

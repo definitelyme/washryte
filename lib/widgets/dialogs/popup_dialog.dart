@@ -1,14 +1,14 @@
+// ignore_for_file: unused_element
 library popup_dialog.dart;
 
 import 'dart:async';
 
-import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:sweetsheet/sweetsheet.dart';
 
 part 'popup_factory.dart';
 
@@ -48,6 +48,7 @@ class _$PopupDialog {
   final FutureOr<void> Function()? onPositiveButtonPressed;
   final FutureOr<void> Function()? onNegativeButtonPressed;
   final Duration? duration;
+  final bool show;
   final bool? isDismissible;
   final bool? autoDismiss;
   final bool awaitFuture;
@@ -100,6 +101,7 @@ class _$PopupDialog {
     bool? isDismissible,
     bool? autoDismiss,
     this.awaitFuture = false,
+    bool? show,
     EdgeInsets? margin,
     EdgeInsets? padding,
     BorderRadius? borderRadius,
@@ -135,130 +137,83 @@ class _$PopupDialog {
         blockBackgroundTouch = blockBackgroundTouch ?? true,
         shouldIconPulse = shouldIconPulse ?? true,
         overlayBlur = overlayBlur ?? 0.7,
+        show = show ?? true,
         alertStyle = alertStyle ?? PopupDialogStyle.floating,
         dismissDirection = dismissDirection ?? PopupDialogDismissDirection.horizontal;
 
   Future<dynamic> render(BuildContext context) async {
-    return await _type?.fold(
-      flushbar: () async {
-        final _bar = Flushbar(
-          titleText: title != null && title!.isNotEmpty
-              ? AdaptiveText(
-                  title!,
-                  style: TextStyle(
-                    color: App.resolveColor(
-                      Palette.text100,
-                      dark: Colors.white,
-                    ),
-                  ).merge(titleStyle),
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                )
-              : titleWidget,
-          messageText: message != null && message!.isNotEmpty
-              ? AdaptiveText(
-                  message!,
-                  style: TextStyle(
-                    color: App.resolveColor(
-                      Palette.text100,
-                      dark: Colors.white,
-                    ),
-                  ).merge(messageStyle),
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                )
-              : messageWidget,
-          duration: duration,
-          icon: popupIcon,
-          isDismissible: isDismissible!,
-          shouldIconPulse: shouldIconPulse!,
-          leftBarIndicatorColor: leftBarIndicatorColor,
-          blockBackgroundInteraction: blockBackgroundTouch!,
-          backgroundColor: backgroundColor ??
-              App.resolveColor(
-                Palette.primaryColor.shade400,
-                dark: Palette.secondaryColor.shade400,
-              )!,
-          dismissDirection: dismissDirection!.direction,
-          mainButton: mainButton,
-          margin: margin!,
-          padding: padding!,
-          onTap: onTap,
-          maxWidth: maxWidth,
-          routeBlur: overlayBlur,
-          onStatusChanged: (status) => flushbarListener?.call(status?.mapped),
-          routeColor: overlayColor?.withOpacity(overlayOpacity!),
-          borderRadius: borderRadius,
-          flushbarPosition: position?.fold(
-                top: FlushbarPosition.TOP,
-                bottom: FlushbarPosition.BOTTOM,
-              ) ??
-              (MediaQuery.of(context).viewInsets.bottom == 0 ? FlushbarPosition.BOTTOM : FlushbarPosition.TOP),
-          flushbarStyle: alertStyle!.fold(
-            floating: FlushbarStyle.FLOATING,
-            grounded: FlushbarStyle.GROUNDED,
-          ),
-        );
+    if (show && message != null && message!.isNotEmpty)
+      return await _type?.fold(
+        flushbar: () async {
+          final _bar = Flushbar(
+            titleText: title != null && title!.isNotEmpty
+                ? AdaptiveText(
+                    title!,
+                    style: TextStyle(
+                      color: App.resolveColor(
+                        Palette.text100,
+                        dark: Colors.white,
+                      ),
+                    ).merge(titleStyle),
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                  )
+                : titleWidget,
+            messageText: message != null && message!.isNotEmpty
+                ? AdaptiveText(
+                    message!,
+                    style: TextStyle(
+                      color: App.resolveColor(
+                        Palette.text100,
+                        dark: Colors.white,
+                      ),
+                    ).merge(messageStyle),
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                  )
+                : messageWidget,
+            duration: duration,
+            icon: popupIcon,
+            isDismissible: isDismissible!,
+            shouldIconPulse: shouldIconPulse!,
+            leftBarIndicatorColor: leftBarIndicatorColor,
+            blockBackgroundInteraction: blockBackgroundTouch!,
+            backgroundColor: backgroundColor ??
+                App.resolveColor(
+                  Palette.primaryColor.shade400,
+                  dark: Palette.secondaryColor.shade400,
+                )!,
+            dismissDirection: dismissDirection!.direction,
+            mainButton: mainButton,
+            margin: margin!,
+            padding: padding!,
+            onTap: onTap,
+            maxWidth: maxWidth,
+            routeBlur: overlayBlur,
+            onStatusChanged: (status) => flushbarListener?.call(status?.mapped),
+            routeColor: overlayColor?.withOpacity(overlayOpacity!),
+            borderRadius: borderRadius,
+            flushbarPosition: position?.fold(
+                  top: FlushbarPosition.TOP,
+                  bottom: FlushbarPosition.BOTTOM,
+                ) ??
+                (MediaQuery.of(context).viewInsets.bottom == 0 ? FlushbarPosition.BOTTOM : FlushbarPosition.TOP),
+            flushbarStyle: alertStyle!.fold(
+              floating: FlushbarStyle.FLOATING,
+              grounded: FlushbarStyle.GROUNDED,
+            ),
+          );
 
-        if (callbackOnShow != null)
-          return _bar.show(context).then((_) => callback?.call(_));
-        else {
-          callback?.call(null);
-          return _bar.show(context);
-        }
-      },
-      confirmation: () async => getIt<SweetSheet>().show(
-        context: context,
-        title: title?.let((it) => Text('$it')),
-        description: Text('$message'),
-        icon: popupIcon?.icon,
-        isDismissible: isDismissible!,
-        useRootNavigator: false,
-        color: colorScheme.fold(
-          kdefault: _SheetColor(
-            main: App.resolveColor(
-              Palette.secondaryColor.shade300,
-              dark: Palette.primaryColor.shade400,
-            )!,
-            accent: App.resolveColor(
-              Palette.secondaryColor.shade300,
-              dark: Palette.primaryColor.shade400,
-            )!,
-            icon: popupIconColor ?? Utils.computeLuminance(Theme.of(context).iconTheme.color!),
-          ),
-          success: SweetSheetColor.SUCCESS,
-          warning: SweetSheetColor.WARNING,
-          danger: SweetSheetColor.DANGER,
-          nice: SweetSheetColor.NICE,
-        ),
-        positive: SweetSheetAction(
-          title: postiveButtonText!,
-          onPressed: () async {
-            if (awaitFuture)
-              await onPositiveButtonPressed?.call();
-            else
-              onPositiveButtonPressed?.call();
-            if (autoDismiss!) Navigator.pop(context);
-          },
-          color: positiveButtonColor ?? Utils.computeLuminance(Theme.of(context).iconTheme.color!),
-          icon: positiveButtonIcon,
-        ),
-        negative: SweetSheetAction(
-          title: negativeButtonText!,
-          onPressed: () async {
-            if (awaitFuture)
-              await onNegativeButtonPressed?.call();
-            else
-              onNegativeButtonPressed?.call();
-            if (autoDismiss!) Navigator.pop(context);
-          },
-          color: negativeButtonColor ?? Utils.computeLuminance(Theme.of(context).iconTheme.color!),
-          icon: negativeButtonIcon,
-        ),
-      ),
-    );
+          if (callbackOnShow != null)
+            return _bar.show(context).then((_) => callback?.call(_));
+          else {
+            callback?.call(null);
+            return _bar.show(context);
+          }
+        },
+      );
   }
 }
 
@@ -280,7 +235,7 @@ extension on _PopupDialogType {
         return input;
       case _PopupDialogType.none:
       default:
-      // return f;
+        return null;
     }
   }
 }
@@ -360,23 +315,6 @@ extension on FlushbarStatus {
         return PopupDialogStatus.dimissed;
     }
   }
-}
-
-class _SheetColor extends CustomSheetColor {
-  @override
-  final Color main;
-
-  @override
-  final Color accent;
-
-  @override
-  final Color icon;
-
-  _SheetColor({
-    required this.main,
-    required this.accent,
-    required this.icon,
-  }) : super(main: main, accent: accent, icon: icon);
 }
 
 extension XPopupAlertDialogColorScheme on ConfirmationDialogColor {

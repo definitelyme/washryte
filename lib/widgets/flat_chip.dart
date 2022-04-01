@@ -59,7 +59,7 @@ class FlatChip extends StatelessWidget {
     );
   }
 
-  Widget get _child => InkWell(
+  Widget get _child => AdaptiveInkWell(
         onTap: onPressed,
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         child: Padding(

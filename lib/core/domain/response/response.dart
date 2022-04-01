@@ -7,24 +7,29 @@ mixin _BaseResponse {
 }
 
 abstract class Response implements _BaseResponse {
-  bool get show;
-  String? get uuid;
+  const Response();
+
+  // bool get show;
+  // String? get uuid;
 }
 
-abstract class Failure with _FailureMixin, _BaseResponse {
+abstract class Failure with _FailureMixin implements Response {
   static const int UNAUTHENTICATED = 401;
   static const int INCOMPLETE_PROFILE = 41101;
   static const int UNVERIFIED_PHONE = 4031;
 
   int? get code;
+  bool get show;
   Exception? get exception;
 }
 
-abstract class Success with Response {
+abstract class Success implements Response {
   bool get pop;
 }
 
-abstract class Info with Response {}
+abstract class Info implements Response {
+  bool get pop;
+}
 
 mixin _FailureMixin {
   String? get error;
@@ -42,6 +47,9 @@ class UnExpectedFailure implements Failure {
   final String? error;
 
   @override
+  final bool show;
+
+  @override
   final String message;
 
   @override
@@ -51,6 +59,7 @@ class UnExpectedFailure implements Failure {
     required this.message,
     this.status,
     this.error,
+    this.show = true,
     this.code,
     this.details,
   });

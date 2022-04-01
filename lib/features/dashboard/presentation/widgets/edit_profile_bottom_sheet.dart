@@ -7,9 +7,7 @@ class _EditProfileBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      // create: (_) => getIt<AuthCubit>()..init(loader: true),
-      // TODO: Uncomment when AuthCubit is ready.
-      create: (_) => getIt<AuthCubit>(),
+      create: (_) => getIt<AuthCubit>()..init(loader: true),
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (p, c) =>
             p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||
@@ -21,7 +19,8 @@ class _EditProfileBottomSheet extends StatelessWidget {
         listener: (c, s) => s.status.fold(
           () => null,
           (th) => th?.response.map(
-            error: (f) => PopupDialog.error(message: f.message).render(c),
+            info: (i) => PopupDialog.error(message: i.message, show: i.message.isNotEmpty).render(c),
+            error: (f) => PopupDialog.error(message: f.message, show: f.show && f.message.isNotEmpty).render(c),
             success: (s) => PopupDialog.success(
               message: s.message,
               listener: (_) => _?.fold(
@@ -60,10 +59,11 @@ class _EditProfileBottomSheet extends StatelessWidget {
                         top: 5,
                         right: App.sidePadding,
                         child: AnimatedVisibility(
-                          visible: c.select(
-                            (AuthCubit it) => it.state.isLoading,
+                          visible: c.select((AuthCubit it) => it.state.isLoading),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Utils.circularLoader(color: Palette.accentColor, stroke: 2),
                           ),
-                          child: Utils.circularLoader(color: Palette.accentColor),
                         ),
                       ),
                       //
@@ -139,52 +139,15 @@ class _EditProfileBottomSheet extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Flexible(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Flexible(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            App.platform.fold(
-                                              material: () => const TextFormInputLabel(text: 'First Name'),
-                                              cupertino: () => Utils.nothing,
-                                            ),
-                                            //
-                                            App.platform.fold(
-                                              material: () => const _FirstNameUpdateField(),
-                                              cupertino: () => CupertinoFormSection(
-                                                children: [const _FirstNameUpdateField()],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      //
-                                      HorizontalSpace(width: 0.03.sw),
-                                      //
-                                      Flexible(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            App.platform.fold(
-                                              material: () => const TextFormInputLabel(text: 'Last Name'),
-                                              cupertino: () => Utils.nothing,
-                                            ),
-                                            //
-                                            App.platform.fold(
-                                              material: () => const _LastNameUpdateField(),
-                                              cupertino: () => CupertinoFormSection(
-                                                children: [const _LastNameUpdateField()],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                App.platform.fold(
+                                  material: () => const TextFormInputLabel(text: 'Display Name'),
+                                  cupertino: () => Utils.nothing,
+                                ),
+                                //
+                                App.platform.fold(
+                                  material: () => const _FirstNameUpdateField(),
+                                  cupertino: () => CupertinoFormSection(
+                                    children: [const _FirstNameUpdateField()],
                                   ),
                                 ),
                                 //
@@ -267,33 +230,15 @@ class _FirstNameUpdateField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (c, s) => NameFormField<AuthCubit, AuthState>(
-        initial: (s) => s.user.firstName.getOrNull,
+        initial: (s) => s.user.fullName.getOrNull,
         disabled: (s) => s.isLoading,
         validate: (s) => s.validate,
-        field: (s) => s.user.firstName,
+        field: (s) => s.user.fullName,
         focus: AuthState.firstNameFocus,
         next: AuthState.lastNameFocus,
         cupertinoPadding: EdgeInsets.zero,
-        onChanged: (it, str) => it.firstNameChanged(str),
+        onChanged: (it, str) => it.nameChanged(str),
       ),
-    );
-  }
-}
-
-class _LastNameUpdateField extends StatelessWidget {
-  const _LastNameUpdateField({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NameFormField<AuthCubit, AuthState>(
-      initial: (s) => s.user.lastName.getOrNull,
-      disabled: (s) => s.isLoading,
-      validate: (s) => s.validate,
-      field: (s) => s.user.lastName,
-      focus: AuthState.lastNameFocus,
-      // next: AuthState.emailFocus,
-      cupertinoPadding: EdgeInsets.zero,
-      onChanged: (it, str) => it.lastNameChanged(str),
     );
   }
 }

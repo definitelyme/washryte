@@ -4,7 +4,6 @@ import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/manager/router/export.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:washryte/widgets/widgets.dart';
 
 extension NumX<T extends num> on T {
   num roundUp(int places) {
@@ -42,18 +41,4 @@ extension NumX<T extends num> on T {
 
   /// Longest screen-side height
   double get sh => MediaQuery.of(getIt<AppRouter>().navigatorKey.currentContext!).size.longestSide * this;
-}
-
-extension WidgetGap on num {
-  Widget get vertical => VerticalSpace(height: toDouble());
-
-  Widget get verticalh => VerticalSpace(height: toDouble().h);
-
-  Widget get horizontal => HorizontalSpace(width: toDouble());
-
-  Widget get horizontalw => HorizontalSpace(width: toDouble().w);
-}
-
-extension BorderRadiusX on num {
-  BorderRadius get br => BorderRadius.circular(toDouble());
 }

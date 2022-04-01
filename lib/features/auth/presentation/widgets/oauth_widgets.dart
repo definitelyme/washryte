@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
@@ -71,27 +72,24 @@ class OAuthWidgets extends StatelessWidget {
               ),
             ],
             //
-            if (Platform.isIOS || Platform.isMacOS) ...[
+            // if (Platform.isIOS || Platform.isMacOS) ...[
+            if (Platform.isMacOS) ...[
               if (apple) VerticalSpace(height: 0.005.h),
               //
               Flexible(
                 child: BlocSelector<AuthCubit, AuthState, bool>(
                   selector: (s) => s.isAppleAuthLoading,
-                  builder: (c, isLoading) => SocialBuilder(
-                    isLoading: !isLoading,
-                    visiblility: apple,
-                    text: 'Continue with Apple',
-                    textColor: Palette.text100,
-                    textColorDark: Palette.text100Dark,
-                    icon: AppAssets.apple(
-                      App.resolveColor(
-                        null,
-                        dark: Utils.computeLuminance(
-                          Theme.of(context).scaffoldBackgroundColor,
-                        ),
+                  builder: (c, isLoading) => AnimatedVisibility(
+                    visible: apple,
+                    child: AnimatedVisibility(
+                      visible: !isLoading,
+                      replacement: App.loadingSpinningLines,
+                      child: SignInWithAppleButton(
+                        onPressed: context.read<AuthCubit>().appleAuth,
+                        borderRadius: Utils.buttonRadius.br,
+                        style: SignInWithAppleButtonStyle.whiteOutlined,
                       ),
                     ),
-                    onPressed: BlocProvider.of<AuthCubit>(context).appleAuth,
                   ),
                 ),
               ),

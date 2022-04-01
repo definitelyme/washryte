@@ -50,6 +50,7 @@ mixin AppAssets {
   static const String _householdService = '$DASHBOARD_SVG_DIR/household_service.svg';
   static const String _washingService = '$DASHBOARD_SVG_DIR/washing_service.svg';
   static const String _riderEnroute = '$DASHBOARD_SVG_DIR/rider_enroute_pana.svg';
+  static const String _balloons = '$DASHBOARD_SVG_DIR/birthday_balloons.svg';
 
   /// DASHBAORD - PNG
   static const String carouselImg1 = '$DASHBOARD_IMAGES_DIR/carousel_img_1.png';
@@ -85,6 +86,7 @@ mixin AppAssets {
     _householdService,
     _washingService,
     _riderEnroute,
+    _balloons,
   ];
 
   static SvgPicture get google => SvgPicture.asset(
@@ -277,6 +279,11 @@ mixin AppAssets {
 
   static SvgPicture riderEnroute = SvgPicture.asset(
     _riderEnroute,
+    fit: BoxFit.contain,
+  );
+
+  static SvgPicture balloons = SvgPicture.asset(
+    _balloons,
     fit: BoxFit.contain,
   );
 }

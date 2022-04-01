@@ -22,22 +22,13 @@ class GetStartedScreen extends StatelessWidget with AutoRouteWrapper {
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (p, c) =>
             p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||
-            (c.status.getOrElse(() => null) != null &&
-                (c.status.getOrElse(() => null)!.response.maybeMap(
-                      error: (f) => f.fold(
-                        is41101: () {
-                          WidgetsBinding.instance?.addPostFrameCallback((_) => navigateToSocials());
-                          return false;
-                        },
-                        orElse: () => false,
-                      ),
-                      orElse: () => false,
-                    ))),
+            (c.status.getOrElse(() => null) != null && (c.status.getOrElse(() => null)!.response.maybeMap(orElse: () => false))),
         listener: (c, s) => s.status.fold(
           () => null,
-          (th) => th?.response.map(
-            error: (f) => PopupDialog.error(message: f.message).render(c),
-            success: (s) => PopupDialog.success(message: s.message).render(c),
+          (it) => it?.response.map(
+            info: (i) => PopupDialog.info(message: i.message, show: i.message.isNotEmpty).render(c),
+            error: (f) => PopupDialog.error(message: f.message, show: f.show && f.message.isNotEmpty).render(c),
+            success: (s) => PopupDialog.success(message: s.message, show: s.message.isNotEmpty).render(c),
           ),
         ),
         child: this,

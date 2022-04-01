@@ -2,7 +2,7 @@ import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// A stateless widget to render Form Fields for Name.
@@ -11,6 +11,8 @@ class NameFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ext
   late ReactiveState _state;
 
   final String? prefix;
+  final String? Function(ReactiveState)? hintText;
+  final TextStyle? hintStyle;
   final bool Function(ReactiveState)? validate;
   final bool Function(ReactiveState)? disabled;
   final String? Function(ReactiveState)? initial;
@@ -27,6 +29,8 @@ class NameFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ext
   NameFormField({
     Key? key,
     this.prefix,
+    this.hintText,
+    this.hintStyle,
     this.validate,
     this.disabled,
     this.initial,
@@ -59,6 +63,8 @@ class NameFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ext
           keyboardType: TextInputType.name,
           disabled: disabled?.call(s) ?? false,
           capitalization: TextCapitalization.words,
+          hintText: hintText?.call(s),
+          hintStyle: hintStyle,
           autoFillHints: [
             AutofillHints.name,
             AutofillHints.givenName,

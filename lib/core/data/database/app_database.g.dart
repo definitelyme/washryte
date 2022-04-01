@@ -66,7 +66,7 @@ class _$AppDatabase extends AppDatabase {
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -82,7 +82,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `users` (`id` TEXT, `token` TEXT, `firstName` TEXT, `lastName` TEXT, `email` TEXT, `phone` TEXT, `password` TEXT, `oldPassword` TEXT, `confirmation` TEXT, `image` TEXT, `provider` TEXT, `createdAt` INTEGER, `updatedAt` INTEGER, `deletedAt` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `users` (`id` TEXT, `token` TEXT, `balance` REAL, `fullName` TEXT, `email` TEXT, `phone` TEXT, `password` TEXT, `oldPassword` TEXT, `confirmation` TEXT, `image` TEXT, `provider` TEXT, `createdAt` INTEGER, `updatedAt` INTEGER, `deletedAt` INTEGER, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -105,8 +105,8 @@ class _$UserDAO extends UserDAO {
             (_$_UserDTO item) => <String, Object?>{
                   'id': item.id,
                   'token': item.token,
-                  'firstName': item.firstName,
-                  'lastName': item.lastName,
+                  'balance': item.balance,
+                  'fullName': item.fullName,
                   'email': item.email,
                   'phone': item.phone,
                   'password': item.password,
@@ -126,8 +126,8 @@ class _$UserDAO extends UserDAO {
             (_$_UserDTO item) => <String, Object?>{
                   'id': item.id,
                   'token': item.token,
-                  'firstName': item.firstName,
-                  'lastName': item.lastName,
+                  'balance': item.balance,
+                  'fullName': item.fullName,
                   'email': item.email,
                   'phone': item.phone,
                   'password': item.password,
@@ -147,8 +147,8 @@ class _$UserDAO extends UserDAO {
             (_$_UserDTO item) => <String, Object?>{
                   'id': item.id,
                   'token': item.token,
-                  'firstName': item.firstName,
-                  'lastName': item.lastName,
+                  'balance': item.balance,
+                  'fullName': item.fullName,
                   'email': item.email,
                   'phone': item.phone,
                   'password': item.password,
@@ -180,8 +180,8 @@ class _$UserDAO extends UserDAO {
         mapper: (Map<String, Object?> row) => _$_UserDTO(
             id: row['id'] as String?,
             token: row['token'] as String?,
-            firstName: row['firstName'] as String?,
-            lastName: row['lastName'] as String?,
+            balance: row['balance'] as double?,
+            fullName: row['fullName'] as String?,
             email: row['email'] as String?,
             phone: row['phone'] as String?,
             password: row['password'] as String?,
@@ -206,8 +206,8 @@ class _$UserDAO extends UserDAO {
         mapper: (Map<String, Object?> row) => _$_UserDTO(
             id: row['id'] as String?,
             token: row['token'] as String?,
-            firstName: row['firstName'] as String?,
-            lastName: row['lastName'] as String?,
+            balance: row['balance'] as double?,
+            fullName: row['fullName'] as String?,
             email: row['email'] as String?,
             phone: row['phone'] as String?,
             password: row['password'] as String?,
@@ -230,8 +230,8 @@ class _$UserDAO extends UserDAO {
         mapper: (Map<String, Object?> row) => _$_UserDTO(
             id: row['id'] as String?,
             token: row['token'] as String?,
-            firstName: row['firstName'] as String?,
-            lastName: row['lastName'] as String?,
+            balance: row['balance'] as double?,
+            fullName: row['fullName'] as String?,
             email: row['email'] as String?,
             phone: row['phone'] as String?,
             password: row['password'] as String?,
@@ -260,8 +260,8 @@ class _$UserDAO extends UserDAO {
         mapper: (Map<String, Object?> row) => _$_UserDTO(
             id: row['id'] as String?,
             token: row['token'] as String?,
-            firstName: row['firstName'] as String?,
-            lastName: row['lastName'] as String?,
+            balance: row['balance'] as double?,
+            fullName: row['fullName'] as String?,
             email: row['email'] as String?,
             phone: row['phone'] as String?,
             password: row['password'] as String?,
@@ -312,8 +312,8 @@ final _authProviderFloorConverter = AuthProviderFloorConverter();
 _$_UserDTO _$$_UserDTOFromJson(Map<String, dynamic> json) => _$_UserDTO(
       id: json['id'] as String?,
       token: json['token'] as String?,
-      firstName: json['first_name'] as String?,
-      lastName: json['last_name'] as String?,
+      balance: const DoubleSerializer().fromJson(json['balance']),
+      fullName: json['name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
       password: json['password'] as String?,
@@ -338,8 +338,8 @@ Map<String, dynamic> _$$_UserDTOToJson(_$_UserDTO instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull('token', instance.token);
-  writeNotNull('first_name', instance.firstName);
-  writeNotNull('last_name', instance.lastName);
+  writeNotNull('balance', const DoubleSerializer().toJson(instance.balance));
+  writeNotNull('name', instance.fullName);
   writeNotNull('email', instance.email);
   writeNotNull('phone', instance.phone);
   writeNotNull('password', instance.password);

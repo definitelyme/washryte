@@ -1,20 +1,28 @@
 {
   "project_info": {
-    "project_number": "372975904315",
-    "project_id": "waizytech-washryte",
-    "storage_bucket": "waizytech-washryte.appspot.com"
+    "project_number": "346209793916",
+    "project_id": "project-washryte",
+    "storage_bucket": "project-washryte.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372975904315:android:363b54e8229de274e15e1e",
+        "mobilesdk_app_id": "1:346209793916:android:842aae86f40d40b21d16f9",
         "android_client_info": {
           "package_name": "com.waizytech.washryte"
         }
       },
       "oauth_client": [
         {
-          "client_id": "372975904315-mlovvcvp54pr0442o7hfa9kc1a4aald2.apps.googleusercontent.com",
+          "client_id": "346209793916-mkla65daa84avikqjs6i2opku24tm4t5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waizytech.washryte",
+            "certificate_hash": "9729b9775254b76c3b97c841c9a504adbd231025"
+          }
+        },
+        {
+          "client_id": "346209793916-o707vbfdif7id73cvva5i6djf16mmcuq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.waizytech.washryte",
@@ -22,21 +30,28 @@
           }
         },
         {
-          "client_id": "372975904315-17nap945u9pikadju7u6snfpmh0bikb9.apps.googleusercontent.com",
+          "client_id": "346209793916-8tbt1n0cck2fvnhenbpbsc3v68sip6e0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDcdBaB4MskSY7_DlsGQOhn8jVhhgehirc"
+          "current_key": "AIzaSyDvebrFMBGBih0SJ1gnqzn8yKudmzsKF1Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "372975904315-17nap945u9pikadju7u6snfpmh0bikb9.apps.googleusercontent.com",
+              "client_id": "346209793916-8tbt1n0cck2fvnhenbpbsc3v68sip6e0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "346209793916-hu7nejb3o7n461kmgmggjpu1459khund.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waizytech.washryte.dev"
+              }
             }
           ]
         }
@@ -44,14 +59,22 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372975904315:android:fce8fdec4d7101a3e15e1e",
+        "mobilesdk_app_id": "1:346209793916:android:b9f70062c0ab01531d16f9",
         "android_client_info": {
           "package_name": "com.waizytech.washryte.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "372975904315-ai27ttfknjibjlb0p4s1ju1lhrm35iul.apps.googleusercontent.com",
+          "client_id": "346209793916-d9dmi95hsinsgqvl5dspl9bnq7r13vs1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waizytech.washryte.dev",
+            "certificate_hash": "9729b9775254b76c3b97c841c9a504adbd231025"
+          }
+        },
+        {
+          "client_id": "346209793916-hodv6mvlndkcbnqg9on0qgbhsdc4uvcl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.waizytech.washryte.dev",
@@ -59,21 +82,28 @@
           }
         },
         {
-          "client_id": "372975904315-17nap945u9pikadju7u6snfpmh0bikb9.apps.googleusercontent.com",
+          "client_id": "346209793916-8tbt1n0cck2fvnhenbpbsc3v68sip6e0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDcdBaB4MskSY7_DlsGQOhn8jVhhgehirc"
+          "current_key": "AIzaSyDvebrFMBGBih0SJ1gnqzn8yKudmzsKF1Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "372975904315-17nap945u9pikadju7u6snfpmh0bikb9.apps.googleusercontent.com",
+              "client_id": "346209793916-8tbt1n0cck2fvnhenbpbsc3v68sip6e0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "346209793916-hu7nejb3o7n461kmgmggjpu1459khund.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waizytech.washryte.dev"
+              }
             }
           ]
         }

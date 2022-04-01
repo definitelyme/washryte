@@ -35,6 +35,11 @@ abstract class BaseState {
 
 mixin BaseCubit<State extends BaseState> on Cubit<State> {
   Future<Option<AppHttpResponse?>> connection() => _connection();
+
+  @override
+  void emit(State state) {
+    if (!isClosed) super.emit(state);
+  }
 }
 
 abstract class BaseAddressState {

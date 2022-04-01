@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// A stateless widget to render MyHero.
 class MyHero extends StatelessWidget {
-  final String tag;
+  final Object? tag;
   final Widget child;
   final Color? color;
   final BorderRadius? borderRadius;
@@ -30,14 +30,10 @@ class MyHero extends StatelessWidget {
     this.shadowColor,
     this.shape,
     this.textStyle,
-    this.type = MaterialType.canvas,
+    this.type = MaterialType.transparency,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Hero(
-      tag: tag,
-      child: Material(
+  Widget get _child => Material(
         color: color,
         borderRadius: borderRadius,
         animationDuration: animationDuration,
@@ -47,9 +43,12 @@ class MyHero extends StatelessWidget {
         shadowColor: shadowColor,
         shape: shape,
         textStyle: textStyle,
-        type: type,
+        type: color != null ? MaterialType.canvas : type,
         child: child,
-      ),
-    );
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return tag == null ? _child : Hero(tag: tag!, child: _child);
   }
 }

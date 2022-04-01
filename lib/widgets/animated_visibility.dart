@@ -2,7 +2,6 @@ library animated_visibility.dart;
 
 import 'package:washryte/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 /// A stateless widget to render AnimatedVisibility.
 class AnimatedVisibility extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'failure_response.g.dart';
 part 'failure_response.freezed.dart';
 
-@freezed
+@Freezed(maybeMap: false, maybeWhen: false)
 @immutable
 class FailureResponse with _$FailureResponse implements Failure {
   static const String _kAborted = 'Aborted!';
@@ -26,7 +26,7 @@ class FailureResponse with _$FailureResponse implements Failure {
 
   const FailureResponse._();
 
-  factory FailureResponse.aborted() => const FailureResponse(code: Failure.UNAUTHENTICATED, message: _kAborted);
+  factory FailureResponse.aborted() => const FailureResponse(message: _kAborted);
 
   factory FailureResponse.inProgress() => const FailureResponse(message: _kInProgress);
 
@@ -45,14 +45,8 @@ class FailureResponse with _$FailureResponse implements Failure {
 
   factory FailureResponse.unImplemented(String message) => FailureResponse(message: message);
 
-  factory FailureResponse.unknown({
-    required String? message,
-    int? code,
-  }) =>
-      FailureResponse(
-        message: '${message ?? 'Unknown error! Please contact support.'}',
-        code: code,
-      );
+  factory FailureResponse.unknown({required String? message, int? code}) =>
+      FailureResponse(message: '${message ?? 'Unknown error! Please contact support.'}', code: code);
 
   @override
   Exception? get exception => Exception(message);

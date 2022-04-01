@@ -3,10 +3,10 @@ description: A new Flutter project.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0+4
 
 environment:
-  sdk: ">=2.16.0-134.5.beta <3.0.0"
+  sdk: ">=2.17.0-69.2.beta <3.0.0"
 
 dependencies:
   flutter:
@@ -27,27 +27,27 @@ dependencies:
   ###
   ### Firebase Packages ###
   ###
-  firebase_core: ^1.12.0
+  firebase_core: ^1.13.1
   # A Flutter plugin to use the Google Analytics for Firebase API.
-  firebase_analytics: ^9.1.0
+  firebase_analytics: ^9.1.2
   # Crashlytics helps you to collect analytics and
   # details about crashes and errors that occur in your app.
-  firebase_crashlytics: ^2.5.0
+  firebase_crashlytics: ^2.5.3
   # Flutter plugin for Firebase Cloud Messaging, a cross-platform
   # messaging solution that lets you reliably deliver messages on Android and iOS.
-  firebase_messaging: ^11.2.6
+  firebase_messaging: ^11.2.8
   # A complete solution to create Local Notifications and Push Notifications.
   awesome_notifications: ^0.6.21
   # Google services & Authentication
-  google_sign_in: ^5.2.3
+  google_sign_in: ^5.2.4
   # Flutter bridge to initiate Sign in with Apple (on iOS, macOS, and Android).
   # Includes support for keychain entries as well as signing in with an Apple ID.
   sign_in_with_apple: ^3.3.0
   # Customize App font
-  google_fonts: ^2.2.0
+  google_fonts: ^2.3.1
   # Permission plugin for Flutter.
   # This plugin provides a cross-platform (iOS, Android) API to request and check permissions.
-  permission_handler: ^8.3.0
+  permission_handler: ^9.2.0
   # This plugin allows Flutter apps to discover network connectivity
   # and configure themselves accordingly.
   connectivity_plus: ^2.2.0
@@ -94,7 +94,7 @@ dependencies:
   # and localization facilities
   intl: ^0.17.0
   # A declarative routing solution
-  auto_route: ^3.2.2
+  auto_route: ^3.2.4
   # A collection of loading indicators animated with flutter.
   flutter_spinkit: ^5.1.0
   # Shimmer Skeleton Library.
@@ -146,8 +146,6 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   # A Flutter widget that can be expanded or collapsed by the user.
   expandable: ^5.0.1
-  # Show beautiful bottom sheet as confirmation dialog quickly and easily.
-  sweetsheet: ^0.4.0
   # This repository is an unofficial conversion of the Lottie-android library in pure Dart.
   lottie: ^1.2.1
   # Fast and easy way to build a custom search experience in you app.
@@ -164,16 +162,36 @@ dependencies:
   pull_to_refresh: ^2.0.0
   # A library useful for creating fuzzy timestamps. (e.g. "15 minutes ago")
   timeago: ^3.1.0
+  # A powerful & easy to use timeline package for Flutter.
+  # All UI components in this package are separate widgets.
+  timelines: ^0.1.0
   # Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes.
   url_launcher: ^6.0.18
   # A carousel slider widget, support infinite scroll and custom child widget.
   carousel_slider: ^4.0.0
+  # Port of official Laravel Echo package for your Flutter apps.
+  laravel_echo: ^1.0.0-beta.1
+  # Photo View provides a gesture sensitive zoomable widget.
+  # Photo View is largely used to show interactive images and other stuff such as SVG.
+  photo_view: ^0.13.0
+  # A Pusher Channels client plugin for Flutter targeting Android and iOS.
+  # It wraps pusher-websocket-java v2.2.5 and pusher-websocket-swift v8.0.0.
+  pusher_client:
+    git:
+      url: git://github.com/thijskuilman/pusher_client.git
+  # A Flutter plugin for making payments via Paystack Payment Gateway.
+  flutter_paystack: ^1.0.5+1
+  # Flutterwave official flutter library to accept payment via card, USSD, Mobile Money etc.
+  flutterwave_standard:
+    git:
+      url: git://github.com/definitelyme/flutter_standard.git
+      ref: fix-exception
 
 dependency_overrides:
   async: ^2.8.2
   provider: ^6.0.1
-  analyzer: ^2.8.0
-  # dart_style: ">=2.2.0 <=2.2.0"
+  analyzer: "2.8.0"
+  dart_style: ">=2.1.1 <=2.2.0"
 
 dev_dependencies:
   flutter_test:

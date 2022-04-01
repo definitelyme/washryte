@@ -13,12 +13,16 @@ class AnyResponseSerializer implements JsonConverter<AnyResponse, Map<String, dy
         messageTxt: 'Fatal: No response from server! Pls contact support.',
       );
 
-    if (!json.containsKey('status') || (json.containsKey('status') && json['status'] is num)) {
+    if (!json.containsKey('status'))
+      return ErrorResponse.fromJson(json);
+    else if ((json.containsKey('status') && json['status'] is num)) {
       return ErrorResponse.fromJson(json);
     } else
-      switch (json['status'] as String) {
+      switch ('${json['status']}'.toLowerCase()) {
         case 'success':
           return SuccessfulResponse.fromJson(json);
+        case 'info':
+          return InfoResponseType.fromJson(json);
         case 'error':
         default:
           return ErrorResponse.fromJson(json);

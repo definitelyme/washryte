@@ -55,4 +55,22 @@ extension AuthProviderX on AuthProvider {
         return regular.call();
     }
   }
+
+  T maybeWhen<T>({
+    T Function()? regular,
+    T Function()? google,
+    T Function()? apple,
+    required T Function() orElse,
+  }) {
+    switch (this) {
+      case AuthProvider.regular:
+        return regular != null ? regular.call() : orElse();
+      case AuthProvider.google:
+        return google != null ? google.call() : orElse();
+      case AuthProvider.apple:
+        return apple != null ? apple.call() : orElse();
+      default:
+        return orElse();
+    }
+  }
 }

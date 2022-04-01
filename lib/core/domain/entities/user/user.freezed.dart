@@ -19,25 +19,27 @@ class _$UserTearOff {
 
   _User call(
       {required UniqueId<String?> uid,
-      required DisplayName firstName,
-      required DisplayName lastName,
+      required DisplayName fullName,
       required EmailAddress email,
       required Phone phone,
       required Password password,
+      required Password confirmation,
       required MediaField photo,
       AuthProvider provider = AuthProvider.regular,
+      required AmountField<double> balance,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt}) {
     return _User(
       uid: uid,
-      firstName: firstName,
-      lastName: lastName,
+      fullName: fullName,
       email: email,
       phone: phone,
       password: password,
+      confirmation: confirmation,
       photo: photo,
       provider: provider,
+      balance: balance,
       createdAt: createdAt,
       updatedAt: updatedAt,
       deletedAt: deletedAt,
@@ -51,13 +53,14 @@ const $User = _$UserTearOff();
 /// @nodoc
 mixin _$User {
   UniqueId<String?> get uid => throw _privateConstructorUsedError;
-  DisplayName get firstName => throw _privateConstructorUsedError;
-  DisplayName get lastName => throw _privateConstructorUsedError;
+  DisplayName get fullName => throw _privateConstructorUsedError;
   EmailAddress get email => throw _privateConstructorUsedError;
   Phone get phone => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
+  Password get confirmation => throw _privateConstructorUsedError;
   MediaField get photo => throw _privateConstructorUsedError;
   AuthProvider get provider => throw _privateConstructorUsedError;
+  AmountField<double> get balance => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
@@ -72,13 +75,14 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {UniqueId<String?> uid,
-      DisplayName firstName,
-      DisplayName lastName,
+      DisplayName fullName,
       EmailAddress email,
       Phone phone,
       Password password,
+      Password confirmation,
       MediaField photo,
       AuthProvider provider,
+      AmountField<double> balance,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
@@ -95,13 +99,14 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call({
     Object? uid = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? password = freezed,
+    Object? confirmation = freezed,
     Object? photo = freezed,
     Object? provider = freezed,
+    Object? balance = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deletedAt = freezed,
@@ -111,13 +116,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as UniqueId<String?>,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as DisplayName,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as DisplayName,
       email: email == freezed
           ? _value.email
@@ -131,6 +132,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      confirmation: confirmation == freezed
+          ? _value.confirmation
+          : confirmation // ignore: cast_nullable_to_non_nullable
+              as Password,
       photo: photo == freezed
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -139,6 +144,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
               as AuthProvider,
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as AmountField<double>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -162,13 +171,14 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {UniqueId<String?> uid,
-      DisplayName firstName,
-      DisplayName lastName,
+      DisplayName fullName,
       EmailAddress email,
       Phone phone,
       Password password,
+      Password confirmation,
       MediaField photo,
       AuthProvider provider,
+      AmountField<double> balance,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
@@ -186,13 +196,14 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? password = freezed,
+    Object? confirmation = freezed,
     Object? photo = freezed,
     Object? provider = freezed,
+    Object? balance = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deletedAt = freezed,
@@ -202,13 +213,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as UniqueId<String?>,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as DisplayName,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as DisplayName,
       email: email == freezed
           ? _value.email
@@ -222,6 +229,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      confirmation: confirmation == freezed
+          ? _value.confirmation
+          : confirmation // ignore: cast_nullable_to_non_nullable
+              as Password,
       photo: photo == freezed
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -230,6 +241,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
               as AuthProvider,
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as AmountField<double>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -251,13 +266,14 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User extends _User with DiagnosticableTreeMixin {
   const _$_User(
       {required this.uid,
-      required this.firstName,
-      required this.lastName,
+      required this.fullName,
       required this.email,
       required this.phone,
       required this.password,
+      required this.confirmation,
       required this.photo,
       this.provider = AuthProvider.regular,
+      required this.balance,
       this.createdAt,
       this.updatedAt,
       this.deletedAt})
@@ -266,9 +282,7 @@ class _$_User extends _User with DiagnosticableTreeMixin {
   @override
   final UniqueId<String?> uid;
   @override
-  final DisplayName firstName;
-  @override
-  final DisplayName lastName;
+  final DisplayName fullName;
   @override
   final EmailAddress email;
   @override
@@ -276,10 +290,14 @@ class _$_User extends _User with DiagnosticableTreeMixin {
   @override
   final Password password;
   @override
+  final Password confirmation;
+  @override
   final MediaField photo;
   @JsonKey()
   @override
   final AuthProvider provider;
+  @override
+  final AmountField<double> balance;
   @override
   final DateTime? createdAt;
   @override
@@ -289,7 +307,7 @@ class _$_User extends _User with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(uid: $uid, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, password: $password, photo: $photo, provider: $provider, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'User(uid: $uid, fullName: $fullName, email: $email, phone: $phone, password: $password, confirmation: $confirmation, photo: $photo, provider: $provider, balance: $balance, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -298,13 +316,14 @@ class _$_User extends _User with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('uid', uid))
-      ..add(DiagnosticsProperty('firstName', firstName))
-      ..add(DiagnosticsProperty('lastName', lastName))
+      ..add(DiagnosticsProperty('fullName', fullName))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('confirmation', confirmation))
       ..add(DiagnosticsProperty('photo', photo))
       ..add(DiagnosticsProperty('provider', provider))
+      ..add(DiagnosticsProperty('balance', balance))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
       ..add(DiagnosticsProperty('deletedAt', deletedAt));
@@ -316,13 +335,15 @@ class _$_User extends _User with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _User &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmation, confirmation) &&
             const DeepCollectionEquality().equals(other.photo, photo) &&
             const DeepCollectionEquality().equals(other.provider, provider) &&
+            const DeepCollectionEquality().equals(other.balance, balance) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality().equals(other.deletedAt, deletedAt));
@@ -332,13 +353,14 @@ class _$_User extends _User with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(uid),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(confirmation),
       const DeepCollectionEquality().hash(photo),
       const DeepCollectionEquality().hash(provider),
+      const DeepCollectionEquality().hash(balance),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(deletedAt));
@@ -352,13 +374,14 @@ class _$_User extends _User with DiagnosticableTreeMixin {
 abstract class _User extends User {
   const factory _User(
       {required UniqueId<String?> uid,
-      required DisplayName firstName,
-      required DisplayName lastName,
+      required DisplayName fullName,
       required EmailAddress email,
       required Phone phone,
       required Password password,
+      required Password confirmation,
       required MediaField photo,
       AuthProvider provider,
+      required AmountField<double> balance,
       DateTime? createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt}) = _$_User;
@@ -367,9 +390,7 @@ abstract class _User extends User {
   @override
   UniqueId<String?> get uid;
   @override
-  DisplayName get firstName;
-  @override
-  DisplayName get lastName;
+  DisplayName get fullName;
   @override
   EmailAddress get email;
   @override
@@ -377,9 +398,13 @@ abstract class _User extends User {
   @override
   Password get password;
   @override
+  Password get confirmation;
+  @override
   MediaField get photo;
   @override
   AuthProvider get provider;
+  @override
+  AmountField<double> get balance;
   @override
   DateTime? get createdAt;
   @override

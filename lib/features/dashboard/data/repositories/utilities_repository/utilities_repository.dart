@@ -1,7 +1,9 @@
 library utilities_repository.dart;
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:washryte/core/data/http_client/index.dart';
 import 'package:washryte/core/data/models/index.dart';
@@ -14,7 +16,13 @@ import 'package:washryte/features/dashboard/data/repositories/index.dart';
 class UtilitiesRepository extends BaseRepository {
   final UtilitiesRemote remote;
 
-  UtilitiesRepository({required this.remote});
+  @override
+  final InternetConnectionChecker connectionChecker;
+
+  @override
+  final Connectivity connectivity;
+
+  UtilitiesRepository(this.connectionChecker, this.connectivity, this.remote);
 
   Future<Either<AppHttpResponse, KtList<Country>>> countries() async {
     final _conn = await checkConnectivity();

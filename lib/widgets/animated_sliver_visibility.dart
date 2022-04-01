@@ -2,20 +2,19 @@ library animated_sliver_visibility.dart;
 
 import 'package:washryte/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 /// A stateless widget to render AnimatedSliverVisibility.
 class AnimatedSliverVisibility extends StatelessWidget {
   final bool visible;
   final Widget sliver;
-  final Widget? sliverReplacement;
+  final Widget? replacement;
   final Duration duration;
 
   const AnimatedSliverVisibility({
     Key? key,
     this.visible = true,
     required this.sliver,
-    this.sliverReplacement,
+    this.replacement,
     this.duration = Utils.crossFadeDuration,
   }) : super(key: key);
 
@@ -28,7 +27,7 @@ class AnimatedSliverVisibility extends StatelessWidget {
         crossFadeState: visible ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         secondChild: _ScrollWrapper(
           sliverChild: true,
-          child: SliverToBoxAdapter(child: sliverReplacement ?? Utils.nothing),
+          child: SliverToBoxAdapter(child: replacement ?? Utils.nothing),
         ),
         firstChild: _ScrollWrapper(
           sliverChild: true,

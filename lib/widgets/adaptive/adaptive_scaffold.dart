@@ -1,6 +1,8 @@
+import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -8,8 +10,9 @@ class AdaptiveScaffold extends StatelessWidget {
   final AdaptiveToolbar? adaptiveToolbar;
   final Widget? body;
   final Color? backgroundColor;
+  final SystemUiOverlayStyle? overlayStyle;
   final PlatformNavBar? adaptiveBottomNav;
-  final Widget Function(BuildContext, int)? cupertinoTabBuilder;
+  final IndexedWidgetBuilder? cupertinoTabBuilder;
   final CupertinoPageScaffoldData Function(BuildContext, PlatformTarget)? cupertino;
   final MaterialScaffoldData Function(BuildContext, PlatformTarget)? material;
   final bool iosContentBottomPadding;
@@ -22,6 +25,7 @@ class AdaptiveScaffold extends StatelessWidget {
     this.body,
     this.backgroundColor,
     this.cupertinoTabBuilder,
+    this.overlayStyle,
     this.cupertino,
     this.material,
     this.iosContentBottomPadding = false,
@@ -30,17 +34,20 @@ class AdaptiveScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      widgetKey: scaffoldKey,
-      appBar: adaptiveToolbar?.build(),
-      body: body,
-      backgroundColor: backgroundColor,
-      bottomNavBar: adaptiveBottomNav,
-      cupertinoTabChildBuilder: cupertinoTabBuilder,
-      iosContentBottomPadding: iosContentBottomPadding,
-      iosContentPadding: iosContentPadding,
-      cupertino: cupertino,
-      material: material,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlayStyle ?? App.systemUIOverlayStyle(context),
+      child: PlatformScaffold(
+        widgetKey: scaffoldKey,
+        appBar: adaptiveToolbar?.build(),
+        body: body,
+        backgroundColor: backgroundColor ?? App.resolveColor(Palette.neutralF9, dark: Palette.secondaryColor),
+        bottomNavBar: adaptiveBottomNav,
+        cupertinoTabChildBuilder: cupertinoTabBuilder,
+        iosContentBottomPadding: iosContentBottomPadding,
+        iosContentPadding: iosContentPadding,
+        cupertino: cupertino,
+        material: material,
+      ),
     );
   }
 }

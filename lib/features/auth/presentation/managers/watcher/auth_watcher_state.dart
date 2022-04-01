@@ -5,6 +5,7 @@ class AuthWatcherState with _$AuthWatcherState {
   const factory AuthWatcherState({
     @Default(false) bool isLoading,
     @Default(false) bool isLoggingOut,
+    @Default(false) bool isBalanceHidden,
     @Default(false) bool isAuthenticated,
     @Default(false) bool isListeningForAuthChanges,
     @Default(false) bool isListeningForUserChanges,

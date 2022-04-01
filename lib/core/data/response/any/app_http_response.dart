@@ -3,7 +3,7 @@ library app_http_response.dart;
 import 'package:dartz/dartz.dart';
 import 'package:washryte/core/data/http_client/index.dart';
 import 'package:washryte/core/data/response/index.dart';
-import 'package:washryte/core/domain/response/response.dart';
+import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/features/auth/domain/index.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/manager/serializer/serializers.dart';
@@ -14,6 +14,9 @@ import 'package:washryte/utils/utils.dart';
 
 part 'app_http_response.gen.dart';
 part 'app_http_response.freezed.dart';
+
+AppHttpResponse deserializeAppHttpResponse(Map<String, dynamic> json) => AppHttpResponse.fromJson(json);
+Map<String, dynamic> serializeAppHttpResponse(AppHttpResponse object) => object.toJson();
 
 @freezed
 @immutable
@@ -30,28 +33,18 @@ class AppHttpResponse extends AppNetworkResponseException<DioError, dynamic> wit
   /// Maps the incoming Json to a Data Transfer Object (DTO).
   factory AppHttpResponse.fromJson(Map<String, dynamic> json) => _$AppHttpResponseFromJson(json);
 
-  factory AppHttpResponse.successful(
-    String? message, {
-    bool pop = true,
-    String? uuid,
-  }) =>
-      AppHttpResponse(
-        AnyResponse.success(
-          pop: pop,
-          uuid: uuid,
-          messageTxt: message ?? 'Successful!',
-        ),
-      );
+  factory AppHttpResponse.successful(String? message, {bool pop = true}) =>
+      AppHttpResponse(AnyResponse.success(pop: pop, messageTxt: message ?? 'Successful!'));
 
-  factory AppHttpResponse.failure(String? message, {int? code}) => AppHttpResponse(
-        AnyResponse.error(
-          code: code,
-          messageTxt: message ?? 'Whoops! An error occurred.',
-        ),
-      );
+  factory AppHttpResponse.info(String? message, [bool pop = false]) => AppHttpResponse(AnyResponse.info(messageTxt: message));
+
+  factory AppHttpResponse.failure(String? message, {int? code}) =>
+      AppHttpResponse(AnyResponse.error(code: code, messageTxt: message ?? 'Whoops! An error occurred.'));
+
+  static AppHttpResponse get endOfList => AppHttpResponse(AnyResponse.fromInfo(InfoResponse.endOfList()));
 
   @override
-  int? get code => response.map(error: (e) => e.code, success: (_) => null);
+  int? get code => response.maybeMap(error: (e) => e.code, orElse: () => null);
 
   @override
   AppNetworkExceptionReason get reason => failureReason ?? super.reason;
@@ -60,25 +53,22 @@ class AppHttpResponse extends AppNetworkResponseException<DioError, dynamic> wit
   bool get hasData => data != null;
 
   @override
-  String? get details => response.map(error: (e) => null, success: (s) => s.details);
+  String? get details => response.maybeMap(orElse: () => null, success: (s) => s.details);
 
   @override
-  String? get error => response.map(error: (e) => e.error, success: (_) => null);
+  String? get error => response.maybeMap(error: (e) => e.error, orElse: () => null);
 
   @override
-  ServerFieldErrors? get errors => response.map(error: (e) => e.errors, success: (_) => null);
+  ServerFieldErrors? get errors => response.maybeMap(error: (e) => e.errors, orElse: () => null);
 
   @override
   String get message => response.message;
 
   @override
-  bool get show => response.map(error: (e) => true, success: (s) => s.show);
+  bool get show => response.maybeMap(orElse: () => response.message.isNotEmpty, error: (e) => e.show);
 
   @override
   String? get status => response.status;
-
-  @override
-  String? get uuid => response.map(error: (e) => null, success: (s) => s.uuid);
 
   static AppHttpResponse? fromDioResponse<T>(_d.Response<T>? response) {
     final data = response?.data;
@@ -97,6 +87,7 @@ class AppHttpResponse extends AppNetworkResponseException<DioError, dynamic> wit
             status: e.status,
             exception: e.exception,
             pop: e.pop,
+            show: e.show,
           ),
           orElse: () => _value.response,
         ),

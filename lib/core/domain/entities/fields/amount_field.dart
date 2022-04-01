@@ -4,28 +4,35 @@ import 'package:washryte/core/domain/validator/validator.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:dartz/dartz.dart';
 
-class AmountField<U extends num> extends FieldObject<U?> {
+class AmountField<U extends num?> extends FieldObject<U> {
   static const AmountField DEFAULT = AmountField._(Right(0));
 
   @override
-  final Either<FieldObjectException<String>, U?> value;
+  final Either<FieldObjectException<String>, U> value;
 
-  factory AmountField(
-    U? input, {
-    num? min,
-    bool isMin = true,
-    String? msg,
-  }) {
-    return AmountField._(
-      min?.let((it) => Validator.isEmpty(input).flatMap(
-                (a) => Validator.amount(a, check: it, min: isMin, msg: msg),
-              )) ??
-          Validator.isEmpty(input),
-    );
-  }
+  factory AmountField(U input, {LengthValidator<U>? other, bool validate = true}) =>
+      AmountField<U>._(other?.let((it) => Validator.isEmpty(input).flatMap(it)) ?? (validate ? Validator.isEmpty(input) : right(input)));
 
   const AmountField._(this.value);
 
+  AmountField<U> operator +(num other) {
+    if (typesEqual<U, int>()) return copyWith(((getOrNull as int) + other) as U);
+    if (typesEqual<U, int?>()) return copyWith(((getOrNull as int? ?? 0) + other) as U);
+    if (typesEqual<U, double>()) return copyWith(((getOrNull as double) + other) as U);
+    if (typesEqual<U, double?>()) return copyWith(((getOrNull as double? ?? 0) + other) as U);
+    if (typesEqual<U, num>()) return copyWith(((getOrNull as num) + other) as U);
+    return copyWith(((getOrNull ?? 0) + other) as U);
+  }
+
+  AmountField<U> operator -(num other) {
+    if (typesEqual<U, int>()) return copyWith(((getOrNull as int) - other) as U);
+    if (typesEqual<U, int?>()) return copyWith(((getOrNull as int? ?? 0) - other) as U);
+    if (typesEqual<U, double>()) return copyWith(((getOrNull as double) - other) as U);
+    if (typesEqual<U, double?>()) return copyWith(((getOrNull as double? ?? 0) - other) as U);
+    if (typesEqual<U, num>()) return copyWith(((getOrNull as num) - other) as U);
+    return copyWith(((getOrNull ?? 0) - other) as U);
+  }
+
   @override
-  FieldObject<U?> copyWith(U? newValue) => AmountField(newValue);
+  AmountField<U> copyWith(U newValue) => AmountField<U>(newValue);
 }

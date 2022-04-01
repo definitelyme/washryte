@@ -19,91 +19,7 @@ abstract class AuthFacade {
   Stream<Option<User?>> get onUserChanges;
   Future<Option<User?>> get user;
 
-  Future<void> sink([Either<AppHttpResponse, Option<User?>> userOrFailure]);
-
-  Future<void> update(Option<User?> user);
-
-  Future<AppHttpResponse?> login({
-    required EmailAddress email,
-    required Password password,
-    UserDTO? registered,
-  });
-
-  Future<AppHttpResponse?> createAccount({
-    required DisplayName firstName,
-    required DisplayName lastName,
-    required EmailAddress emailAddress,
-    required Password password,
-    required Phone phone,
-  });
-
-  Future<AppHttpResponse> updateProfile({
-    DisplayName firstName,
-    DisplayName lastName,
-    EmailAddress email,
-    File? image,
-  });
-
-  Future<AppHttpResponse> updatePhone(Phone phone);
-
-  Future<AppHttpResponse> confirmUpdatePhone({
-    required Phone phone,
-    required OTPCode code,
-  });
-
-  Future<AppHttpResponse> updatePassword({
-    required Password current,
-    required Password newPassword,
-    required Password confirmation,
-  });
-
-  Future<AppHttpResponse> resendVerificationEmail(Phone phone);
-
-  Future<AppHttpResponse> verifyPhoneNumber({
-    required Phone phone,
-    required OTPCode token,
-  });
-
-  Future<AppHttpResponse> sendPasswordResetInstructions({
-    Phone? phone,
-    EmailAddress? email,
-  });
-
-  Future<AppHttpResponse> confirmPasswordReset({
-    required Phone phone,
-    required OTPCode code,
-    required Password newPassword,
-    required Password confirmation,
-  });
-
-  Future<Option<AppHttpResponse?>> googleAuthentication([bool notify = false]);
-
   Future<Option<AppHttpResponse?>> appleAuthentication([bool notify = false]);
-
-  Future<Option<AppHttpResponse?>> updateSocialsProfile({
-    DisplayName? firstName,
-    DisplayName? lastName,
-    EmailAddress? email,
-    Username? username,
-    Phone? phone,
-  });
-
-  Future<void> signOut({
-    bool notify = true,
-    bool regular = true,
-    bool google = true,
-    bool apple = true,
-  });
-
-  Future<AppHttpResponse> deleteAccount();
-
-  Future<void> sleep();
-
-  Future<Either<AppHttpResponse, Option<User?>>> retrieveAndCacheUpdatedUser({
-    UserDTO? dto,
-    bool shouldThrow = false,
-    bool forceGetLocalCache = false,
-  });
 
   Future<Either<AppHttpResponse, Unit>> checkInternetConnectivity() async {
     final isConnected = (await getIt<Connectivity>().checkConnectivity()) != ConnectivityResult.none;
@@ -122,6 +38,25 @@ abstract class AuthFacade {
 
     return right(unit);
   }
+
+  Future<AppHttpResponse> confirmPasswordReset({
+    required EmailAddress email,
+    required OTPCode code,
+    required Password newPassword,
+    required Password confirmation,
+  });
+
+  Future<AppHttpResponse?> createAccount({
+    required DisplayName fullName,
+    required EmailAddress emailAddress,
+    required Phone phone,
+    required Password password,
+    required Password confirmation,
+  });
+
+  Future<AppHttpResponse> deleteAccount();
+
+  Future<Option<AppHttpResponse?>> googleAuthentication([bool notify = false]);
 
   Future<AppHttpResponse> handleFailure<R>({
     required AppHttpResponse e,
@@ -156,4 +91,50 @@ abstract class AuthFacade {
         );
     }
   }
+
+  Future<AppHttpResponse?> login({
+    required EmailAddress email,
+    required Password password,
+    UserDTO? registered,
+  });
+
+  Future<Either<AppHttpResponse, Option<User?>>> retrieveAndCacheUpdatedUser({
+    UserDTO? dto,
+    bool shouldThrow = false,
+    bool forceGetLocalCache = false,
+  });
+
+  Future<AppHttpResponse> sendPasswordResetInstructions(EmailAddress email);
+
+  Future<void> signOut({
+    bool notify = true,
+    bool regular = true,
+    bool google = true,
+    bool apple = true,
+  });
+
+  Future<void> sink([Either<AppHttpResponse, Option<User?>> userOrFailure]);
+
+  Future<void> sleep();
+
+  Future<void> update(Option<User?> user);
+
+  Future<AppHttpResponse> updatePassword({
+    required Password current,
+    required Password newPassword,
+    required Password confirmation,
+  });
+
+  Future<AppHttpResponse> updateProfile({
+    DisplayName fullName,
+    EmailAddress email,
+    File? image,
+  });
+
+  Future<Option<AppHttpResponse?>> updateSocialsProfile({
+    DisplayName? fullName,
+    EmailAddress? email,
+    Username? username,
+    Phone? phone,
+  });
 }

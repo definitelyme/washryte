@@ -9,8 +9,8 @@ class UserDTO with _$UserDTO {
   const factory UserDTO({
     @primaryKey String? id,
     String? token,
-    @JsonKey(name: 'first_name') String? firstName,
-    @JsonKey(name: 'last_name') String? lastName,
+    @DoubleSerializer() double? balance,
+    @JsonKey(name: 'name') String? fullName,
     String? email,
     String? phone,
     String? password,
@@ -26,22 +26,23 @@ class UserDTO with _$UserDTO {
   const UserDTO._();
 
   factory UserDTO.fromDomain(User? instance) => UserDTO(
-        firstName: instance?.firstName.getOrNull,
-        lastName: instance?.lastName.getOrNull,
+        fullName: instance?.fullName.getOrNull,
         email: instance?.email.getOrNull,
         phone: instance?.phone.getOrNull,
         password: instance?.password.getOrNull,
+        confirmation: instance?.confirmation.getOrNull,
       );
 
   factory UserDTO.fromJson(Map<String, dynamic> json) => _$UserDTOFromJson(json);
 
   User get domain => User(
         uid: UniqueId.fromExternal(id),
-        firstName: DisplayName(firstName),
-        lastName: DisplayName(lastName),
+        balance: AmountField(balance ?? 0),
+        fullName: DisplayName(fullName),
         email: EmailAddress(email),
         phone: Phone(phone),
         password: Password(password),
+        confirmation: Password(confirmation),
         photo: MediaField(image),
         provider: provider!,
         createdAt: createdAt,
@@ -51,9 +52,9 @@ class UserDTO with _$UserDTO {
 
   _$_UserDTO get floor => _$_UserDTO(
         id: id,
+        balance: balance,
         token: token,
-        firstName: firstName,
-        lastName: lastName,
+        fullName: fullName,
         email: email,
         password: password,
         oldPassword: oldPassword,

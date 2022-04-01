@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/entities/entities.dart';
-import 'package:washryte/manager/settings/external/preference_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/widgets.dart';
@@ -18,13 +17,11 @@ part 'global_app_preference_state.dart';
 
 @singleton
 class GlobalAppPreferenceCubit extends Cubit<GlobalPreferenceState> with _ImagePickerMixin {
-  final PreferenceRepository _preferences;
+  GlobalAppPreferenceCubit() : super(GlobalPreferenceState.initial());
 
-  GlobalAppPreferenceCubit(this._preferences) : super(GlobalPreferenceState.initial());
+  // bool get isFirstAppLaunch => _preferences.getBool(PrefKeys.APP_LAUNCHED_PREF_KEY, ifNull: true);
 
-  bool get isFirstAppLaunch => _preferences.getBool(PrefKeys.APP_LAUNCHED_PREF_KEY, ifNull: true);
-
-  void updateLaunchSettings() async => await _preferences.setBool(key: PrefKeys.APP_LAUNCHED_PREF_KEY, value: false);
+  // void updateLaunchSettings() async => await _preferences.setBool(key: PrefKeys.APP_LAUNCHED_PREF_KEY, value: false);
 
   void toggleLoading([bool? isLoading, Option<AppHttpResponse?>? status]) => emit(state.copyWith(
         isLoading: isLoading ?? !state.isLoading,

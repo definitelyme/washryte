@@ -1,0 +1,531 @@
+{
+    "data": [
+        {
+            "id": "152b4cae-37ee-4c80-829f-bc396cc0581d",
+            "title": "Order is being processed",
+            "message": "We are currently sorting your clothes and preparing an invoice.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa4d-97d4-4eeb-b3e0-b32136ce41fc",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Rice du us r",
+                    "price": null,
+                    "address": "Did did she eggs adịghị i",
+                    "status": "processing",
+                    "reference": "4973a535e8b641aab81787026bff17d9",
+                    "created_at": "2022-02-28T18:59:48.000000Z",
+                    "updated_at": "2022-02-28T19:00:24.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:59:48.000000Z"
+        },
+        {
+            "id": "80aa8f06-ab7b-4c00-9bc2-68e7b4c31023",
+            "title": "Rider on the way.",
+            "message": "Our rider are on their way to pick your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa4d-97d4-4eeb-b3e0-b32136ce41fc",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Rice du us r",
+                    "price": null,
+                    "address": "Did did she eggs adịghị i",
+                    "status": "enroute",
+                    "reference": "4973a535e8b641aab81787026bff17d9",
+                    "created_at": "2022-02-28T18:59:48.000000Z",
+                    "updated_at": "2022-02-28T19:00:20.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:59:48.000000Z"
+        },
+        {
+            "id": "564b6866-7c79-474f-b7f7-6edf90380ccc",
+            "title": "Order is being processed",
+            "message": "We are currently sorting your clothes and preparing an invoice.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa33-7594-405c-aba5-c152f1ba3ac3",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Good to be",
+                    "price": null,
+                    "address": "Good dị na dika chee",
+                    "status": "processing",
+                    "reference": "18f3a1dfc9204781973449878255f820",
+                    "created_at": "2022-02-28T18:59:31.000000Z",
+                    "updated_at": "2022-02-28T18:59:55.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:59:31.000000Z"
+        },
+        {
+            "id": "4f205e70-5130-42f4-ad50-08c352597e19",
+            "title": "Rider on the way.",
+            "message": "Our rider are on their way to pick your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa33-7594-405c-aba5-c152f1ba3ac3",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Good to be",
+                    "price": null,
+                    "address": "Good dị na dika chee",
+                    "status": "enroute",
+                    "reference": "18f3a1dfc9204781973449878255f820",
+                    "created_at": "2022-02-28T18:59:31.000000Z",
+                    "updated_at": "2022-02-28T18:59:54.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:59:31.000000Z"
+        },
+        {
+            "id": "ef985ea1-9f4f-4fd1-a316-6098a953f4ff",
+            "title": "Order placed.",
+            "message": "We have received your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa4d-97d4-4eeb-b3e0-b32136ce41fc",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Rice du us r",
+                    "price": null,
+                    "address": "Did did she eggs adịghị i",
+                    "status": "pending",
+                    "reference": "4973a535e8b641aab81787026bff17d9",
+                    "created_at": "2022-02-28T18:59:48.000000Z",
+                    "updated_at": "2022-02-28T18:59:48.000000Z",
+                    "store": {
+                        "id": "894-48594-5849-5493",
+                        "name": "Perferendis quas amet.",
+                        "is_primary": 1,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:24.000000Z",
+                        "updated_at": "2022-02-03T09:11:24.000000Z"
+                    },
+                    "customer": {
+                        "id": "12345",
+                        "name": "Tobexkee",
+                        "customer_id": "12345",
+                        "address": "some customer address.",
+                        "phone": "07060953859",
+                        "email": "anis@mail.com",
+                        "social_auth_id": null,
+                        "provider": "regular",
+                        "image": "https://wtg-bucket.s3.amazonaws.com/customers/gQzT6zQo5VbmLPtY5K9QQ51iMAyVFvyAhQF3tBkA.jpg",
+                        "password_reset_at": null,
+                        "reset_token_expired_at": null,
+                        "reset_token": null,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:25.000000Z",
+                        "updated_at": "2022-02-11T20:50:33.000000Z"
+                    }
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-11T20:50:33.000000"
+        },
+        {
+            "id": "1e42096d-9252-43a4-abe2-544769821752",
+            "title": "Order placed.",
+            "message": "We have received your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5aa33-7594-405c-aba5-c152f1ba3ac3",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Good to be",
+                    "price": null,
+                    "address": "Good dị na dika chee",
+                    "status": "pending",
+                    "reference": "18f3a1dfc9204781973449878255f820",
+                    "created_at": "2022-02-28T18:59:31.000000Z",
+                    "updated_at": "2022-02-28T18:59:31.000000Z",
+                    "store": {
+                        "id": "894-48594-5849-5493",
+                        "name": "Perferendis quas amet.",
+                        "is_primary": 1,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:24.000000Z",
+                        "updated_at": "2022-02-03T09:11:24.000000Z"
+                    },
+                    "customer": {
+                        "id": "12345",
+                        "name": "Tobexkee",
+                        "customer_id": "12345",
+                        "address": "some customer address.",
+                        "phone": "07060953859",
+                        "email": "anis@mail.com",
+                        "social_auth_id": null,
+                        "provider": "regular",
+                        "image": "https://wtg-bucket.s3.amazonaws.com/customers/gQzT6zQo5VbmLPtY5K9QQ51iMAyVFvyAhQF3tBkA.jpg",
+                        "password_reset_at": null,
+                        "reset_token_expired_at": null,
+                        "reset_token": null,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:25.000000Z",
+                        "updated_at": "2022-02-11T20:50:33.000000Z"
+                    }
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-11T20:50:33.000000"
+        },
+        {
+            "id": "49246ad4-0c9c-4061-ad5a-f01d3b97b5d8",
+            "title": "Order is being processed",
+            "message": "We are currently sorting your clothes and preparing an invoice.",
+            "meta": {
+                "order": {
+                    "id": "95b5a9b7-b171-4190-bd5c-994efcc1d65a",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Dị is dị iche good",
+                    "price": null,
+                    "address": "Hutch go ka di na edu Jizọs",
+                    "status": "processing",
+                    "reference": "3add3317f0854701a81978c7540311a2",
+                    "created_at": "2022-02-28T18:58:10.000000Z",
+                    "updated_at": "2022-02-28T18:58:31.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:58:10.000000Z"
+        },
+        {
+            "id": "200100eb-9cff-4c1c-93a3-b46ed4259430",
+            "title": "Rider on the way.",
+            "message": "Our rider are on their way to pick your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a9b7-b171-4190-bd5c-994efcc1d65a",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Dị is dị iche good",
+                    "price": null,
+                    "address": "Hutch go ka di na edu Jizọs",
+                    "status": "enroute",
+                    "reference": "3add3317f0854701a81978c7540311a2",
+                    "created_at": "2022-02-28T18:58:10.000000Z",
+                    "updated_at": "2022-02-28T18:58:28.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:58:10.000000Z"
+        },
+        {
+            "id": "6cccf3c2-a238-4a3f-9daf-76b707de8200",
+            "title": "Order placed.",
+            "message": "We have received your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a9b7-b171-4190-bd5c-994efcc1d65a",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Dị is dị iche good",
+                    "price": null,
+                    "address": "Hutch go ka di na edu Jizọs",
+                    "status": "pending",
+                    "reference": "3add3317f0854701a81978c7540311a2",
+                    "created_at": "2022-02-28T18:58:10.000000Z",
+                    "updated_at": "2022-02-28T18:58:10.000000Z",
+                    "store": {
+                        "id": "894-48594-5849-5493",
+                        "name": "Perferendis quas amet.",
+                        "is_primary": 1,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:24.000000Z",
+                        "updated_at": "2022-02-03T09:11:24.000000Z"
+                    },
+                    "customer": {
+                        "id": "12345",
+                        "name": "Tobexkee",
+                        "customer_id": "12345",
+                        "address": "some customer address.",
+                        "phone": "07060953859",
+                        "email": "anis@mail.com",
+                        "social_auth_id": null,
+                        "provider": "regular",
+                        "image": "https://wtg-bucket.s3.amazonaws.com/customers/gQzT6zQo5VbmLPtY5K9QQ51iMAyVFvyAhQF3tBkA.jpg",
+                        "password_reset_at": null,
+                        "reset_token_expired_at": null,
+                        "reset_token": null,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:25.000000Z",
+                        "updated_at": "2022-02-11T20:50:33.000000Z"
+                    }
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-11T20:50:33.000000"
+        },
+        {
+            "id": "c14fd11d-7421-42bd-a674-7c8c89a68bac",
+            "title": "Order is being processed",
+            "message": "We are currently sorting your clothes and preparing an invoice.",
+            "meta": {
+                "order": {
+                    "id": "95b5a8b7-c580-4bd4-a013-b8a522d9357d",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup-and-delivery",
+                    "payment_method": "pending",
+                    "items": "You to it so issue USB of du",
+                    "price": null,
+                    "address": "Vg for du oh bjf fireside yourself eriri ọchị",
+                    "status": "processing",
+                    "reference": "00527ee961644eb2b927bdb86741a7a4",
+                    "created_at": "2022-02-28T18:55:22.000000Z",
+                    "updated_at": "2022-02-28T18:55:51.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:55:22.000000Z"
+        },
+        {
+            "id": "f3acb660-53a6-4dab-aaed-5c4b63413198",
+            "title": "Rider on the way.",
+            "message": "Our rider are on their way to pick your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a8b7-c580-4bd4-a013-b8a522d9357d",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup-and-delivery",
+                    "payment_method": "pending",
+                    "items": "You to it so issue USB of du",
+                    "price": null,
+                    "address": "Vg for du oh bjf fireside yourself eriri ọchị",
+                    "status": "enroute",
+                    "reference": "00527ee961644eb2b927bdb86741a7a4",
+                    "created_at": "2022-02-28T18:55:22.000000Z",
+                    "updated_at": "2022-02-28T18:55:48.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:55:22.000000Z"
+        },
+        {
+            "id": "9fab09af-8eba-4e4e-b020-7c23c5ef03e6",
+            "title": "Order placed.",
+            "message": "We have received your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a8b7-c580-4bd4-a013-b8a522d9357d",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup-and-delivery",
+                    "payment_method": "pending",
+                    "items": "You to it so issue USB of du",
+                    "price": null,
+                    "address": "Vg for du oh bjf fireside yourself eriri ọchị",
+                    "status": "pending",
+                    "reference": "00527ee961644eb2b927bdb86741a7a4",
+                    "created_at": "2022-02-28T18:55:22.000000Z",
+                    "updated_at": "2022-02-28T18:55:22.000000Z",
+                    "store": {
+                        "id": "894-48594-5849-5493",
+                        "name": "Perferendis quas amet.",
+                        "is_primary": 1,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:24.000000Z",
+                        "updated_at": "2022-02-03T09:11:24.000000Z"
+                    },
+                    "customer": {
+                        "id": "12345",
+                        "name": "Tobexkee",
+                        "customer_id": "12345",
+                        "address": "some customer address.",
+                        "phone": "07060953859",
+                        "email": "anis@mail.com",
+                        "social_auth_id": null,
+                        "provider": "regular",
+                        "image": "https://wtg-bucket.s3.amazonaws.com/customers/gQzT6zQo5VbmLPtY5K9QQ51iMAyVFvyAhQF3tBkA.jpg",
+                        "password_reset_at": null,
+                        "reset_token_expired_at": null,
+                        "reset_token": null,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:25.000000Z",
+                        "updated_at": "2022-02-11T20:50:33.000000Z"
+                    }
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-11T20:50:33.000000"
+        },
+        {
+            "id": "8acec777-1518-4adf-977d-a65046252564",
+            "title": "Order is being processed",
+            "message": "We are currently sorting your clothes and preparing an invoice.",
+            "meta": {
+                "order": {
+                    "id": "95b5a68f-76c7-4c16-a8a6-2a65b062b702",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Jjkkkyjy bjb. Njbb nij",
+                    "price": null,
+                    "address": "Curb hi in k off the USB of to oh good to",
+                    "status": "processing",
+                    "reference": "de36b44e301c43269443cdf570055629",
+                    "created_at": "2022-02-28T18:49:20.000000Z",
+                    "updated_at": "2022-02-28T18:49:54.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:49:20.000000Z"
+        },
+        {
+            "id": "e0598c5d-e7bc-41a4-a80b-a5c50e292163",
+            "title": "Rider on the way.",
+            "message": "Our rider are on their way to pick your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a68f-76c7-4c16-a8a6-2a65b062b702",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Jjkkkyjy bjb. Njbb nij",
+                    "price": null,
+                    "address": "Curb hi in k off the USB of to oh good to",
+                    "status": "enroute",
+                    "reference": "de36b44e301c43269443cdf570055629",
+                    "created_at": "2022-02-28T18:49:20.000000Z",
+                    "updated_at": "2022-02-28T18:49:51.000000Z"
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-28T18:49:20.000000Z"
+        },
+        {
+            "id": "04266970-dc0b-4644-8771-d4f8ff1be18b",
+            "title": "Order placed.",
+            "message": "We have received your order.",
+            "meta": {
+                "order": {
+                    "id": "95b5a68f-76c7-4c16-a8a6-2a65b062b702",
+                    "staff_id": null,
+                    "customer_id": "12345",
+                    "store_id": "894-48594-5849-5493",
+                    "service_type": "pickup",
+                    "payment_method": "pending",
+                    "items": "Jjkkkyjy bjb. Njbb nij",
+                    "price": null,
+                    "address": "Curb hi in k off the USB of to oh good to",
+                    "status": "pending",
+                    "reference": "de36b44e301c43269443cdf570055629",
+                    "created_at": "2022-02-28T18:49:20.000000Z",
+                    "updated_at": "2022-02-28T18:49:20.000000Z",
+                    "store": {
+                        "id": "894-48594-5849-5493",
+                        "name": "Perferendis quas amet.",
+                        "is_primary": 1,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:24.000000Z",
+                        "updated_at": "2022-02-03T09:11:24.000000Z"
+                    },
+                    "customer": {
+                        "id": "12345",
+                        "name": "Tobexkee",
+                        "customer_id": "12345",
+                        "address": "some customer address.",
+                        "phone": "07060953859",
+                        "email": "anis@mail.com",
+                        "social_auth_id": null,
+                        "provider": "regular",
+                        "image": "https://wtg-bucket.s3.amazonaws.com/customers/gQzT6zQo5VbmLPtY5K9QQ51iMAyVFvyAhQF3tBkA.jpg",
+                        "password_reset_at": null,
+                        "reset_token_expired_at": null,
+                        "reset_token": null,
+                        "deleted_at": null,
+                        "created_at": "2022-02-03T09:11:25.000000Z",
+                        "updated_at": "2022-02-11T20:50:33.000000Z"
+                    }
+                },
+                "type": "order.status-updated"
+            },
+            "created_at": "2022-02-11T20:50:33.000000"
+        }
+    ],
+    "links": {
+        "first": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=1",
+        "last": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=3",
+        "prev": null,
+        "next": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=2"
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 3,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=2",
+                "label": "2",
+                "active": false
+            },
+            {
+                "url": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=3",
+                "label": "3",
+                "active": false
+            },
+            {
+                "url": "https://api.waizytechengineering.com/api/v1/customer/notifications?page=2",
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "https://api.waizytechengineering.com/api/v1/customer/notifications",
+        "per_page": 15,
+        "to": 15,
+        "total": 33
+    }
+}

@@ -22,7 +22,7 @@ const Pattern datePattern = r'(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.
 
 enum FIELD_VALIDATION { NONE, BASIC, DEEP }
 
-typedef StringValidator<U> = Either<FieldObjectException<String>, U?>;
+typedef StringValidator<U> = Either<FieldObjectException<String>, U>;
 
 class Validator with _CreditCardValidator {
   Validator._();

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart' hide Router;
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:washryte/core/data/http_client/index.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';
@@ -45,13 +44,8 @@ class Washryte extends StatelessWidget {
               () => null,
               (th) => th?.response.mapOrNull(
                 error: (f) => th.reason.fold(timeoutNoInternet: () async {
-                  await Fluttertoast.cancel();
-                  await Fluttertoast.showToast(
-                    msg: '${f.message}',
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.BOTTOM,
-                    fontSize: 17.sp,
-                  );
+                  await ToastManager.cancel();
+                  await ToastManager.long('${f.message}');
                   return;
                 }),
               ),
@@ -62,22 +56,14 @@ class Washryte extends StatelessWidget {
           builder: (context, app) => PlatformApp.router(
             title: Const.appName.capitalizeFirst(),
             debugShowCheckedModeBanner: false,
+            color: Palette.accentColor,
             material: (_, __) => MaterialAppRouterData(
-              theme: env.flavor.fold(
-                dev: () => app.themeData(),
-                prod: () => AppTheme.light().themeData(),
-              ),
-              darkTheme: env.flavor.fold(
-                dev: () => AppTheme.dark().themeData(),
-                prod: () => AppTheme.light().themeData(),
-              ),
-              themeMode: env.flavor.fold(
-                dev: () => ThemeMode.system,
-                prod: () => ThemeMode.light,
-              ),
+              theme: app.themeData(),
+              darkTheme: AppTheme.dark().themeData(),
+              themeMode: ThemeMode.system,
             ),
-            cupertino: (_, __) => CupertinoAppRouterData(
-              theme: app.cupertinoThemeData(_),
+            cupertino: (c, __) => CupertinoAppRouterData(
+              theme: app.cupertinoThemeData(c),
               color: Palette.accentColor,
             ),
             localizationsDelegates: [
@@ -91,19 +77,13 @@ class Washryte extends StatelessWidget {
               _router,
               navigatorObservers: () => <NavigatorObserver>[
                 // Register the Firebase Analytics observer
-                if (env.flavor == BuildFlavor.prod)
-                  FirebaseAnalyticsObserver(
-                    analytics: getIt<FirebaseAnalytics>(),
-                  ),
+                if (env.flavor == BuildFlavor.prod) FirebaseAnalyticsObserver(analytics: getIt<FirebaseAnalytics>()),
               ],
             ),
             builder: (context, widget) => Utils.setup(
               context,
               _router,
-              ScreenUtilInit(
-                designSize: const Size(375, 812),
-                builder: () => widget!,
-              ),
+              ScreenUtilInit(designSize: const Size(375, 812), builder: () => widget!),
             ),
           ),
         ),

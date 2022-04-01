@@ -9,16 +9,16 @@ class _FormLayout extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextFormInputLabel(text: 'Full Name'),
+        const TextFormInputLabel(text: 'Display Name'),
         //
         NameFormField<AuthCubit, AuthState>(
-          prefix: 'First Name',
+          prefix: 'Your Name',
           disabled: (s) => s.isLoading,
           validate: (s) => s.validate,
-          field: (s) => s.user.firstName,
+          field: (s) => s.user.fullName,
           focus: AuthState.firstNameFocus,
-          next: AuthState.lastNameFocus,
-          onChanged: (it, str) => it.firstNameChanged(str),
+          next: AuthState.newEmailFocus,
+          onChanged: (it, str) => it.nameChanged(str),
         ),
         //
         VerticalSpace(height: 0.005.h),
@@ -37,7 +37,7 @@ class _FormLayout extends StatelessWidget {
           validate: (s) => s.validate,
           field: (s) => s.user.email,
           focus: AuthState.newEmailFocus,
-          next: AuthState.usernameFocus,
+          next: AuthState.newPhoneFocus,
           response: (s) => s.status,
           onChanged: (it, str) => it.emailChanged(str),
         ),
@@ -50,7 +50,7 @@ class _FormLayout extends StatelessWidget {
           disabled: (s) => s.isLoading,
           validate: (s) => s.validate,
           field: (s) => s.user.phone,
-          focus: AuthState.phoneFocus,
+          focus: AuthState.newPhoneFocus,
           next: AuthState.newPasswordFocus,
           controller: (s) => s.phoneTextController,
           response: (s) => s.status,
@@ -68,7 +68,6 @@ class _FormLayout extends StatelessWidget {
         ),
         //
         PasswordFormField<AuthCubit, AuthState>(
-          isNew: false,
           useHero: true,
           heroTag: Const.passwordFieldHeroTag,
           disabled: (s) => s.isLoading,
@@ -76,10 +75,33 @@ class _FormLayout extends StatelessWidget {
           isObscured: (s) => s.isPasswordHidden,
           field: (s) => s.user.password,
           focus: AuthState.newPasswordFocus,
+          next: AuthState.passwordConfirmationFocus,
           response: (s) => s.status,
           errorField: (f) => f.errors?.password,
           onChanged: (fn, str) => fn.passwordChanged(str),
           onToggle: (it) => it.togglePasswordVisibility(),
+        ),
+        //
+        const TextFormInputLabel(text: 'Confirm Password'),
+        //
+        PasswordFormField<AuthCubit, AuthState>(
+          useHero: false,
+          disabled: (s) => s.isLoading,
+          validate: (s) => s.validate,
+          isObscured: (s) => s.isPasswordHidden,
+          field: (s) => s.user.confirmation,
+          focus: AuthState.passwordConfirmationFocus,
+          response: (s) => s.status,
+          onChanged: (fn, str) => fn.passwordConfirmationChanged(str),
+          onToggle: (it) => it.togglePasswordVisibility(),
+          suffixMode: (s) => OverlayVisibilityMode.always,
+          suffixIcon: (s) => s.user.confirmation.getOrNull == null
+              ? Utils.nothing
+              : Icon(
+                  s.passwordMatches ? Icons.check_circle : Icons.cancel_rounded,
+                  color: s.passwordMatches ? Palette.successGreen : Palette.errorRed,
+                  size: 25,
+                ),
         ),
       ],
     );

@@ -1,99 +1,81 @@
 library splash_screen.dart;
 
 import 'package:async/async.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:washryte/features/auth/presentation/managers/managers.dart';
 import 'package:washryte/features/onborading/screens/index.dart';
-import 'package:washryte/manager/settings/index.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 
-class SplashScreen extends StatefulWidget with AutoRouteWrapper {
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
+/// A stateless widget to render SplashScreen.
+class SplashScreen extends StatelessWidget {
+  SplashScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    return this;
-  }
-}
-
-class _SplashScreenState extends State<SplashScreen> {
   final AsyncMemoizer<dynamic> _memoizer = AsyncMemoizer();
 
-  @override
-  void initState() {
-    super.initState();
+  static void navigateIfNotAuthenticated() {
+    if (navigator.current.name == DashboardRoute.name)
+      navigator.replaceAll([const LoginRoute()]);
+    else {
+      _navigateUser(App.context);
+    }
   }
 
-  void navigateUser(BuildContext c, bool isFirstLaunch) {
-    final isAuthenticated = c.read<AuthWatcherCubit>().state.isAuthenticated;
+  static void _navigateUser(BuildContext c) {
+    final option = c.read<AuthWatcherCubit>().state.status;
+    final _authRoutes = [LoginRoute.name, SignupRoute.name, ForgotPasswordRoute.name];
 
-    if (!isFirstLaunch) {
-      if (isAuthenticated)
-        navigator.replaceAll([const DashboardRoute()]);
-      else
-        navigator.replaceAll([const GetStartedRoute()]);
-    } else {
-      navigator.replaceAll([const GetStartedRoute()]);
-    }
+    option.fold(
+      () => null,
+      (o) {
+        if (o != null) {
+          if (!_authRoutes.contains(App.currentRoute)) navigator.replaceAll([const LoginRoute()]);
+        } else {
+          if (App.currentRoute != DashboardRoute.name) navigator.replaceAll([const DashboardRoute()]);
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Stack(
-          children: [
-            const Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: Palette.accentColor),
-              ),
+      backgroundColor: Palette.accentColor,
+      body: Center(
+        child: FutureBuilder(
+          future: _memoizer.runOnce(
+            () => Future.delayed(
+              env.splashDuration,
+              () async {
+                await BlocProvider.of<AuthWatcherCubit>(App.context).subscribeToAuthChanges(
+                  (either) => either.fold(
+                    (failure) => SplashScreen.navigateIfNotAuthenticated(),
+                    (option) => WidgetsBinding.instance!.addPostFrameCallback(
+                      (_) {
+                        if (App.currentRoute != DashboardRoute.name) navigator.replaceAll([const DashboardRoute()]);
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
-            //
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Center(child: Image.asset(AppAssets.logo)),
-            ),
-            //
-            FutureBuilder(
-              future: _memoizer.runOnce(
-                () => Future.delayed(
-                  env.splashDuration,
-                  () async {
-                    await BlocProvider.of<AuthWatcherCubit>(App.context).subscribeToAuthChanges(
-                      (either) => either.fold(
-                        (failure) => failure.fold(
-                          orElse: () => null,
-                          is401: () => navigateToLogin(),
-                          is41101: () => navigateToSocials(),
-                        ),
-                        (option) => option.fold(
-                          () {
-                            if (navigator.current.name == DashboardRoute.name)
-                              navigator.replaceAll([const GetStartedRoute()]);
-                            else {
-                              final isFirstAppLaunch = App.context.read<GlobalAppPreferenceCubit>().isFirstAppLaunch;
-
-                              navigateUser(App.context, isFirstAppLaunch);
-                            }
-                          },
-                          (_) => navigator.replaceAll([const DashboardRoute()]),
-                        ),
-                      ),
-                    );
-                  },
+          ),
+          builder: (_, snapshot) => Stack(
+            children: [
+              Center(
+                child: ImageBox.asset(
+                  photo: AppAssets.logo,
+                  elevation: 0.0,
+                  width: 0.4.w,
+                  borderRadius: BorderRadius.zero,
+                  useDefaultRadius: false,
+                  fit: BoxFit.contain,
                 ),
               ),
-              builder: (_, __) => Positioned(
+              //
+              Positioned(
                 left: 0.0,
                 right: 0.0,
                 bottom: App.height * 0.05,
@@ -103,9 +85,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: const SplashPositionedLoader(),
                   ),
                 ),
-              ),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

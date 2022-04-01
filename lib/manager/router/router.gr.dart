@@ -13,10 +13,10 @@
 import 'dart:async' as _i10;
 
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/material.dart' as _i7;
 import 'package:washryte/core/presentation/index.dart' as _i4;
 import 'package:washryte/features/auth/presentation/screens/index.dart' as _i2;
+import 'package:washryte/features/dashboard/domain/domain.dart' as _i9;
 import 'package:washryte/features/dashboard/presentation/pages/index.dart'
     as _i6;
 import 'package:washryte/features/dashboard/presentation/screens/index.dart'
@@ -28,18 +28,23 @@ class AppRouter extends _i5.RootStackRouter {
   AppRouter(
       {_i7.GlobalKey<_i7.NavigatorState>? navigatorKey,
       required this.guestGuard,
+      required this.incompleteKYCGuard,
       required this.authGuard})
       : super(navigatorKey);
 
   final _i8.GuestGuard guestGuard;
+
+  final _i8.IncompleteKYCGuard incompleteKYCGuard;
 
   final _i8.AuthGuard authGuard;
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
+      final args = routeData.argsAs<SplashRouteArgs>(
+          orElse: () => const SplashRouteArgs());
       return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: _i1.SplashScreen());
+          routeData: routeData, child: _i1.SplashScreen(key: args.key));
     },
     GetStartedRoute.name: (routeData) {
       return _i5.AdaptivePage<dynamic>(
@@ -69,9 +74,11 @@ class AppRouter extends _i5.RootStackRouter {
           routeData: routeData, child: const _i2.SocialsAuthScreen());
     },
     PasswordResetRoute.name: (routeData) {
+      final args = routeData.argsAs<PasswordResetRouteArgs>();
       return _i5.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: const _i2.PasswordResetScreen(),
+          child: _i2.PasswordResetScreen(
+              key: args.key, email: args.email, duration: args.duration),
           fullscreenDialog: true,
           title: 'OTP');
     },
@@ -103,11 +110,12 @@ class AppRouter extends _i5.RootStackRouter {
           child: const _i3.RequestServiceScreen(),
           title: 'Request Service');
     },
-    TrackOrderRoute.name: (routeData) {
+    TrackingRoute.name: (routeData) {
+      final args = routeData.argsAs<TrackingRouteArgs>();
       return _i5.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: const _i3.TrackOrderScreen(),
-          title: 'Track Orders');
+          child: _i3.TrackingScreen(args.request, key: args.key),
+          title: 'Track');
     },
     FAQRoute.name: (routeData) {
       return _i5.AdaptivePage<dynamic>(
@@ -124,12 +132,6 @@ class AppRouter extends _i5.RootStackRouter {
           routeData: routeData,
           child: const _i3.PrivacyPolicyScreen(),
           title: 'Privacxy Policy');
-    },
-    NotificationRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData,
-          child: const _i3.NotificationScreen(),
-          title: 'Notifications');
     },
     NotConnectedRoute.name: (routeData) {
       final args = routeData.argsAs<NotConnectedRouteArgs>();
@@ -183,17 +185,17 @@ class AppRouter extends _i5.RootStackRouter {
             path: '/get-started-screen',
             fullMatch: true,
             usesPathAsKey: true,
-            guards: [guestGuard]),
+            guards: [guestGuard, incompleteKYCGuard]),
         _i5.RouteConfig(LoginRoute.name,
             path: '/login-screen',
             fullMatch: true,
             usesPathAsKey: true,
-            guards: [guestGuard]),
+            guards: [guestGuard, incompleteKYCGuard]),
         _i5.RouteConfig(SignupRoute.name,
             path: '/signup-screen',
             fullMatch: true,
             usesPathAsKey: true,
-            guards: [guestGuard]),
+            guards: [guestGuard, incompleteKYCGuard]),
         _i5.RouteConfig(ForgotPasswordRoute.name,
             path: '/forgot-password-screen',
             fullMatch: true,
@@ -212,7 +214,8 @@ class AppRouter extends _i5.RootStackRouter {
             path: 'bottom-navigation',
             fullMatch: true,
             guards: [
-              authGuard
+              authGuard,
+              incompleteKYCGuard
             ],
             children: [
               _i5.RouteConfig(HomeRouter.name,
@@ -283,8 +286,8 @@ class AppRouter extends _i5.RootStackRouter {
             path: '/request-service-screen',
             fullMatch: true,
             usesPathAsKey: true),
-        _i5.RouteConfig(TrackOrderRoute.name,
-            path: '/track-order-screen', fullMatch: true, usesPathAsKey: true),
+        _i5.RouteConfig(TrackingRoute.name,
+            path: '/tracking-screen', fullMatch: true, usesPathAsKey: true),
         _i5.RouteConfig(FAQRoute.name,
             path: '/f-aq-screen', fullMatch: true, usesPathAsKey: true),
         _i5.RouteConfig(ContactSupportRoute.name,
@@ -295,11 +298,6 @@ class AppRouter extends _i5.RootStackRouter {
             path: '/privacy-policy-screen',
             fullMatch: true,
             usesPathAsKey: true),
-        _i5.RouteConfig(NotificationRoute.name,
-            path: '/notification-screen',
-            fullMatch: true,
-            usesPathAsKey: true,
-            guards: [authGuard]),
         _i5.RouteConfig(NotConnectedRoute.name,
             path: '/not-connected-screen',
             fullMatch: true,
@@ -311,10 +309,22 @@ class AppRouter extends _i5.RootStackRouter {
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashRoute extends _i5.PageRouteInfo<void> {
-  const SplashRoute() : super(SplashRoute.name, path: '/');
+class SplashRoute extends _i5.PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({_i7.Key? key})
+      : super(SplashRoute.name, path: '/', args: SplashRouteArgs(key: key));
 
   static const String name = 'SplashRoute';
+}
+
+class SplashRouteArgs {
+  const SplashRouteArgs({this.key});
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'SplashRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -362,11 +372,35 @@ class SocialsAuthRoute extends _i5.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PasswordResetScreen]
-class PasswordResetRoute extends _i5.PageRouteInfo<void> {
-  const PasswordResetRoute()
-      : super(PasswordResetRoute.name, path: '/password-reset-screen');
+class PasswordResetRoute extends _i5.PageRouteInfo<PasswordResetRouteArgs> {
+  PasswordResetRoute(
+      {_i7.Key? key,
+      required String email,
+      Duration duration = const Duration(minutes: 2)})
+      : super(PasswordResetRoute.name,
+            path: '/password-reset-screen',
+            args: PasswordResetRouteArgs(
+                key: key, email: email, duration: duration));
 
   static const String name = 'PasswordResetRoute';
+}
+
+class PasswordResetRouteArgs {
+  const PasswordResetRouteArgs(
+      {this.key,
+      required this.email,
+      this.duration = const Duration(minutes: 2)});
+
+  final _i7.Key? key;
+
+  final String email;
+
+  final Duration duration;
+
+  @override
+  String toString() {
+    return 'PasswordResetRouteArgs{key: $key, email: $email, duration: $duration}';
+  }
 }
 
 /// generated route for
@@ -416,12 +450,27 @@ class RequestServiceRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.TrackOrderScreen]
-class TrackOrderRoute extends _i5.PageRouteInfo<void> {
-  const TrackOrderRoute()
-      : super(TrackOrderRoute.name, path: '/track-order-screen');
+/// [_i3.TrackingScreen]
+class TrackingRoute extends _i5.PageRouteInfo<TrackingRouteArgs> {
+  TrackingRoute({required _i9.ServiceRequest request, _i7.Key? key})
+      : super(TrackingRoute.name,
+            path: '/tracking-screen',
+            args: TrackingRouteArgs(request: request, key: key));
 
-  static const String name = 'TrackOrderRoute';
+  static const String name = 'TrackingRoute';
+}
+
+class TrackingRouteArgs {
+  const TrackingRouteArgs({required this.request, this.key});
+
+  final _i9.ServiceRequest request;
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'TrackingRouteArgs{request: $request, key: $key}';
+  }
 }
 
 /// generated route for
@@ -451,18 +500,9 @@ class PrivacyPolicyRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.NotificationScreen]
-class NotificationRoute extends _i5.PageRouteInfo<void> {
-  const NotificationRoute()
-      : super(NotificationRoute.name, path: '/notification-screen');
-
-  static const String name = 'NotificationRoute';
-}
-
-/// generated route for
 /// [_i4.NotConnectedScreen]
 class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
-  NotConnectedRoute({_i9.Key? key, required _i10.Future<dynamic> future})
+  NotConnectedRoute({_i7.Key? key, required _i10.Future<dynamic> future})
       : super(NotConnectedRoute.name,
             path: '/not-connected-screen',
             args: NotConnectedRouteArgs(key: key, future: future));
@@ -473,7 +513,7 @@ class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
 class NotConnectedRouteArgs {
   const NotConnectedRouteArgs({this.key, required this.future});
 
-  final _i9.Key? key;
+  final _i7.Key? key;
 
   final _i10.Future<dynamic> future;
 

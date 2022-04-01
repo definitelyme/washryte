@@ -140,7 +140,7 @@ class Palette {
   static const Color pastelBlue2 = Color(0xFFF3FDFF);
 
   static const Color textTitle = Color(0xFF24272F);
-  static const Color text100 = Color(0xFF47484D);
+  static const Color text100 = Color(0xFF282828);
   static const Color text80 = Color(0xFF353D51);
   static const Color text60 = Color(0xFF686E7C);
   static const Color text40 = Color(0xFF9A9EA8);
@@ -150,6 +150,7 @@ class Palette {
   static const Color subTextDark = Color(0xFFA7A7A7);
 
   static const Color neutralMoon = Color(0xFFFDFDFD);
+  static const Color neutralGrey = Color(0xFFCACACA);
   static const Color neutralF9 = Color(0xFFF9F9F9);
   static const Color neutralFA = Color(0xFFFAFAFA);
   static const Color neutralF4 = Color(0xFFF4F4F4);

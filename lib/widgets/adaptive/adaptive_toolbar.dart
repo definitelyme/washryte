@@ -1,14 +1,16 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class AdaptiveToolbar {
   final Key? key;
-  final String title;
+  final String? title;
   final Widget headline;
   final Widget? leadingIcon;
   final TextStyle? titleStyle;
@@ -25,9 +27,13 @@ class AdaptiveToolbar {
   final List<Widget> actions;
   final String? tooltip;
   final String? semantics;
+  final SystemUiOverlayStyle? overlayStyle;
   // Cupertino
+  final Widget? titleWidget;
+  // final Widget? cupertinoLeadingIcon;
   final bool cupertinoImplyLeading;
   final bool implyMiddle;
+  final Alignment? cupertinoTitleAlignment;
   final String cupertinoLeading;
   final TextStyle? cupertinoLeadingStyle;
   final String? previousPageTitle;
@@ -40,7 +46,8 @@ class AdaptiveToolbar {
 
   const AdaptiveToolbar({
     this.key,
-    this.title = '',
+    this.title,
+    this.titleWidget,
     this.headline = const SizedBox.shrink(),
     this.leadingIcon,
     this.titleStyle,
@@ -59,8 +66,11 @@ class AdaptiveToolbar {
     this.semantics,
     this.cupertinoImplyLeading = true,
     this.implyMiddle = false,
+    this.overlayStyle,
+    // this.cupertinoLeadingIcon,
     this.cupertinoLeading = 'Close',
     this.cupertinoLeadingStyle,
+    this.cupertinoTitleAlignment,
     this.padding,
     this.previousPageTitle,
     this.brightness,
@@ -69,11 +79,13 @@ class AdaptiveToolbar {
     this.cupertino,
   });
 
+  String get _titleText => title ?? '';
+
   Widget get _title => Visibility(
-        visible: !title.isNullOrBlank,
+        visible: !_titleText.isNullOrBlank,
         replacement: headline,
         child: AdaptiveText(
-          title,
+          _titleText,
           style: fontSize != null && fontSize! >= 0.0
               ? TextStyle(
                   fontWeight: FontWeight.w600,
@@ -95,24 +107,25 @@ class AdaptiveToolbar {
         ),
       );
 
-  Widget? get _materialLeading =>
-      showCustomLeading ?? (!navigator.isRoot && getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren)
-          ? Semantics.fromProperties(
-              properties: SemanticsProperties(
-                label: tooltip,
-                hint: tooltip,
-                button: true,
-              ),
-              child: Tooltip(
-                message: tooltip ?? 'Back',
-                child: IconButton(
-                  icon: leadingIcon ?? const Icon(Icons.keyboard_backspace_rounded),
-                  onPressed: leadingAction ?? navigator.pop,
-                  color: buttonColor ?? Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor),
-                ),
-              ),
-            )
-          : null;
+  SystemUiOverlayStyle get systemUIOverlayStyle => overlayStyle ?? App.systemUIOverlayStyle(getIt<AppRouter>().navigatorKey.currentContext);
+
+  Widget? get _materialLeading => showCustomLeading ?? getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren
+      ? Semantics.fromProperties(
+          properties: SemanticsProperties(
+            label: tooltip,
+            hint: tooltip,
+            button: true,
+          ),
+          child: Tooltip(
+            message: tooltip ?? 'Back',
+            child: IconButton(
+              icon: leadingIcon ?? const Icon(Icons.keyboard_backspace_rounded),
+              onPressed: leadingAction ?? navigator.pop,
+              color: buttonColor ?? Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor),
+            ),
+          ),
+        )
+      : null;
 
   Widget get _cupertinoLeading => Semantics.fromProperties(
         properties: SemanticsProperties(
@@ -127,11 +140,21 @@ class AdaptiveToolbar {
                 onTap: leadingAction ?? navigator.pop,
                 child: AdaptiveText(
                   cupertinoLeading,
-                  style: cupertinoLeadingStyle ?? TextStyle(color: Utils.computeLuminance(Theme.of(App.context).scaffoldBackgroundColor)),
+                  style: cupertinoLeadingStyle ??
+                      TextStyle(
+                        color: Utils.computeLuminance(_cupertinoBackgroundColor),
+                      ),
                 ),
               ),
         ),
       );
+
+  Color get _cupertinoBackgroundColor =>
+      backgroundColor?.withAlpha(254) ??
+      App.resolveColor(
+        CupertinoColors.lightBackgroundGray.withAlpha(254),
+        dark: CupertinoColors.quaternarySystemFill,
+      )!;
 
   PlatformAppBar build() {
     return PlatformAppBar(
@@ -145,33 +168,36 @@ class AdaptiveToolbar {
                 titleTextStyle: titleStyle,
                 automaticallyImplyLeading: implyLeading,
                 centerTitle: centerTitle,
+                systemOverlayStyle: systemUIOverlayStyle,
                 elevation: elevation,
                 backgroundColor: backgroundColor ?? Colors.transparent,
                 actions: actions,
                 leading: _materialLeading,
-                title: _title,
+                title: titleWidget ?? _title,
               ),
       cupertino: cupertino ??
           (_, __) => CupertinoNavigationBarData(
-                backgroundColor: backgroundColor?.withAlpha(254),
+                backgroundColor: _cupertinoBackgroundColor,
                 automaticallyImplyLeading: cupertinoImplyLeading,
                 automaticallyImplyMiddle: implyMiddle,
                 padding: padding,
                 previousPageTitle: previousPageTitle,
                 brightness: brightness,
                 transitionBetweenRoutes: transitionBetweenRoutes,
-                title: !implyMiddle ? _title : null,
+                title: !implyMiddle
+                    ? (cupertinoTitleAlignment != null ? Align(alignment: cupertinoTitleAlignment!, child: _title) : _title)
+                    : null,
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: actions,
                 ),
-                leading: cupertinoImplyLeading
-                    ? null
-                    : showCustomLeading ??
-                            (!navigator.isRoot && getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren)
-                        ? _cupertinoLeading
-                        : null,
+                leading: leadingIcon ??
+                    (cupertinoImplyLeading
+                        ? null
+                        : (showCustomLeading ?? getIt<AppRouter>().navigatorKey.currentContext!.watchRouter.canPopSelfOrChildren)
+                            ? _cupertinoLeading
+                            : null),
               ),
     );
   }

@@ -1,11 +1,27 @@
 part of 'modules.dart';
 
 class _HttpClients {
-  static final BaseOptions _options = BaseOptions(
-    baseUrl: env.baseUri.toString(),
-    contentType: 'application/json',
-    headers: {'Accept': 'application/json'},
-  );
+  static Uri get authBaseUri => Uri.https(EndPoints.AUTH_APP_DOMAIN, EndPoints.AUTH_API_ENDPOINT);
+
+  static Uri get baseUri => Uri.https(EndPoints.APP_DOMAIN, EndPoints.API_ENDPOINT);
+
+  static BaseOptions get _authOptions => BaseOptions(
+        baseUrl: '$authBaseUri',
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+          'Accept': 'application/json',
+          'contentType': 'application/json; charset=utf-8',
+        },
+      );
+
+  static BaseOptions get _options => BaseOptions(
+        baseUrl: '$baseUri',
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+          'Accept': 'application/json',
+          'contentType': 'application/json; charset=utf-8',
+        },
+      );
 
   static List<Interceptor> get interceptors {
     var interceptors = <Interceptor>[];
@@ -46,36 +62,18 @@ class _HttpClients {
     );
 
     interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
+      onRequest: (options, handler) {
         final result = getIt<AccessTokenManager>().get();
-        options.headers.putIfAbsent(
-          'Authorization',
-          () => result.accessToken.getOrEmpty,
-        );
-        return handler.next(options);
+        options.headers.putIfAbsent('Authorization', () => result.accessToken.getOrEmpty);
+        handler.next(options);
       },
     ));
 
     return interceptors;
   }
 
-  static AppHttpClient _clientv2() {
-    var client = AppHttpClient(
-      client: _dio(),
-      mapper: AppHttpResponse.fromDioResponse,
-    );
-
-    client.options.connectTimeout = 16000;
-
-    client.options.receiveTimeout = 16000;
-
-    client.interceptors.addAll(interceptors);
-
-    return client;
-  }
-
-  static Dio _dio() {
-    var dio = Dio(_options);
+  static AuthHttpClient _authClient() {
+    final dio = Dio(_authOptions);
 
     dio.options.connectTimeout = 16000;
 
@@ -83,6 +81,24 @@ class _HttpClients {
 
     dio.interceptors.addAll(interceptors);
 
-    return dio;
+    return AuthHttpClient(
+      client: dio,
+      mapper: AppHttpResponse.fromDioResponse,
+    );
+  }
+
+  static AppHttpClient _client() {
+    final dio = Dio(_options);
+
+    dio.options.connectTimeout = 16000;
+
+    dio.options.receiveTimeout = 16000;
+
+    dio.interceptors.addAll(interceptors);
+
+    return AppHttpClient(
+      client: dio,
+      mapper: AppHttpResponse.fromDioResponse,
+    );
   }
 }

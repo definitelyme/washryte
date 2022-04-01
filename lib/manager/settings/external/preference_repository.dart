@@ -40,10 +40,11 @@ class PreferenceRepository with _$PreferenceRepository {
           var msg = 'Message: List<String> not found '
               'in shared-preference cache';
           log.e(msg, _, __);
-          return null;
         },
         prod: () => null,
       );
+
+      return null;
     }
   }
 
@@ -61,10 +62,10 @@ class PreferenceRepository with _$PreferenceRepository {
         dev: () {
           var msg = 'Message: Double not found in shared-preference cache';
           log.e(msg, _, __);
-          return null;
         },
         prod: () => null,
       );
+      return null;
     }
   }
 
@@ -82,10 +83,10 @@ class PreferenceRepository with _$PreferenceRepository {
         dev: () {
           var msg = 'Message: Integer not found in shared-preference cache';
           log.e(msg, _, __);
-          return null;
         },
         prod: () => null,
       );
+      return null;
     }
   }
 
@@ -103,10 +104,10 @@ class PreferenceRepository with _$PreferenceRepository {
         dev: () {
           var msg = 'Message: String not found in shared-preference cache';
           log.e(msg, _, __);
-          return null;
         },
         prod: () => null,
       );
+      return null;
     }
   }
 
@@ -116,13 +117,10 @@ class PreferenceRepository with _$PreferenceRepository {
   }) async =>
       await preferences.setBool(key, value);
 
-  bool getBool(String key, {bool ifNull = false}) {
+  bool? getBool(String key) {
     try {
       final _result = preferences.getBool(key);
-      if (_result != null)
-        return _result;
-      else
-        return ifNull;
+      return _result;
     } catch (_, __) {
       env.flavor.fold(
         dev: () {
@@ -131,7 +129,8 @@ class PreferenceRepository with _$PreferenceRepository {
         },
         prod: () => null,
       );
-      return ifNull;
+
+      return null;
     }
   }
 

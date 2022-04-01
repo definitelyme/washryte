@@ -133,7 +133,7 @@ class ImageUploadWidget<Reactive extends BlocBase<ReactiveState>, ReactiveState>
                             if (!isLoading.call(s))
                               await App.showAdaptiveBottomSheet(
                                 c,
-                                topRadius: Radius.zero,
+                                radius: Radius.zero,
                                 builder: (_) => DocumentPickerSheet(
                                   pickers: [
                                     DocumentPicker(

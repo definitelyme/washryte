@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:washryte/manager/locator/locator.dart';
 import 'package:washryte/utils/utils.dart';
@@ -14,37 +14,24 @@ class BuildEnvironment implements Secrets {
   final Uri? baseUri;
   final BuildFlavor flavor;
 
-  BuildEnvironment._({
-    this.flavor = BuildFlavor.dev,
-    this.baseUri,
-  });
+  BuildEnvironment._({this.flavor = BuildFlavor.dev, this.baseUri});
 
-  factory BuildEnvironment.factory({
-    BuildFlavor? flavor,
-    Uri? uri,
-  }) =>
-      BuildEnvironment._(
-        flavor: flavor!,
-        baseUri: uri,
-      );
-
-  String get googleMapsAPI => Utils.platform_(material: Secrets.androidAPIKey, cupertino: Secrets.iOSAPIKey)!;
+  factory BuildEnvironment.factory({BuildFlavor? flavor, Uri? uri}) => BuildEnvironment._(flavor: flavor!, baseUri: uri);
 
   String get pusherAppId => Secrets.pusherAppId;
-  String get pusherAuthUrl => EndPoints.PUSHER_AUTH_URL;
-  String get pusherCluster => Secrets.pusherCluster;
-  String get pusherKey => Secrets.pusherKey;
-  Duration get splashDuration => flavor.fold(
-        dev: () => const Duration(milliseconds: 1500),
-        prod: () => const Duration(milliseconds: 2000),
-      );
 
-  String get twitterAPIKey => Secrets.twitterAPIKey;
-  String get twitterAPISecretKey => Secrets.twitterAPISecretKey;
-  String get twitterRedirectUrl => Secrets.twitterRedirectUrl;
+  String get pusherAuthUrl => EndPoints.PUSHER_AUTH_URL;
+
+  String get pusherCluster => Secrets.pusherCluster;
+
+  String get pusherKey => Secrets.pusherKey;
+
+  Duration get splashDuration => flavor.fold(dev: () => const Duration(milliseconds: 1500), prod: () => const Duration(milliseconds: 2000));
+
+  String get paystackKey => flavor.fold(dev: () => Secrets.paystackKeyDev, prod: () => Secrets.paystackKeyProd);
 
   /// Sets up the top-level [env] getter on the first call only.
-  static Future<void> init({@required BuildFlavor? flavor}) async {
+  static Future<void> init({required BuildFlavor flavor}) async {
     _env ??= BuildEnvironment.factory(
       flavor: flavor,
       uri: Uri.https(EndPoints.APP_DOMAIN, EndPoints.API_ENDPOINT),
@@ -62,18 +49,18 @@ class BuildEnvironment implements Secrets {
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
 
-    await flavor?.fold(
+    await flavor.fold(
       dev: () async {
         await locator(Environment.dev);
         await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(false);
       },
       staging: () async {
         await locator(Environment.prod);
-        await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(true);
+        await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(!kDebugMode);
       },
       prod: () async {
         await locator(Environment.prod);
-        await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(true);
+        await getIt<FirebaseCrashlytics>().setCrashlyticsCollectionEnabled(!kDebugMode);
       },
     );
   }

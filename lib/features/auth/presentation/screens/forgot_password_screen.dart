@@ -21,20 +21,18 @@ class ForgotPasswordScreen extends StatefulWidget with AutoRouteWrapper {
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (p, c) =>
             p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||
-            (c.status.getOrElse(() => null) != null &&
-                (c.status.getOrElse(() => null)!.response.maybeMap(
-                      error: (f) => f.fold(orElse: () => false),
-                      orElse: () => false,
-                    ))),
+            (c.status.getOrElse(() => null) != null && (c.status.getOrElse(() => null)!.response.maybeMap(orElse: () => false))),
         listener: (c, s) => s.status.fold(
           () => null,
           (th) => th?.response.map(
-            error: (f) => PopupDialog.error(message: f.message).render(c),
+            info: (i) => PopupDialog.error(message: i.message, show: i.message.isNotEmpty).render(c),
+            error: (f) => PopupDialog.error(message: f.message, show: f.show && f.message.isNotEmpty).render(c),
             success: (p0) => PopupDialog.success(
               message: p0.message,
-              listener: (_) => _?.fold(
-                dismissed: () => navigator.navigate(const PasswordResetRoute()),
-              ),
+              listener: (_) => _?.fold(dismissed: () {
+                final email = s.user.email.getOrNull;
+                navigator.navigate(PasswordResetRoute(email: '$email'));
+              }),
             ).render(c),
           ),
         ),
@@ -179,12 +177,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Automa
                           cupertino: () => const SizedBox.shrink(),
                         ),
                         //
-                        App.platform.fold(
-                          material: () => _emailInput(),
-                          cupertino: () => CupertinoFormSection(
-                            children: [_emailInput()],
-                          ),
-                        ),
+                        _emailInput(),
                         //
                         VerticalSpace(height: 0.05.h),
                         //
@@ -201,7 +194,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Automa
                               child: (callback) => Hero(
                                 tag: Const.authButtonHeroTag,
                                 child: AppButton(
-                                  text: 'Send Reset Link',
+                                  text: 'Send Reset Instructions',
                                   isLoading: s.isLoading,
                                   onPressed: () async {
                                     final _isSuccessful = await c.read<AuthCubit>().forgotPassword();

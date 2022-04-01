@@ -8,14 +8,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'any_response.g.dart';
 part 'any_response.freezed.dart';
 
-@Freezed(
-  unionKey: 'status',
-  unionValueCase: FreezedUnionCase.snake,
-  fallbackUnion: 'error',
-)
 @immutable
-class AnyResponse with _$AnyResponse {
-  static const String _kdefaultMsg = 'Oops Bad request! No Response.';
+@Freezed(unionKey: 'status', unionValueCase: FreezedUnionCase.snake, fallbackUnion: 'error')
+class AnyResponse extends Response with _$AnyResponse {
+  static const String _kdefaultMsg = '';
 
   const AnyResponse._();
 
@@ -28,6 +24,7 @@ class AnyResponse with _$AnyResponse {
     String? error,
     ServerFieldErrors? errors,
     @JsonKey(ignore: true) @Default(false) bool pop,
+    @JsonKey(ignore: true) @Default(true) bool show,
     @JsonKey(ignore: true) Exception? exception,
   }) = ErrorResponse;
 
@@ -43,19 +40,34 @@ class AnyResponse with _$AnyResponse {
     );
   }
 
+  factory AnyResponse.fromInfo(Info info) {
+    return AnyResponse.info(
+      status: info.status,
+      messageTxt: info.message,
+      details: info.details,
+      pop: info.pop,
+    );
+  }
+
   /// Maps the incoming Json to a Data Transfer Object (DTO).
   factory AnyResponse.fromJson(Map<String, dynamic> json) => _$AnyResponseFromJson(json);
 
-  @With<Response>()
-  @With<Success>()
-  const factory AnyResponse.success({
-    @JsonKey(ignore: true) String? uuid,
+  @With<Info>()
+  const factory AnyResponse.info({
     String? status,
     @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
     @JsonKey(ignore: true) String? details,
     @JsonKey(ignore: true) @Default(false) bool pop,
-    @JsonKey(ignore: true) @Default(true) bool show,
+  }) = InfoResponseType;
+
+  @With<Success>()
+  const factory AnyResponse.success({
+    String? status,
+    @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+    @JsonKey(ignore: true) String? details,
+    @JsonKey(ignore: true) @Default(false) bool pop,
   }) = SuccessfulResponse;
 
+  @override
   String get message => messageTxt?.let((m) => m.isNotEmpty ? m : _kdefaultMsg) ?? status ?? _kdefaultMsg;
 }

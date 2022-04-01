@@ -1,0 +1,201 @@
+{
+    "data": [
+        {
+            "id": "95b5aa4d-97d4-4eeb-b3e0-b32136ce41fc",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "pending",
+            "items": "Rice du us r",
+            "price": "67450.00",
+            "address": "Did did she eggs adịghị i",
+            "status": "processing",
+            "reference": "4973a535e8b641aab81787026bff17d9",
+            "created_at": "2022-02-28T18:59:48.000000Z",
+            "updated_at": "2022-02-28T19:00:25.000000Z"
+        },
+        {
+            "id": "95b5aa33-7594-405c-aba5-c152f1ba3ac3",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "pending",
+            "items": "Good to be",
+            "price": "67450.00",
+            "address": "Good dị na dika chee",
+            "status": "cancelled",
+            "reference": "18f3a1dfc9204781973449878255f820",
+            "created_at": "2022-02-28T18:59:31.000000Z",
+            "updated_at": "2022-02-28T19:00:42.000000Z"
+        },
+        {
+            "id": "95b5a9b7-b171-4190-bd5c-994efcc1d65a",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "wallet",
+            "items": "Dị is dị iche good",
+            "price": "67450.00",
+            "address": "Hutch go ka di na edu Jizọs",
+            "status": "paid",
+            "reference": "3add3317f0854701a81978c7540311a2",
+            "created_at": "2022-02-28T18:58:10.000000Z",
+            "updated_at": "2022-02-28T18:58:50.000000Z"
+        },
+        {
+            "id": "95b5a8b7-c580-4bd4-a013-b8a522d9357d",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup-and-delivery",
+            "payment_method": "wallet",
+            "items": "You to it so issue USB of du",
+            "price": "67450.00",
+            "address": "Vg for du oh bjf fireside yourself eriri ọchị",
+            "status": "paid",
+            "reference": "00527ee961644eb2b927bdb86741a7a4",
+            "created_at": "2022-02-28T18:55:22.000000Z",
+            "updated_at": "2022-02-28T18:56:01.000000Z"
+        },
+        {
+            "id": "95b5a68f-76c7-4c16-a8a6-2a65b062b702",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "wallet",
+            "items": "Jjkkkyjy bjb. Njbb nij",
+            "price": "67450.00",
+            "address": "Curb hi in k off the USB of to oh good to",
+            "status": "paid",
+            "reference": "de36b44e301c43269443cdf570055629",
+            "created_at": "2022-02-28T18:49:20.000000Z",
+            "updated_at": "2022-02-28T18:50:34.000000Z"
+        },
+        {
+            "id": "95b55b68-6c2f-462d-87dd-7ed9ca0adf0f",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup-and-delivery",
+            "payment_method": "wallet",
+            "items": "7 pieces of socks, 1 T-shirt, 5 pants",
+            "price": "11090.00",
+            "address": "Ipaye, Ojo Lagos Nigeria",
+            "status": "delivering",
+            "reference": "dbe9578615b14d6ead3b11ea2482361e",
+            "created_at": "2022-02-28T15:19:11.000000Z",
+            "updated_at": "2022-02-28T17:57:13.000000Z"
+        },
+        {
+            "id": "95b52886-0887-4304-8308-99599283c851",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "wallet",
+            "items": "Shorts",
+            "price": "67450.00",
+            "address": "Lagos ojo",
+            "status": "paid",
+            "reference": "5228e60c8466485dac613a6cf8244846",
+            "created_at": "2022-02-28T12:56:54.000000Z",
+            "updated_at": "2022-02-28T18:48:32.000000Z"
+        },
+        {
+            "id": "95b37a8e-4487-4025-8dc7-05e6487beabe",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "wallet",
+            "items": "2 t-shirt and 1 pants. Twin tops",
+            "price": "19090.00",
+            "address": "2 t-shirt and 1 pants. Twin tops",
+            "status": "done",
+            "reference": "cb1f645cb85946e3be6e70542708d2f1",
+            "created_at": "2022-02-27T16:54:38.000000Z",
+            "updated_at": "2022-02-28T18:31:04.000000Z"
+        },
+        {
+            "id": "95b1d8ac-b89f-41a2-9aa4-30ce9108f3eb",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "wallet",
+            "items": "2 pair of jeans",
+            "price": "19090.00",
+            "address": "some customer address",
+            "status": "paid",
+            "reference": "08f978cec06448fdb03f48292137b98e",
+            "created_at": "2022-02-26T21:26:09.000000Z",
+            "updated_at": "2022-02-28T18:45:01.000000Z"
+        },
+        {
+            "id": "9593a9d6-8cf0-42a5-baa1-e30a356d4a02",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "pending",
+            "items": "2 pair of jeans",
+            "price": "19090.00",
+            "address": "some customer address",
+            "status": "cancelled",
+            "reference": "429a047cd1aa4e0e900a4f509921ac72",
+            "created_at": "2022-02-11T21:20:21.000000Z",
+            "updated_at": "2022-02-28T18:44:03.000000Z"
+        },
+        {
+            "id": "95939dcc-522d-4900-a865-72c7d488ec32",
+            "staff_id": "95828d46-70cd-44fa-99b1-4ecafd03795d",
+            "customer_id": "12345",
+            "store_id": "894-48594-5849-5493",
+            "service_type": "pickup",
+            "payment_method": "pending",
+            "items": "2 pair of jeans",
+            "price": "19090.00",
+            "address": "some customer address",
+            "status": "cancelled",
+            "reference": "f35c58583f2b481cac390477056b3aea",
+            "created_at": "2022-02-11T20:46:41.000000Z",
+            "updated_at": "2022-02-28T18:40:00.000000Z"
+        }
+    ],
+    "links": {
+        "first": "https://api.waizytechengineering.com/api/v1/customer/orders/history?page=1",
+        "last": "https://api.waizytechengineering.com/api/v1/customer/orders/history?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "https://api.waizytechengineering.com/api/v1/customer/orders/history?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "https://api.waizytechengineering.com/api/v1/customer/orders/history",
+        "per_page": 15,
+        "to": 11,
+        "total": 11
+    }
+}

@@ -20,6 +20,7 @@ class _$AuthWatcherStateTearOff {
   _AuthWatcherState call(
       {bool isLoading = false,
       bool isLoggingOut = false,
+      bool isBalanceHidden = false,
       bool isAuthenticated = false,
       bool isListeningForAuthChanges = false,
       bool isListeningForUserChanges = false,
@@ -29,6 +30,7 @@ class _$AuthWatcherStateTearOff {
     return _AuthWatcherState(
       isLoading: isLoading,
       isLoggingOut: isLoggingOut,
+      isBalanceHidden: isBalanceHidden,
       isAuthenticated: isAuthenticated,
       isListeningForAuthChanges: isListeningForAuthChanges,
       isListeningForUserChanges: isListeningForUserChanges,
@@ -46,6 +48,7 @@ const $AuthWatcherState = _$AuthWatcherStateTearOff();
 mixin _$AuthWatcherState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoggingOut => throw _privateConstructorUsedError;
+  bool get isBalanceHidden => throw _privateConstructorUsedError;
   bool get isAuthenticated => throw _privateConstructorUsedError;
   bool get isListeningForAuthChanges => throw _privateConstructorUsedError;
   bool get isListeningForUserChanges => throw _privateConstructorUsedError;
@@ -66,6 +69,7 @@ abstract class $AuthWatcherStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool isLoggingOut,
+      bool isBalanceHidden,
       bool isAuthenticated,
       bool isListeningForAuthChanges,
       bool isListeningForUserChanges,
@@ -89,6 +93,7 @@ class _$AuthWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? isLoggingOut = freezed,
+    Object? isBalanceHidden = freezed,
     Object? isAuthenticated = freezed,
     Object? isListeningForAuthChanges = freezed,
     Object? isListeningForUserChanges = freezed,
@@ -104,6 +109,10 @@ class _$AuthWatcherStateCopyWithImpl<$Res>
       isLoggingOut: isLoggingOut == freezed
           ? _value.isLoggingOut
           : isLoggingOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBalanceHidden: isBalanceHidden == freezed
+          ? _value.isBalanceHidden
+          : isBalanceHidden // ignore: cast_nullable_to_non_nullable
               as bool,
       isAuthenticated: isAuthenticated == freezed
           ? _value.isAuthenticated
@@ -154,6 +163,7 @@ abstract class _$AuthWatcherStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool isLoggingOut,
+      bool isBalanceHidden,
       bool isAuthenticated,
       bool isListeningForAuthChanges,
       bool isListeningForUserChanges,
@@ -180,6 +190,7 @@ class __$AuthWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? isLoggingOut = freezed,
+    Object? isBalanceHidden = freezed,
     Object? isAuthenticated = freezed,
     Object? isListeningForAuthChanges = freezed,
     Object? isListeningForUserChanges = freezed,
@@ -195,6 +206,10 @@ class __$AuthWatcherStateCopyWithImpl<$Res>
       isLoggingOut: isLoggingOut == freezed
           ? _value.isLoggingOut
           : isLoggingOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBalanceHidden: isBalanceHidden == freezed
+          ? _value.isBalanceHidden
+          : isBalanceHidden // ignore: cast_nullable_to_non_nullable
               as bool,
       isAuthenticated: isAuthenticated == freezed
           ? _value.isAuthenticated
@@ -230,6 +245,7 @@ class _$_AuthWatcherState extends _AuthWatcherState {
   const _$_AuthWatcherState(
       {this.isLoading = false,
       this.isLoggingOut = false,
+      this.isBalanceHidden = false,
       this.isAuthenticated = false,
       this.isListeningForAuthChanges = false,
       this.isListeningForUserChanges = false,
@@ -244,6 +260,9 @@ class _$_AuthWatcherState extends _AuthWatcherState {
   @JsonKey()
   @override
   final bool isLoggingOut;
+  @JsonKey()
+  @override
+  final bool isBalanceHidden;
   @JsonKey()
   @override
   final bool isAuthenticated;
@@ -264,7 +283,7 @@ class _$_AuthWatcherState extends _AuthWatcherState {
 
   @override
   String toString() {
-    return 'AuthWatcherState(isLoading: $isLoading, isLoggingOut: $isLoggingOut, isAuthenticated: $isAuthenticated, isListeningForAuthChanges: $isListeningForAuthChanges, isListeningForUserChanges: $isListeningForUserChanges, user: $user, option: $option, status: $status)';
+    return 'AuthWatcherState(isLoading: $isLoading, isLoggingOut: $isLoggingOut, isBalanceHidden: $isBalanceHidden, isAuthenticated: $isAuthenticated, isListeningForAuthChanges: $isListeningForAuthChanges, isListeningForUserChanges: $isListeningForUserChanges, user: $user, option: $option, status: $status)';
   }
 
   @override
@@ -275,6 +294,8 @@ class _$_AuthWatcherState extends _AuthWatcherState {
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality()
                 .equals(other.isLoggingOut, isLoggingOut) &&
+            const DeepCollectionEquality()
+                .equals(other.isBalanceHidden, isBalanceHidden) &&
             const DeepCollectionEquality()
                 .equals(other.isAuthenticated, isAuthenticated) &&
             const DeepCollectionEquality().equals(
@@ -291,6 +312,7 @@ class _$_AuthWatcherState extends _AuthWatcherState {
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isLoggingOut),
+      const DeepCollectionEquality().hash(isBalanceHidden),
       const DeepCollectionEquality().hash(isAuthenticated),
       const DeepCollectionEquality().hash(isListeningForAuthChanges),
       const DeepCollectionEquality().hash(isListeningForUserChanges),
@@ -308,6 +330,7 @@ abstract class _AuthWatcherState extends AuthWatcherState {
   const factory _AuthWatcherState(
       {bool isLoading,
       bool isLoggingOut,
+      bool isBalanceHidden,
       bool isAuthenticated,
       bool isListeningForAuthChanges,
       bool isListeningForUserChanges,
@@ -320,6 +343,8 @@ abstract class _AuthWatcherState extends AuthWatcherState {
   bool get isLoading;
   @override
   bool get isLoggingOut;
+  @override
+  bool get isBalanceHidden;
   @override
   bool get isAuthenticated;
   @override

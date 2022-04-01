@@ -17,6 +17,8 @@ class Phone extends FieldObject<String?> {
     );
   }
 
+  bool get isEmpty => value.fold((_) => true, (r) => r!.isEmpty);
+
   Phone? get formatted => value.fold(
         (f) => null,
         (val) => Phone('${country?.dialCode?.getOrEmpty}$val'),

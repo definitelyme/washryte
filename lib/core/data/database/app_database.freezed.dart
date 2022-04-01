@@ -24,8 +24,8 @@ class _$UserDTOTearOff {
   _UserDTO call(
       {@primaryKey String? id,
       String? token,
-      @JsonKey(name: 'first_name') String? firstName,
-      @JsonKey(name: 'last_name') String? lastName,
+      @DoubleSerializer() double? balance,
+      @JsonKey(name: 'name') String? fullName,
       String? email,
       String? phone,
       String? password,
@@ -39,8 +39,8 @@ class _$UserDTOTearOff {
     return _UserDTO(
       id: id,
       token: token,
-      firstName: firstName,
-      lastName: lastName,
+      balance: balance,
+      fullName: fullName,
       email: email,
       phone: phone,
       password: password,
@@ -67,10 +67,10 @@ mixin _$UserDTO {
   @primaryKey
   String? get id => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
-  @JsonKey(name: 'first_name')
-  String? get firstName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_name')
-  String? get lastName => throw _privateConstructorUsedError;
+  @DoubleSerializer()
+  double? get balance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String? get fullName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
@@ -104,8 +104,8 @@ abstract class $UserDTOCopyWith<$Res> {
   $Res call(
       {@primaryKey String? id,
       String? token,
-      @JsonKey(name: 'first_name') String? firstName,
-      @JsonKey(name: 'last_name') String? lastName,
+      @DoubleSerializer() double? balance,
+      @JsonKey(name: 'name') String? fullName,
       String? email,
       String? phone,
       String? password,
@@ -130,8 +130,8 @@ class _$UserDTOCopyWithImpl<$Res> implements $UserDTOCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? token = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? balance = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? password = freezed,
@@ -152,13 +152,13 @@ class _$UserDTOCopyWithImpl<$Res> implements $UserDTOCopyWith<$Res> {
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
       email: email == freezed
           ? _value.email
@@ -212,8 +212,8 @@ abstract class _$UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
   $Res call(
       {@primaryKey String? id,
       String? token,
-      @JsonKey(name: 'first_name') String? firstName,
-      @JsonKey(name: 'last_name') String? lastName,
+      @DoubleSerializer() double? balance,
+      @JsonKey(name: 'name') String? fullName,
       String? email,
       String? phone,
       String? password,
@@ -239,8 +239,8 @@ class __$UserDTOCopyWithImpl<$Res> extends _$UserDTOCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? token = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? balance = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? password = freezed,
@@ -261,13 +261,13 @@ class __$UserDTOCopyWithImpl<$Res> extends _$UserDTOCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
       email: email == freezed
           ? _value.email
@@ -320,8 +320,8 @@ class _$_UserDTO extends _UserDTO {
   const _$_UserDTO(
       {@primaryKey this.id,
       this.token,
-      @JsonKey(name: 'first_name') this.firstName,
-      @JsonKey(name: 'last_name') this.lastName,
+      @DoubleSerializer() this.balance,
+      @JsonKey(name: 'name') this.fullName,
       this.email,
       this.phone,
       this.password,
@@ -343,11 +343,11 @@ class _$_UserDTO extends _UserDTO {
   @override
   final String? token;
   @override
-  @JsonKey(name: 'first_name')
-  final String? firstName;
+  @DoubleSerializer()
+  final double? balance;
   @override
-  @JsonKey(name: 'last_name')
-  final String? lastName;
+  @JsonKey(name: 'name')
+  final String? fullName;
   @override
   final String? email;
   @override
@@ -381,7 +381,7 @@ class _$_UserDTO extends _UserDTO {
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, token: $token, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, password: $password, oldPassword: $oldPassword, confirmation: $confirmation, image: $image, provider: $provider, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'UserDTO(id: $id, token: $token, balance: $balance, fullName: $fullName, email: $email, phone: $phone, password: $password, oldPassword: $oldPassword, confirmation: $confirmation, image: $image, provider: $provider, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -391,8 +391,8 @@ class _$_UserDTO extends _UserDTO {
             other is _UserDTO &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.token, token) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality().equals(other.balance, balance) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.password, password) &&
@@ -412,8 +412,8 @@ class _$_UserDTO extends _UserDTO {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(token),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(balance),
+      const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(password),
@@ -441,10 +441,10 @@ abstract class _UserDTO extends UserDTO {
       {@primaryKey
           String? id,
       String? token,
-      @JsonKey(name: 'first_name')
-          String? firstName,
-      @JsonKey(name: 'last_name')
-          String? lastName,
+      @DoubleSerializer()
+          double? balance,
+      @JsonKey(name: 'name')
+          String? fullName,
       String? email,
       String? phone,
       String? password,
@@ -475,11 +475,11 @@ abstract class _UserDTO extends UserDTO {
   @override
   String? get token;
   @override
-  @JsonKey(name: 'first_name')
-  String? get firstName;
+  @DoubleSerializer()
+  double? get balance;
   @override
-  @JsonKey(name: 'last_name')
-  String? get lastName;
+  @JsonKey(name: 'name')
+  String? get fullName;
   @override
   String? get email;
   @override

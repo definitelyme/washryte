@@ -2,11 +2,14 @@ import 'package:washryte/utils/utils.dart';
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+String? serializeDateTime(DateTime? dateTime) => dateTime?.toIso8601String();
+DateTime? deserializeDateTime(String value) => DateTime.tryParse('$value');
+
 class TimestampConverter implements JsonConverter<DateTime?, dynamic> {
   const TimestampConverter();
 
   @override
-  DateTime? fromJson(dynamic value) => value != null ? DateTime.tryParse('$value') : null;
+  DateTime? fromJson(dynamic value) => deserializeDateTime('$value');
 
   @override
   dynamic toJson(DateTime? instance) => instance?.toIso8601String();

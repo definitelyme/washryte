@@ -5,6 +5,7 @@ import 'package:washryte/utils/utils.dart';
 import 'package:washryte/widgets/widgets.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class PhoneFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ex
   final String? Function(ReactiveState)? initial;
   final FieldObject<String?>? Function(ReactiveState)? field;
   final void Function(Reactive, String)? onChanged;
+  final bool Function(ReactiveState)? hideCountryPicker;
   final int? Function(ReactiveState)? maxLength;
   final bool? Function(ReactiveState)? readOnly;
   final Option<AppHttpResponse?> Function(ReactiveState)? response;
@@ -37,6 +39,7 @@ class PhoneFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ex
   final FocusNode? next;
   final String? prefix;
   final Widget? prefixWidget;
+  final bool autoDisposeController;
 
   PhoneFormField({
     Key? key,
@@ -62,7 +65,9 @@ class PhoneFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ex
     this.border,
     this.errorBorder,
     this.focusedErrorBorder,
+    this.hideCountryPicker,
     this.onEditingComplete,
+    this.autoDisposeController = true,
   }) : super(key: key);
 
   ReactiveState get state => _state;
@@ -93,6 +98,7 @@ class PhoneFormField<Reactive extends BlocBase<ReactiveState>, ReactiveState> ex
           border: border,
           errorBorder: errorBorder,
           focusedErrorBorder: focusedErrorBorder,
+          autoDisposeController: autoDisposeController,
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp('$phonePattern'))],
           autoFillHints: [AutofillHints.telephoneNumberLocal],
           focus: focus,

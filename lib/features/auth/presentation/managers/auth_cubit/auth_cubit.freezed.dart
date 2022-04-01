@@ -19,7 +19,6 @@ class _$AuthStateTearOff {
 
   _AuthState call(
       {required Password oldPassword,
-      required Password confirmPassword,
       required OTPCode code,
       required User user,
       File? selectedPhoto,
@@ -35,7 +34,6 @@ class _$AuthStateTearOff {
       Option<AppHttpResponse?> status = const None()}) {
     return _AuthState(
       oldPassword: oldPassword,
-      confirmPassword: confirmPassword,
       code: code,
       user: user,
       selectedPhoto: selectedPhoto,
@@ -59,7 +57,6 @@ const $AuthState = _$AuthStateTearOff();
 /// @nodoc
 mixin _$AuthState {
   Password get oldPassword => throw _privateConstructorUsedError;
-  Password get confirmPassword => throw _privateConstructorUsedError;
   OTPCode get code => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
   File? get selectedPhoto => throw _privateConstructorUsedError;
@@ -86,7 +83,6 @@ abstract class $AuthStateCopyWith<$Res> {
       _$AuthStateCopyWithImpl<$Res>;
   $Res call(
       {Password oldPassword,
-      Password confirmPassword,
       OTPCode code,
       User user,
       File? selectedPhoto,
@@ -115,7 +111,6 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
   @override
   $Res call({
     Object? oldPassword = freezed,
-    Object? confirmPassword = freezed,
     Object? code = freezed,
     Object? user = freezed,
     Object? selectedPhoto = freezed,
@@ -134,10 +129,6 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
       oldPassword: oldPassword == freezed
           ? _value.oldPassword
           : oldPassword // ignore: cast_nullable_to_non_nullable
-              as Password,
-      confirmPassword: confirmPassword == freezed
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
               as Password,
       code: code == freezed
           ? _value.code
@@ -210,7 +201,6 @@ abstract class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
   @override
   $Res call(
       {Password oldPassword,
-      Password confirmPassword,
       OTPCode code,
       User user,
       File? selectedPhoto,
@@ -241,7 +231,6 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? oldPassword = freezed,
-    Object? confirmPassword = freezed,
     Object? code = freezed,
     Object? user = freezed,
     Object? selectedPhoto = freezed,
@@ -260,10 +249,6 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
       oldPassword: oldPassword == freezed
           ? _value.oldPassword
           : oldPassword // ignore: cast_nullable_to_non_nullable
-              as Password,
-      confirmPassword: confirmPassword == freezed
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
               as Password,
       code: code == freezed
           ? _value.code
@@ -326,7 +311,6 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 class _$_AuthState extends _AuthState {
   const _$_AuthState(
       {required this.oldPassword,
-      required this.confirmPassword,
       required this.code,
       required this.user,
       this.selectedPhoto,
@@ -344,8 +328,6 @@ class _$_AuthState extends _AuthState {
 
   @override
   final Password oldPassword;
-  @override
-  final Password confirmPassword;
   @override
   final OTPCode code;
   @override
@@ -384,7 +366,7 @@ class _$_AuthState extends _AuthState {
 
   @override
   String toString() {
-    return 'AuthState(oldPassword: $oldPassword, confirmPassword: $confirmPassword, code: $code, user: $user, selectedPhoto: $selectedPhoto, phoneTextController: $phoneTextController, passwordStrength: $passwordStrength, isLoading: $isLoading, validate: $validate, isGoogleAuthLoading: $isGoogleAuthLoading, isAppleAuthLoading: $isAppleAuthLoading, isOldPasswordHidden: $isOldPasswordHidden, isPasswordHidden: $isPasswordHidden, passwordMatches: $passwordMatches, status: $status)';
+    return 'AuthState(oldPassword: $oldPassword, code: $code, user: $user, selectedPhoto: $selectedPhoto, phoneTextController: $phoneTextController, passwordStrength: $passwordStrength, isLoading: $isLoading, validate: $validate, isGoogleAuthLoading: $isGoogleAuthLoading, isAppleAuthLoading: $isAppleAuthLoading, isOldPasswordHidden: $isOldPasswordHidden, isPasswordHidden: $isPasswordHidden, passwordMatches: $passwordMatches, status: $status)';
   }
 
   @override
@@ -394,8 +376,6 @@ class _$_AuthState extends _AuthState {
             other is _AuthState &&
             const DeepCollectionEquality()
                 .equals(other.oldPassword, oldPassword) &&
-            const DeepCollectionEquality()
-                .equals(other.confirmPassword, confirmPassword) &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality()
@@ -423,7 +403,6 @@ class _$_AuthState extends _AuthState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(oldPassword),
-      const DeepCollectionEquality().hash(confirmPassword),
       const DeepCollectionEquality().hash(code),
       const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(selectedPhoto),
@@ -447,7 +426,6 @@ class _$_AuthState extends _AuthState {
 abstract class _AuthState extends AuthState {
   const factory _AuthState(
       {required Password oldPassword,
-      required Password confirmPassword,
       required OTPCode code,
       required User user,
       File? selectedPhoto,
@@ -465,8 +443,6 @@ abstract class _AuthState extends AuthState {
 
   @override
   Password get oldPassword;
-  @override
-  Password get confirmPassword;
   @override
   OTPCode get code;
   @override

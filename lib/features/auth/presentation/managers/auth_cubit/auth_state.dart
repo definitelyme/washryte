@@ -21,7 +21,6 @@ class AuthState extends BaseState with _$AuthState {
 
   const factory AuthState({
     required Password oldPassword,
-    required Password confirmPassword,
     required OTPCode code,
     required User user,
     File? selectedPhoto,
@@ -43,7 +42,6 @@ class AuthState extends BaseState with _$AuthState {
         user: User.blank(),
         code: OTPCode(null),
         oldPassword: Password(null),
-        confirmPassword: Password(null),
         phoneTextController: TextEditingController(),
       );
 }

@@ -2,19 +2,17 @@ library payment_method.dart;
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'payment_method.g.dart';
 
 class PaymentMethod extends EnumClass {
-  static const PaymentMethod CARD = _$CARD;
-  static const PaymentMethod PAY_ON_DELIVERY_WITH_CARD =
-      _$PAY_ON_DELIVERY_WITH_CARD;
-  static const PaymentMethod PAY_ON_DELIVERY_WITH_CASH =
-      _$PAY_ON_DELIVERY_WITH_CASH;
-  static const PaymentMethod PAY_WITH_BANK_TRANSFER = _$PAY_WITH_BANK_TRANSFER;
-  static const PaymentMethod FLUTTERWAVE = _$FLUTTERWAVE;
-  static const PaymentMethod STRIPE = _$STRIPE;
-  static const PaymentMethod PAYSTACK = _$PAYSTACK;
+  static const PaymentMethod CASH = _$CASH;
+  static const PaymentMethod TRANSFER = _$TRANSFER;
+  static const PaymentMethod POS = _$POS;
+  @BuiltValueEnumConst(fallback: true)
+  static const PaymentMethod PENDING = _$PENDING;
+  static const PaymentMethod WALLET = _$WALLET;
 
   const PaymentMethod._(String name) : super(name);
 
@@ -24,72 +22,67 @@ class PaymentMethod extends EnumClass {
 
   String get formatted {
     return when(
-      card: () => 'Paid',
-      deliveryWithCard: () => 'Card(POS)',
-      deliveryWithCash: () => 'Cash',
-      transfer: () => 'Paid',
-      flutterwave: () => 'Paid',
-      stripe: () => 'Paid',
-      paystack: () => 'Paid',
+      cash: () => 'Cash',
+      transfer: () => 'Bank Transfer',
+      pos: () => 'POS',
+      pending: () => 'Pending',
+      wallet: () => 'Wallet',
     );
   }
 }
 
+class PaymentMethodSerializer implements JsonConverter<PaymentMethod?, String?> {
+  const PaymentMethodSerializer();
+
+  @override
+  PaymentMethod fromJson(String? value) => PaymentMethod.valueOf('$value');
+
+  @override
+  String? toJson(PaymentMethod? instance) => instance?.name;
+}
+
 extension PaymentMethodX on PaymentMethod {
   T maybeWhen<T>({
-    T Function()? card,
-    T Function()? deliveryWithCard,
-    T Function()? deliveryWithCash,
+    T Function()? cash,
     T Function()? transfer,
-    T Function()? flutterwave,
-    T Function()? stripe,
-    T Function()? paystack,
+    T Function()? pos,
+    T Function()? pending,
+    T Function()? wallet,
     required T Function() orElse,
   }) {
-    if (this == PaymentMethod.CARD)
-      return card?.call() ?? orElse.call();
-    else if (this == PaymentMethod.PAY_ON_DELIVERY_WITH_CARD)
-      return deliveryWithCard?.call() ?? orElse.call();
-    else if (this == PaymentMethod.PAY_ON_DELIVERY_WITH_CASH)
-      return deliveryWithCash?.call() ?? orElse.call();
-    else if (this == PaymentMethod.PAY_WITH_BANK_TRANSFER)
+    if (this == PaymentMethod.CASH)
+      return cash?.call() ?? orElse.call();
+    else if (this == PaymentMethod.TRANSFER)
       return transfer?.call() ?? orElse.call();
-    else if (this == PaymentMethod.FLUTTERWAVE)
-      return flutterwave?.call() ?? orElse.call();
-    else if (this == PaymentMethod.STRIPE)
-      return stripe?.call() ?? orElse.call();
-    else if (this == PaymentMethod.PAYSTACK)
-      return paystack?.call() ?? orElse.call();
+    else if (this == PaymentMethod.POS)
+      return pos?.call() ?? orElse.call();
+    else if (this == PaymentMethod.PENDING)
+      return pending?.call() ?? orElse.call();
+    else if (this == PaymentMethod.WALLET)
+      return wallet?.call() ?? orElse.call();
     else
       return orElse.call();
   }
 
   T when<T>({
-    required T Function() card,
-    required T Function() deliveryWithCard,
-    required T Function() deliveryWithCash,
+    required T Function() cash,
     required T Function() transfer,
-    required T Function() flutterwave,
-    required T Function() stripe,
-    required T Function() paystack,
+    required T Function() pos,
+    required T Function() pending,
+    required T Function() wallet,
   }) {
     switch (this) {
-      case PaymentMethod.CARD:
-        return card.call();
-      case PaymentMethod.PAY_ON_DELIVERY_WITH_CARD:
-        return deliveryWithCard.call();
-      case PaymentMethod.PAY_ON_DELIVERY_WITH_CASH:
-        return deliveryWithCash.call();
-      case PaymentMethod.PAY_WITH_BANK_TRANSFER:
+      case PaymentMethod.CASH:
+        return cash.call();
+      case PaymentMethod.TRANSFER:
         return transfer.call();
-      case PaymentMethod.FLUTTERWAVE:
-        return flutterwave.call();
-      case PaymentMethod.STRIPE:
-        return stripe.call();
-      case PaymentMethod.PAYSTACK:
-        return paystack.call();
+      case PaymentMethod.POS:
+        return pos.call();
+      case PaymentMethod.WALLET:
+        return wallet.call();
+      case PaymentMethod.PENDING:
       default:
-        return deliveryWithCard.call();
+        return pending.call();
     }
   }
 }

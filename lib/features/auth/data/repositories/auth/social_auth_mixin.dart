@@ -1,18 +1,18 @@
 library social_auth_mixin.dart;
 
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart' as _dio;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:washryte/core/data/http_client/index.dart';
 import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:washryte/core/domain/response/index.dart';
 import 'package:washryte/features/auth/data/models/index.dart';
 import 'package:washryte/features/auth/data/sources/sources.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/services.dart';
 import 'package:washryte/features/auth/domain/index.dart';
-import 'package:washryte/utils/utils.dart';
-import 'package:dio/dio.dart' as _dio;
 
 typedef SignInWithSocials = Future<_dio.Response<dynamic>> Function();
 
@@ -65,55 +65,74 @@ mixin SocialAuthMixin on AuthFacade {
 
   @override
   Future<Option<AppHttpResponse?>> appleAuthentication([bool notify = false]) async {
-    try {
-      return some(AppHttpResponse(AnyResponse.fromFailure(
-        FailureResponse.unImplemented('Signin with Apple not implemented!'),
-      )));
-    } on AppHttpResponse catch (e) {
-      log.e(e);
-      return some(e);
-    } on PlatformException catch (e) {
-      log.e(e);
-      return some(AppHttpResponse(AnyResponse.fromFailure(
-        FailureResponse.unknown(message: e.message),
-      )));
-    }
+    final _conn = await checkInternetConnectivity();
+
+    return await _conn.fold(
+      (f) => some(f),
+      (_) async {
+        try {
+          final credential = await SignInWithApple.getAppleIDCredential(
+            scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+          );
+
+          // Attempt to authenticate the user with apple credentials
+          return _authenticateUser(
+            () => remote.signInWithApple(credential.identityToken),
+            provider: AuthProvider.apple,
+          );
+        } on AppHttpResponse catch (e) {
+          return some(e);
+        } on AppNetworkException catch (e) {
+          return some(e.asResponse());
+        } on SignInWithAppleNotSupportedException catch (e) {
+          return some(AppHttpResponse.failure('${e.message}'));
+        } on SignInWithAppleException catch (_) {
+          return some(AppHttpResponse(AnyResponse.fromFailure(FailureResponse.aborted())));
+        }
+      },
+    );
   }
 
   Future<Option<AppHttpResponse?>> _authenticateUser(
     SignInWithSocials callable, {
     required AuthProvider provider,
   }) async {
-    final response = await callable.call();
+    final result = await callable.call();
 
-    // cache access token
-    await local.cacheUserAccessToken(response.data);
+    final response = SocialUserDTO.fromJson(result.data as Map<String, dynamic>);
 
-    // Get Authenticated Rider account
-    final _rider = await remote.getUser();
+    switch (response.status) {
+      case 'success':
+        await local.cacheUserAccessToken(result.data);
 
-    return _rider.fold(
-      (failure) async {
-        final _data = failure.data as Map<String, dynamic>;
-        final _socialDto = SocialUserDTO.fromJson(_data);
+        // Get Authenticated User account
+        final _user = await remote.getUser();
 
-        // Log Firebase Analytics Login event
-        await analytics.logLogin(loginMethod: 'google');
+        return _user.fold(
+          (e) async {
+            final _data = e.data as Map<String, dynamic>;
+            final dto = SocialUserDTO.fromJson(_data);
 
-        await retrieveAndCacheUpdatedUser(dto: _socialDto.dto);
+            await retrieveAndCacheUpdatedUser(dto: dto.dto);
 
-        await sink(left(failure));
+            await sink(left(e));
 
-        return some(failure);
-      },
-      (dto) async {
-        // Log Firebase Analytics Login event
-        await analytics.logLogin(loginMethod: 'google');
+            return some(e);
+          },
+          (dto) async {
+            // Log Firebase Analytics Login event
+            await analytics.logLogin(loginMethod: provider.name);
 
-        await sink(right(optionOf(dto?.domain)));
+            await sink(right(optionOf(dto?.domain)));
 
-        return none();
-      },
-    );
+            return none();
+          },
+        );
+      case 'error':
+      case 'failure':
+      default:
+        final value = AppHttpResponse.fromDioResponse(result);
+        return optionOf(value);
+    }
   }
 }

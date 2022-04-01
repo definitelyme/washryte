@@ -26,7 +26,7 @@ import 'package:washryte/manager/router/guards/guards.dart';
       usesPathAsKey: true,
       page: GetStartedScreen,
       cupertinoPageTitle: 'Get Started',
-      guards: [GuestGuard],
+      guards: [GuestGuard, IncompleteKYCGuard],
     ),
     //
     AdaptiveRoute(
@@ -35,7 +35,7 @@ import 'package:washryte/manager/router/guards/guards.dart';
       usesPathAsKey: true,
       page: LoginScreen,
       cupertinoPageTitle: 'Login',
-      guards: [GuestGuard],
+      guards: [GuestGuard, IncompleteKYCGuard],
     ),
     //
     AdaptiveRoute(
@@ -44,7 +44,7 @@ import 'package:washryte/manager/router/guards/guards.dart';
       usesPathAsKey: true,
       page: SignupScreen,
       cupertinoPageTitle: 'Sign Up',
-      guards: [GuestGuard],
+      guards: [GuestGuard, IncompleteKYCGuard],
     ),
     //
     AdaptiveRoute(
@@ -90,8 +90,8 @@ import 'package:washryte/manager/router/guards/guards.dart';
       fullMatch: true,
       maintainState: true,
       usesPathAsKey: true,
-      page: TrackOrderScreen,
-      cupertinoPageTitle: 'Track Orders',
+      page: TrackingScreen,
+      cupertinoPageTitle: 'Track',
     ),
     //
     AdaptiveRoute(
@@ -122,14 +122,6 @@ import 'package:washryte/manager/router/guards/guards.dart';
       fullMatch: true,
       maintainState: true,
       usesPathAsKey: true,
-      page: NotificationScreen,
-      cupertinoPageTitle: 'Notifications',
-      guards: [AuthGuard],
-    ),
-    AdaptiveRoute(
-      fullMatch: true,
-      maintainState: true,
-      usesPathAsKey: true,
       page: NotConnectedScreen,
     ),
     //
@@ -148,7 +140,7 @@ const dashboardRouter = AutoRoute(
   fullMatch: true,
   page: DashboardScreen,
   maintainState: true,
-  guards: [AuthGuard],
+  guards: [AuthGuard, IncompleteKYCGuard],
   children: [
     AutoRoute(
       path: 'home',
@@ -216,7 +208,7 @@ const profileRoutes = [
     maintainState: true,
     usesPathAsKey: true,
     page: OrderHistoryScreen,
-    cupertinoPageTitle: 'Edit Profile',
+    cupertinoPageTitle: 'Order History',
     guards: [AuthGuard],
   ),
 ];

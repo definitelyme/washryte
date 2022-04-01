@@ -6,6 +6,8 @@ import 'package:inflection3/inflection3.dart' as _l1;
 import 'package:intl/intl.dart';
 import 'package:kt_dart/kt.dart';
 
+enum StringCase { upper, lower, title }
+
 extension StringX on String {
   /// Capitalize only first letter in string
   ///
@@ -18,6 +20,24 @@ extension StringX on String {
     return splitStr.join(' ');
   }
 
+  String get kebabCase {
+    final split = this.split(r'/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g');
+    return split.fold('', (prev, n) => prev.isEmpty ? '$prev$n' : '$prev-$n');
+  }
+
+  String cased(StringCase? type) {
+    switch (type) {
+      case StringCase.upper:
+        return toUpperCase();
+      case StringCase.lower:
+        return toLowerCase();
+      case StringCase.title:
+        return titleCase();
+      default:
+        return this;
+    }
+  }
+
   /// Checks if String contains b (Treating or interpreting upper- and lowercase letters as being the same).
   bool caseInsensitiveContains(String? b) => toLowerCase().contains('${b?.toLowerCase()}');
 
@@ -28,7 +48,10 @@ extension StringX on String {
     return lowA.contains('$lowB') || (lowB != null && lowB.contains(lowA));
   }
 
-  bool equals(String? other) => identical(this, other) || const DeepCollectionEquality().equals(this, other);
+  bool equals(String? other, {bool lowercase = true}) {
+    final _this = lowercase ? toLowerCase() : this;
+    return identical(_this, other?.toLowerCase()) || const DeepCollectionEquality().equals(_this, other?.toLowerCase());
+  }
 
   /// Erase occurrence of strings matching Patterns
   String erase(List<Pattern> patterns, {bool recursive = true, Direction position = Direction.left, int startIndex = 0}) {
@@ -60,7 +83,7 @@ extension StringX on String {
   }
 
   NumberFormat asCurrencyFormat({
-    String? mask = '#,##0',
+    bool mask = false,
     bool includeSymbol = false,
     bool decimal = false,
     String? currency,
@@ -69,8 +92,9 @@ extension StringX on String {
       NumberFormat.currency(
         name: currency,
         symbol: includeSymbol ? null : '',
-        customPattern: mask,
+        customPattern: mask ? '#,##0' : null,
         decimalDigits: decimal ? 1 : 0,
+        locale: locale,
       );
 
   String pad([String? pad = '', Direction start = Direction.right]) {
@@ -99,10 +123,10 @@ extension StringX on String {
   ///
   /// Example: 50000 => 50,000
   String asCurrency({
-    String? mask,
+    bool mask = false,
     bool symbol = true,
-    String? currency = '${Utils.currency}',
-    String locale = "tr_TUR",
+    String? currency = '${Utils.currency} ',
+    String locale = "en_NG",
   }) {
     if (this == 'null' || isEmpty) return '';
 

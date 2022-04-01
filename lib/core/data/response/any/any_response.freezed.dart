@@ -15,6 +15,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 AnyResponse _$AnyResponseFromJson(Map<String, dynamic> json) {
   switch (json['status']) {
+    case 'info':
+      return InfoResponseType.fromJson(json);
     case 'success':
       return SuccessfulResponse.fromJson(json);
 
@@ -35,6 +37,7 @@ class _$AnyResponseTearOff {
       String? error,
       ServerFieldErrors? errors,
       @JsonKey(ignore: true) bool pop = false,
+      @JsonKey(ignore: true) bool show = true,
       @JsonKey(ignore: true) Exception? exception}) {
     return ErrorResponse(
       code: code,
@@ -44,24 +47,34 @@ class _$AnyResponseTearOff {
       error: error,
       errors: errors,
       pop: pop,
+      show: show,
       exception: exception,
     );
   }
 
-  SuccessfulResponse success(
-      {@JsonKey(ignore: true) String? uuid,
-      String? status,
+  InfoResponseType info(
+      {String? status,
       @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
       @JsonKey(ignore: true) String? details,
-      @JsonKey(ignore: true) bool pop = false,
-      @JsonKey(ignore: true) bool show = true}) {
-    return SuccessfulResponse(
-      uuid: uuid,
+      @JsonKey(ignore: true) bool pop = false}) {
+    return InfoResponseType(
       status: status,
       messageTxt: messageTxt,
       details: details,
       pop: pop,
-      show: show,
+    );
+  }
+
+  SuccessfulResponse success(
+      {String? status,
+      @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+      @JsonKey(ignore: true) String? details,
+      @JsonKey(ignore: true) bool pop = false}) {
+    return SuccessfulResponse(
+      status: status,
+      messageTxt: messageTxt,
+      details: details,
+      pop: pop,
     );
   }
 
@@ -93,15 +106,20 @@ mixin _$AnyResponse {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)
         error,
     required TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)
+            @JsonKey(ignore: true) bool pop)
+        info,
+    required TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)
         success,
   }) =>
       throw _privateConstructorUsedError;
@@ -115,15 +133,20 @@ mixin _$AnyResponse {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
   }) =>
       throw _privateConstructorUsedError;
@@ -137,15 +160,20 @@ mixin _$AnyResponse {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
     required TResult orElse(),
   }) =>
@@ -153,18 +181,21 @@ mixin _$AnyResponse {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ErrorResponse value) error,
+    required TResult Function(InfoResponseType value) info,
     required TResult Function(SuccessfulResponse value) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
     required TResult orElse(),
   }) =>
@@ -238,6 +269,7 @@ abstract class $ErrorResponseCopyWith<$Res>
       String? error,
       ServerFieldErrors? errors,
       @JsonKey(ignore: true) bool pop,
+      @JsonKey(ignore: true) bool show,
       @JsonKey(ignore: true) Exception? exception});
 
   $ServerFieldErrorsCopyWith<$Res>? get errors;
@@ -262,6 +294,7 @@ class _$ErrorResponseCopyWithImpl<$Res> extends _$AnyResponseCopyWithImpl<$Res>
     Object? error = freezed,
     Object? errors = freezed,
     Object? pop = freezed,
+    Object? show = freezed,
     Object? exception = freezed,
   }) {
     return _then(ErrorResponse(
@@ -292,6 +325,10 @@ class _$ErrorResponseCopyWithImpl<$Res> extends _$AnyResponseCopyWithImpl<$Res>
       pop: pop == freezed
           ? _value.pop
           : pop // ignore: cast_nullable_to_non_nullable
+              as bool,
+      show: show == freezed
+          ? _value.show
+          : show // ignore: cast_nullable_to_non_nullable
               as bool,
       exception: exception == freezed
           ? _value.exception
@@ -324,6 +361,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
       this.error,
       this.errors,
       @JsonKey(ignore: true) this.pop = false,
+      @JsonKey(ignore: true) this.show = true,
       @JsonKey(ignore: true) this.exception})
       : super._();
 
@@ -349,11 +387,14 @@ class _$ErrorResponse extends ErrorResponse with Failure {
   final bool pop;
   @override
   @JsonKey(ignore: true)
+  final bool show;
+  @override
+  @JsonKey(ignore: true)
   final Exception? exception;
 
   @override
   String toString() {
-    return 'AnyResponse.error(code: $code, status: $status, messageTxt: $messageTxt, details: $details, error: $error, errors: $errors, pop: $pop, exception: $exception)';
+    return 'AnyResponse.error(code: $code, status: $status, messageTxt: $messageTxt, details: $details, error: $error, errors: $errors, pop: $pop, show: $show, exception: $exception)';
   }
 
   @override
@@ -369,6 +410,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
             const DeepCollectionEquality().equals(other.error, error) &&
             const DeepCollectionEquality().equals(other.errors, errors) &&
             const DeepCollectionEquality().equals(other.pop, pop) &&
+            const DeepCollectionEquality().equals(other.show, show) &&
             const DeepCollectionEquality().equals(other.exception, exception));
   }
 
@@ -382,6 +424,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
       const DeepCollectionEquality().hash(error),
       const DeepCollectionEquality().hash(errors),
       const DeepCollectionEquality().hash(pop),
+      const DeepCollectionEquality().hash(show),
       const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
@@ -400,19 +443,24 @@ class _$ErrorResponse extends ErrorResponse with Failure {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)
         error,
     required TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)
+            @JsonKey(ignore: true) bool pop)
+        info,
+    required TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)
         success,
   }) {
-    return error(
-        code, status, messageTxt, details, this.error, errors, pop, exception);
+    return error(code, status, messageTxt, details, this.error, errors, pop,
+        show, exception);
   }
 
   @override
@@ -426,19 +474,24 @@ class _$ErrorResponse extends ErrorResponse with Failure {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
   }) {
-    return error?.call(
-        code, status, messageTxt, details, this.error, errors, pop, exception);
+    return error?.call(code, status, messageTxt, details, this.error, errors,
+        pop, show, exception);
   }
 
   @override
@@ -452,21 +505,26 @@ class _$ErrorResponse extends ErrorResponse with Failure {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
     required TResult orElse(),
   }) {
     if (error != null) {
       return error(code, status, messageTxt, details, this.error, errors, pop,
-          exception);
+          show, exception);
     }
     return orElse();
   }
@@ -475,6 +533,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ErrorResponse value) error,
+    required TResult Function(InfoResponseType value) info,
     required TResult Function(SuccessfulResponse value) success,
   }) {
     return error(this);
@@ -484,6 +543,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
   }) {
     return error?.call(this);
@@ -493,6 +553,7 @@ class _$ErrorResponse extends ErrorResponse with Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
     required TResult orElse(),
   }) {
@@ -517,6 +578,7 @@ abstract class ErrorResponse extends AnyResponse implements Failure {
       String? error,
       ServerFieldErrors? errors,
       @JsonKey(ignore: true) bool pop,
+      @JsonKey(ignore: true) bool show,
       @JsonKey(ignore: true) Exception? exception}) = _$ErrorResponse;
   const ErrorResponse._() : super._();
 
@@ -538,6 +600,8 @@ abstract class ErrorResponse extends AnyResponse implements Failure {
   @JsonKey(ignore: true)
   bool get pop;
   @JsonKey(ignore: true)
+  bool get show;
+  @JsonKey(ignore: true)
   Exception? get exception;
   @override
   @JsonKey(ignore: true)
@@ -546,46 +610,38 @@ abstract class ErrorResponse extends AnyResponse implements Failure {
 }
 
 /// @nodoc
-abstract class $SuccessfulResponseCopyWith<$Res>
+abstract class $InfoResponseTypeCopyWith<$Res>
     implements $AnyResponseCopyWith<$Res> {
-  factory $SuccessfulResponseCopyWith(
-          SuccessfulResponse value, $Res Function(SuccessfulResponse) then) =
-      _$SuccessfulResponseCopyWithImpl<$Res>;
+  factory $InfoResponseTypeCopyWith(
+          InfoResponseType value, $Res Function(InfoResponseType) then) =
+      _$InfoResponseTypeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String? uuid,
-      String? status,
+      {String? status,
       @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
       @JsonKey(ignore: true) String? details,
-      @JsonKey(ignore: true) bool pop,
-      @JsonKey(ignore: true) bool show});
+      @JsonKey(ignore: true) bool pop});
 }
 
 /// @nodoc
-class _$SuccessfulResponseCopyWithImpl<$Res>
+class _$InfoResponseTypeCopyWithImpl<$Res>
     extends _$AnyResponseCopyWithImpl<$Res>
-    implements $SuccessfulResponseCopyWith<$Res> {
-  _$SuccessfulResponseCopyWithImpl(
-      SuccessfulResponse _value, $Res Function(SuccessfulResponse) _then)
-      : super(_value, (v) => _then(v as SuccessfulResponse));
+    implements $InfoResponseTypeCopyWith<$Res> {
+  _$InfoResponseTypeCopyWithImpl(
+      InfoResponseType _value, $Res Function(InfoResponseType) _then)
+      : super(_value, (v) => _then(v as InfoResponseType));
 
   @override
-  SuccessfulResponse get _value => super._value as SuccessfulResponse;
+  InfoResponseType get _value => super._value as InfoResponseType;
 
   @override
   $Res call({
-    Object? uuid = freezed,
     Object? status = freezed,
     Object? messageTxt = freezed,
     Object? details = freezed,
     Object? pop = freezed,
-    Object? show = freezed,
   }) {
-    return _then(SuccessfulResponse(
-      uuid: uuid == freezed
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(InfoResponseType(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -602,34 +658,24 @@ class _$SuccessfulResponseCopyWithImpl<$Res>
           ? _value.pop
           : pop // ignore: cast_nullable_to_non_nullable
               as bool,
-      show: show == freezed
-          ? _value.show
-          : show // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-@With<Response>()
-@With<Success>()
-class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
-  const _$SuccessfulResponse(
-      {@JsonKey(ignore: true) this.uuid,
-      this.status,
+@With<Info>()
+class _$InfoResponseType extends InfoResponseType with Info {
+  const _$InfoResponseType(
+      {this.status,
       @JsonKey(includeIfNull: false, name: 'message') this.messageTxt,
       @JsonKey(ignore: true) this.details,
-      @JsonKey(ignore: true) this.pop = false,
-      @JsonKey(ignore: true) this.show = true})
+      @JsonKey(ignore: true) this.pop = false})
       : super._();
 
-  factory _$SuccessfulResponse.fromJson(Map<String, dynamic> json) =>
-      _$$SuccessfulResponseFromJson(json);
+  factory _$InfoResponseType.fromJson(Map<String, dynamic> json) =>
+      _$$InfoResponseTypeFromJson(json);
 
-  @override
-  @JsonKey(ignore: true)
-  final String? uuid;
   @override
   final String? status;
   @override
@@ -641,13 +687,281 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
   @override
   @JsonKey(ignore: true)
   final bool pop;
-  @override
-  @JsonKey(ignore: true)
-  final bool show;
 
   @override
   String toString() {
-    return 'AnyResponse.success(uuid: $uuid, status: $status, messageTxt: $messageTxt, details: $details, pop: $pop, show: $show)';
+    return 'AnyResponse.info(status: $status, messageTxt: $messageTxt, details: $details, pop: $pop)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InfoResponseType &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.messageTxt, messageTxt) &&
+            const DeepCollectionEquality().equals(other.details, details) &&
+            const DeepCollectionEquality().equals(other.pop, pop));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(messageTxt),
+      const DeepCollectionEquality().hash(details),
+      const DeepCollectionEquality().hash(pop));
+
+  @JsonKey(ignore: true)
+  @override
+  $InfoResponseTypeCopyWith<InfoResponseType> get copyWith =>
+      _$InfoResponseTypeCopyWithImpl<InfoResponseType>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            int? code,
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            String? error,
+            ServerFieldErrors? errors,
+            @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
+            @JsonKey(ignore: true) Exception? exception)
+        error,
+    required TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)
+        info,
+    required TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)
+        success,
+  }) {
+    return info(status, messageTxt, details, pop);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            int? code,
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            String? error,
+            ServerFieldErrors? errors,
+            @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
+            @JsonKey(ignore: true) Exception? exception)?
+        error,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
+        success,
+  }) {
+    return info?.call(status, messageTxt, details, pop);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            int? code,
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            String? error,
+            ServerFieldErrors? errors,
+            @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
+            @JsonKey(ignore: true) Exception? exception)?
+        error,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
+        success,
+    required TResult orElse(),
+  }) {
+    if (info != null) {
+      return info(status, messageTxt, details, pop);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ErrorResponse value) error,
+    required TResult Function(InfoResponseType value) info,
+    required TResult Function(SuccessfulResponse value) success,
+  }) {
+    return info(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
+    TResult Function(SuccessfulResponse value)? success,
+  }) {
+    return info?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
+    TResult Function(SuccessfulResponse value)? success,
+    required TResult orElse(),
+  }) {
+    if (info != null) {
+      return info(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InfoResponseTypeToJson(this);
+  }
+}
+
+abstract class InfoResponseType extends AnyResponse implements Info {
+  const factory InfoResponseType(
+      {String? status,
+      @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+      @JsonKey(ignore: true) String? details,
+      @JsonKey(ignore: true) bool pop}) = _$InfoResponseType;
+  const InfoResponseType._() : super._();
+
+  factory InfoResponseType.fromJson(Map<String, dynamic> json) =
+      _$InfoResponseType.fromJson;
+
+  @override
+  String? get status;
+  @override
+  @JsonKey(includeIfNull: false, name: 'message')
+  String? get messageTxt;
+  @override
+  @JsonKey(ignore: true)
+  String? get details;
+  @override
+  @JsonKey(ignore: true)
+  bool get pop;
+  @override
+  @JsonKey(ignore: true)
+  $InfoResponseTypeCopyWith<InfoResponseType> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SuccessfulResponseCopyWith<$Res>
+    implements $AnyResponseCopyWith<$Res> {
+  factory $SuccessfulResponseCopyWith(
+          SuccessfulResponse value, $Res Function(SuccessfulResponse) then) =
+      _$SuccessfulResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? status,
+      @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+      @JsonKey(ignore: true) String? details,
+      @JsonKey(ignore: true) bool pop});
+}
+
+/// @nodoc
+class _$SuccessfulResponseCopyWithImpl<$Res>
+    extends _$AnyResponseCopyWithImpl<$Res>
+    implements $SuccessfulResponseCopyWith<$Res> {
+  _$SuccessfulResponseCopyWithImpl(
+      SuccessfulResponse _value, $Res Function(SuccessfulResponse) _then)
+      : super(_value, (v) => _then(v as SuccessfulResponse));
+
+  @override
+  SuccessfulResponse get _value => super._value as SuccessfulResponse;
+
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? messageTxt = freezed,
+    Object? details = freezed,
+    Object? pop = freezed,
+  }) {
+    return _then(SuccessfulResponse(
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      messageTxt: messageTxt == freezed
+          ? _value.messageTxt
+          : messageTxt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      details: details == freezed
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pop: pop == freezed
+          ? _value.pop
+          : pop // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@With<Success>()
+class _$SuccessfulResponse extends SuccessfulResponse with Success {
+  const _$SuccessfulResponse(
+      {this.status,
+      @JsonKey(includeIfNull: false, name: 'message') this.messageTxt,
+      @JsonKey(ignore: true) this.details,
+      @JsonKey(ignore: true) this.pop = false})
+      : super._();
+
+  factory _$SuccessfulResponse.fromJson(Map<String, dynamic> json) =>
+      _$$SuccessfulResponseFromJson(json);
+
+  @override
+  final String? status;
+  @override
+  @JsonKey(includeIfNull: false, name: 'message')
+  final String? messageTxt;
+  @override
+  @JsonKey(ignore: true)
+  final String? details;
+  @override
+  @JsonKey(ignore: true)
+  final bool pop;
+
+  @override
+  String toString() {
+    return 'AnyResponse.success(status: $status, messageTxt: $messageTxt, details: $details, pop: $pop)';
   }
 
   @override
@@ -655,24 +969,20 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SuccessfulResponse &&
-            const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other.messageTxt, messageTxt) &&
             const DeepCollectionEquality().equals(other.details, details) &&
-            const DeepCollectionEquality().equals(other.pop, pop) &&
-            const DeepCollectionEquality().equals(other.show, show));
+            const DeepCollectionEquality().equals(other.pop, pop));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(uuid),
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(messageTxt),
       const DeepCollectionEquality().hash(details),
-      const DeepCollectionEquality().hash(pop),
-      const DeepCollectionEquality().hash(show));
+      const DeepCollectionEquality().hash(pop));
 
   @JsonKey(ignore: true)
   @override
@@ -690,18 +1000,23 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)
         error,
     required TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)
+            @JsonKey(ignore: true) bool pop)
+        info,
+    required TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)
         success,
   }) {
-    return success(uuid, status, messageTxt, details, pop, show);
+    return success(status, messageTxt, details, pop);
   }
 
   @override
@@ -715,18 +1030,23 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
   }) {
-    return success?.call(uuid, status, messageTxt, details, pop, show);
+    return success?.call(status, messageTxt, details, pop);
   }
 
   @override
@@ -740,20 +1060,25 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
             String? error,
             ServerFieldErrors? errors,
             @JsonKey(ignore: true) bool pop,
+            @JsonKey(ignore: true) bool show,
             @JsonKey(ignore: true) Exception? exception)?
         error,
     TResult Function(
-            @JsonKey(ignore: true) String? uuid,
             String? status,
             @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
             @JsonKey(ignore: true) String? details,
-            @JsonKey(ignore: true) bool pop,
-            @JsonKey(ignore: true) bool show)?
+            @JsonKey(ignore: true) bool pop)?
+        info,
+    TResult Function(
+            String? status,
+            @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
+            @JsonKey(ignore: true) String? details,
+            @JsonKey(ignore: true) bool pop)?
         success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(uuid, status, messageTxt, details, pop, show);
+      return success(status, messageTxt, details, pop);
     }
     return orElse();
   }
@@ -762,6 +1087,7 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ErrorResponse value) error,
+    required TResult Function(InfoResponseType value) info,
     required TResult Function(SuccessfulResponse value) success,
   }) {
     return success(this);
@@ -771,6 +1097,7 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
   }) {
     return success?.call(this);
@@ -780,6 +1107,7 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ErrorResponse value)? error,
+    TResult Function(InfoResponseType value)? info,
     TResult Function(SuccessfulResponse value)? success,
     required TResult orElse(),
   }) {
@@ -795,22 +1123,17 @@ class _$SuccessfulResponse extends SuccessfulResponse with Response, Success {
   }
 }
 
-abstract class SuccessfulResponse extends AnyResponse
-    implements Response, Success {
+abstract class SuccessfulResponse extends AnyResponse implements Success {
   const factory SuccessfulResponse(
-      {@JsonKey(ignore: true) String? uuid,
-      String? status,
+      {String? status,
       @JsonKey(includeIfNull: false, name: 'message') String? messageTxt,
       @JsonKey(ignore: true) String? details,
-      @JsonKey(ignore: true) bool pop,
-      @JsonKey(ignore: true) bool show}) = _$SuccessfulResponse;
+      @JsonKey(ignore: true) bool pop}) = _$SuccessfulResponse;
   const SuccessfulResponse._() : super._();
 
   factory SuccessfulResponse.fromJson(Map<String, dynamic> json) =
       _$SuccessfulResponse.fromJson;
 
-  @JsonKey(ignore: true)
-  String? get uuid;
   @override
   String? get status;
   @override
@@ -822,8 +1145,6 @@ abstract class SuccessfulResponse extends AnyResponse
   @override
   @JsonKey(ignore: true)
   bool get pop;
-  @JsonKey(ignore: true)
-  bool get show;
   @override
   @JsonKey(ignore: true)
   $SuccessfulResponseCopyWith<SuccessfulResponse> get copyWith =>
