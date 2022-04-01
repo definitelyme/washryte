@@ -13,6 +13,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		C6054F1127F71F5D00278507 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6054F1027F71F5D00278507 /* CloudKit.framework */; };
 		C63F267F27F0A5400048A60C /* config in Resources */ = {isa = PBXBuildFile; fileRef = C63F267E27F0A53F0048A60C /* config */; };
 		C68B3E1A27D0FE2C00901C31 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = C68B3E1827D0FE2C00901C31 /* Info-dev.plist */; };
 		C68B3E1B27D0FE2C00901C31 /* Info-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = C68B3E1927D0FE2C00901C31 /* Info-prod.plist */; };
@@ -50,6 +51,7 @@
 		97C146FB1CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C6054F1027F71F5D00278507 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C63F267E27F0A53F0048A60C /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; path = config; sourceTree = "<group>"; };
 		C68B3E1827D0FE2C00901C31 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
 		C68B3E1927D0FE2C00901C31 /* Info-prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-prod.plist"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D99EA6FF43E990CAD42DF6 /* Pods_Runner.framework in Frameworks */,
+				C6054F1127F71F5D00278507 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +76,7 @@
 		5D138F9494CF74B019682DEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6054F1027F71F5D00278507 /* CloudKit.framework */,
 				CC67BAFBE2462112700063E2 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
