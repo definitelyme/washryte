@@ -169,7 +169,7 @@ class _SignupScreenState extends State<SignupScreen> with AutomaticKeepAliveClie
                           //
                           VerticalSpace(height: 0.02.h),
                           //
-			  if (App.platform.isIOS)
+			  if (!App.platform.isIOS)
                           ...[
 			    //
                             const OrWidget(),

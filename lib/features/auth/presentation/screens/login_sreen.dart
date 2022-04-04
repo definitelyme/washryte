@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> with AutomaticKeepAliveClient
                           //
                           VerticalSpace(height: 0.02.h),
                           //
-			  if (App.platform.isIOS)
+			  if (!App.platform.isIOS)
                           ...[
 			    //
                             const OrWidget(),
