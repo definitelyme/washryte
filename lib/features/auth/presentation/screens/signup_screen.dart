@@ -169,15 +169,19 @@ class _SignupScreenState extends State<SignupScreen> with AutomaticKeepAliveClie
                           //
                           VerticalSpace(height: 0.02.h),
                           //
-                          const OrWidget(),
-                          //
-                          VerticalSpace(height: 0.02.h),
-                          //
-                          MyHero(
-                            tag: Const.oauthBtnHeroTag,
-                            type: MaterialType.transparency,
-                            child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
-                          ),
+			  if (App.platform.isIOS)
+                          ...[
+			    //
+                            const OrWidget(),
+                            //
+			    VerticalSpace(height: 0.02.h),
+                            //
+                            MyHero(
+                              tag: Const.oauthBtnHeroTag,
+                              type: MaterialType.transparency,
+                              child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
+                            ),
+			  ],
                           //
                           VerticalSpace(height: 0.02.h),
                           //
