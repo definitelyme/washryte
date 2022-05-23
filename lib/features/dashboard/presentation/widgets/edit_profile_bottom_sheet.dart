@@ -139,55 +139,21 @@ class _EditProfileBottomSheet extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                App.platform.fold(
-                                  material: () => const TextFormInputLabel(text: 'Display Name'),
-                                  cupertino: () => Utils.nothing,
-                                ),
+                                const TextFormInputLabel(text: 'Display Name'),
                                 //
-                                App.platform.fold(
-                                  material: () => const _FirstNameUpdateField(),
-                                  cupertino: () => CupertinoFormSection(
-                                    children: [const _FirstNameUpdateField()],
-                                  ),
-                                ),
+                                const _FullNameUpdateField(),
                                 //
                                 VerticalSpace(height: 0.03.sw),
                                 //
-                                App.platform.fold(
-                                  material: () => const Hero(
-                                    tag: Const.emailLabelHeroTag,
-                                    child: TextFormInputLabel(
-                                      text: 'Email Address',
-                                    ),
-                                  ),
-                                  cupertino: () => Utils.nothing,
-                                ),
+                                const TextFormInputLabel(text: 'Email Address'),
                                 //
-                                App.platform.fold(
-                                  material: () => const _EmailUpdateField(),
-                                  cupertino: () => CupertinoFormSection(
-                                    children: [const _EmailUpdateField()],
-                                  ),
-                                ),
+                                const _EmailUpdateField(),
                                 //
                                 VerticalSpace(height: 0.03.sw),
                                 //
-                                App.platform.fold(
-                                  material: () => const Hero(
-                                    tag: Const.emailLabelHeroTag,
-                                    child: TextFormInputLabel(
-                                      text: 'Phone Number',
-                                    ),
-                                  ),
-                                  cupertino: () => Utils.nothing,
-                                ),
+                                const TextFormInputLabel(text: 'Phone Number'),
                                 //
-                                App.platform.fold(
-                                  material: () => const _PhoneNumberField(),
-                                  cupertino: () => CupertinoFormSection(
-                                    children: [const _PhoneNumberField()],
-                                  ),
-                                ),
+                                const _PhoneNumberField(),
                                 //
                                 VerticalSpace(height: 0.03.sw),
                                 //
@@ -223,8 +189,8 @@ class _EditProfileBottomSheet extends StatelessWidget {
   }
 }
 
-class _FirstNameUpdateField extends StatelessWidget {
-  const _FirstNameUpdateField({Key? key}) : super(key: key);
+class _FullNameUpdateField extends StatelessWidget {
+  const _FullNameUpdateField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,11 @@ library country_dto.dart;
 
 import 'dart:convert';
 
-import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:floor/floor.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/kt.dart';
+import 'package:washryte/core/domain/entities/entities.dart';
+import 'package:washryte/manager/serializer/serializers.dart';
 
 part 'country_dto.g.dart';
 part 'country_dto.freezed.dart';
@@ -16,7 +17,7 @@ class CountryDTO with _$CountryDTO {
   const CountryDTO._();
 
   const factory CountryDTO({
-    @JsonKey(includeIfNull: false) String? id,
+    @JsonKey(includeIfNull: false) @StringSerializer() String? id,
     @JsonKey(includeIfNull: false) String? name,
     @JsonKey(includeIfNull: false) String? iso2,
     @JsonKey(includeIfNull: false) String? iso3,

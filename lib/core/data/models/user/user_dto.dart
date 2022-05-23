@@ -7,7 +7,7 @@ class UserDTO with _$UserDTO {
 
   @Entity(tableName: UserDTO.tableName)
   const factory UserDTO({
-    @primaryKey String? id,
+    @primaryKey  @StringSerializer() String? id,
     String? token,
     @DoubleSerializer() double? balance,
     @JsonKey(name: 'name') String? fullName,

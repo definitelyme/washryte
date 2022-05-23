@@ -20,7 +20,7 @@ class AppNotificationDTO with _$AppNotificationDTO {
   const AppNotificationDTO._();
 
   const factory AppNotificationDTO({
-    String? id,
+    @StringSerializer() String? id,
     String? title,
     String? message,
     NotificationMetaDTO? meta,

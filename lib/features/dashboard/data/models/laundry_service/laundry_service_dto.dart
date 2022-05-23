@@ -19,7 +19,7 @@ class LaundryServiceDTO with _$LaundryServiceDTO {
   const LaundryServiceDTO._();
 
   const factory LaundryServiceDTO({
-    String? id,
+    @StringSerializer() String? id,
     @JsonKey(name: 'service_name') String? name,
     @JsonKey(name: 'service_units') @IntegerSerializer() int? quantity,
     @JsonKey(name: 'service_unit_price') @DoubleSerializer() double? price,

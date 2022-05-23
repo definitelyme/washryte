@@ -20,7 +20,7 @@ class ServiceRequestDTO with _$ServiceRequestDTO {
   const ServiceRequestDTO._();
 
   const factory ServiceRequestDTO({
-    String? id,
+    @StringSerializer() String? id,
     String? customerId,
     String? items,
     String? address,
