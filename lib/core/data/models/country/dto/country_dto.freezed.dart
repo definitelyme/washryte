@@ -22,7 +22,7 @@ class _$CountryDTOTearOff {
   const _$CountryDTOTearOff();
 
   _CountryDTO call(
-      {@JsonKey(includeIfNull: false) String? id,
+      {@JsonKey(includeIfNull: false) @StringSerializer() String? id,
       @JsonKey(includeIfNull: false) String? name,
       @JsonKey(includeIfNull: false) String? iso2,
       @JsonKey(includeIfNull: false) String? iso3,
@@ -47,6 +47,7 @@ const $CountryDTO = _$CountryDTOTearOff();
 /// @nodoc
 mixin _$CountryDTO {
   @JsonKey(includeIfNull: false)
+  @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(includeIfNull: false)
   String? get name => throw _privateConstructorUsedError;
@@ -69,7 +70,7 @@ abstract class $CountryDTOCopyWith<$Res> {
           CountryDTO value, $Res Function(CountryDTO) then) =
       _$CountryDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(includeIfNull: false) String? id,
+      {@JsonKey(includeIfNull: false) @StringSerializer() String? id,
       @JsonKey(includeIfNull: false) String? name,
       @JsonKey(includeIfNull: false) String? iso2,
       @JsonKey(includeIfNull: false) String? iso3,
@@ -124,7 +125,7 @@ abstract class _$CountryDTOCopyWith<$Res> implements $CountryDTOCopyWith<$Res> {
       __$CountryDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(includeIfNull: false) String? id,
+      {@JsonKey(includeIfNull: false) @StringSerializer() String? id,
       @JsonKey(includeIfNull: false) String? name,
       @JsonKey(includeIfNull: false) String? iso2,
       @JsonKey(includeIfNull: false) String? iso3,
@@ -178,7 +179,7 @@ class __$CountryDTOCopyWithImpl<$Res> extends _$CountryDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CountryDTO extends _CountryDTO {
   const _$_CountryDTO(
-      {@JsonKey(includeIfNull: false) this.id,
+      {@JsonKey(includeIfNull: false) @StringSerializer() this.id,
       @JsonKey(includeIfNull: false) this.name,
       @JsonKey(includeIfNull: false) this.iso2,
       @JsonKey(includeIfNull: false) this.iso3,
@@ -190,6 +191,7 @@ class _$_CountryDTO extends _CountryDTO {
 
   @override
   @JsonKey(includeIfNull: false)
+  @StringSerializer()
   final String? id;
   @override
   @JsonKey(includeIfNull: false)
@@ -244,6 +246,7 @@ class _$_CountryDTO extends _CountryDTO {
 abstract class _CountryDTO extends CountryDTO {
   const factory _CountryDTO(
       {@JsonKey(includeIfNull: false)
+      @StringSerializer()
           String? id,
       @JsonKey(includeIfNull: false)
           String? name,
@@ -260,6 +263,7 @@ abstract class _CountryDTO extends CountryDTO {
 
   @override
   @JsonKey(includeIfNull: false)
+  @StringSerializer()
   String? get id;
   @override
   @JsonKey(includeIfNull: false)

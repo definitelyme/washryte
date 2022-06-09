@@ -22,7 +22,7 @@ class _$AppNotificationDTOTearOff {
   const _$AppNotificationDTOTearOff();
 
   _AppNotificationDTO call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? title,
       String? message,
       NotificationMetaDTO? meta,
@@ -50,6 +50,7 @@ const $AppNotificationDTO = _$AppNotificationDTOTearOff();
 
 /// @nodoc
 mixin _$AppNotificationDTO {
+  @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
@@ -73,7 +74,7 @@ abstract class $AppNotificationDTOCopyWith<$Res> {
           AppNotificationDTO value, $Res Function(AppNotificationDTO) then) =
       _$AppNotificationDTOCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? title,
       String? message,
       NotificationMetaDTO? meta,
@@ -155,7 +156,7 @@ abstract class _$AppNotificationDTOCopyWith<$Res>
       __$AppNotificationDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? title,
       String? message,
       NotificationMetaDTO? meta,
@@ -225,7 +226,7 @@ class __$AppNotificationDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppNotificationDTO extends _AppNotificationDTO {
   const _$_AppNotificationDTO(
-      {this.id,
+      {@StringSerializer() this.id,
       this.title,
       this.message,
       this.meta,
@@ -238,6 +239,7 @@ class _$_AppNotificationDTO extends _AppNotificationDTO {
       _$$_AppNotificationDTOFromJson(json);
 
   @override
+  @StringSerializer()
   final String? id;
   @override
   final String? title;
@@ -298,7 +300,7 @@ class _$_AppNotificationDTO extends _AppNotificationDTO {
 
 abstract class _AppNotificationDTO extends AppNotificationDTO {
   const factory _AppNotificationDTO(
-      {String? id,
+      {@StringSerializer() String? id,
       String? title,
       String? message,
       NotificationMetaDTO? meta,
@@ -311,6 +313,7 @@ abstract class _AppNotificationDTO extends AppNotificationDTO {
       _$_AppNotificationDTO.fromJson;
 
   @override
+  @StringSerializer()
   String? get id;
   @override
   String? get title;

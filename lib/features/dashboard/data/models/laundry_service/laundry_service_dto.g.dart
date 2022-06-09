@@ -8,7 +8,7 @@ part of laundry_service_dto.dart;
 
 _$_LaundryServiceDTO _$$_LaundryServiceDTOFromJson(Map<String, dynamic> json) =>
     _$_LaundryServiceDTO(
-      id: json['id'] as String?,
+      id: const StringSerializer().fromJson(json['id']),
       name: json['service_name'] as String?,
       quantity: const IntegerSerializer().fromJson(json['service_units']),
       price: const DoubleSerializer().fromJson(json['service_unit_price']),
@@ -26,7 +26,7 @@ Map<String, dynamic> _$$_LaundryServiceDTOToJson(
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('id', const StringSerializer().toJson(instance.id));
   writeNotNull('service_name', instance.name);
   writeNotNull(
       'service_units', const IntegerSerializer().toJson(instance.quantity));

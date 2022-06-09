@@ -6,6 +6,8 @@ part of utilities_remote.dart;
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 class _UtilitiesRemote implements UtilitiesRemote {
   _UtilitiesRemote(this._dio, {this.baseUrl});
 

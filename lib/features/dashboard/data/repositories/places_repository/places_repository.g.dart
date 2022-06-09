@@ -6,6 +6,8 @@ part of places_repository.dart;
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 class _PlacesRepository implements PlacesRepository {
   _PlacesRepository(this._dio, {this.baseUrl});
 

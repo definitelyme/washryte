@@ -22,7 +22,7 @@ class _$ServiceRequestDTOTearOff {
   const _$ServiceRequestDTOTearOff();
 
   _ServiceRequestDTO call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? customerId,
       String? items,
       String? address,
@@ -64,6 +64,7 @@ const $ServiceRequestDTO = _$ServiceRequestDTOTearOff();
 
 /// @nodoc
 mixin _$ServiceRequestDTO {
+  @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
   String? get customerId => throw _privateConstructorUsedError;
   String? get items => throw _privateConstructorUsedError;
@@ -98,7 +99,7 @@ abstract class $ServiceRequestDTOCopyWith<$Res> {
           ServiceRequestDTO value, $Res Function(ServiceRequestDTO) then) =
       _$ServiceRequestDTOCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? customerId,
       String? items,
       String? address,
@@ -222,7 +223,7 @@ abstract class _$ServiceRequestDTOCopyWith<$Res>
       __$ServiceRequestDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       String? customerId,
       String? items,
       String? address,
@@ -334,7 +335,7 @@ class __$ServiceRequestDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServiceRequestDTO extends _ServiceRequestDTO {
   const _$_ServiceRequestDTO(
-      {this.id,
+      {@StringSerializer() this.id,
       this.customerId,
       this.items,
       this.address,
@@ -354,6 +355,7 @@ class _$_ServiceRequestDTO extends _ServiceRequestDTO {
       _$$_ServiceRequestDTOFromJson(json);
 
   @override
+  @StringSerializer()
   final String? id;
   @override
   final String? customerId;
@@ -450,7 +452,7 @@ class _$_ServiceRequestDTO extends _ServiceRequestDTO {
 
 abstract class _ServiceRequestDTO extends ServiceRequestDTO {
   const factory _ServiceRequestDTO(
-      {String? id,
+      {@StringSerializer() String? id,
       String? customerId,
       String? items,
       String? address,
@@ -470,6 +472,7 @@ abstract class _ServiceRequestDTO extends ServiceRequestDTO {
       _$_ServiceRequestDTO.fromJson;
 
   @override
+  @StringSerializer()
   String? get id;
   @override
   String? get customerId;

@@ -310,7 +310,7 @@ final _authProviderFloorConverter = AuthProviderFloorConverter();
 // **************************************************************************
 
 _$_UserDTO _$$_UserDTOFromJson(Map<String, dynamic> json) => _$_UserDTO(
-      id: json['id'] as String?,
+      id: const StringSerializer().fromJson(json['id']),
       token: json['token'] as String?,
       balance: const DoubleSerializer().fromJson(json['balance']),
       fullName: json['name'] as String?,
@@ -336,7 +336,7 @@ Map<String, dynamic> _$$_UserDTOToJson(_$_UserDTO instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('id', const StringSerializer().toJson(instance.id));
   writeNotNull('token', instance.token);
   writeNotNull('balance', const DoubleSerializer().toJson(instance.balance));
   writeNotNull('name', instance.fullName);

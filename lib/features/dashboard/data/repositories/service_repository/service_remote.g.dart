@@ -6,6 +6,8 @@ part of service_remote.dart;
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 class _ServiceRemote implements ServiceRemote {
   _ServiceRemote(this._dio, {this.baseUrl});
 

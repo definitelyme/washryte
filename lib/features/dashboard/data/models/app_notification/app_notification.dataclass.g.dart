@@ -9,7 +9,7 @@ part of app_notification.dataclass.dart;
 _$_AppNotificationDTO _$$_AppNotificationDTOFromJson(
         Map<String, dynamic> json) =>
     _$_AppNotificationDTO(
-      id: json['id'] as String?,
+      id: const StringSerializer().fromJson(json['id']),
       title: json['title'] as String?,
       message: json['message'] as String?,
       meta: json['meta'] == null
@@ -30,7 +30,7 @@ Map<String, dynamic> _$$_AppNotificationDTOToJson(
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('id', const StringSerializer().toJson(instance.id));
   writeNotNull('title', instance.title);
   writeNotNull('message', instance.message);
   writeNotNull('meta', instance.meta?.toJson());

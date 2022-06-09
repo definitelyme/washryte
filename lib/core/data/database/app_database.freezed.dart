@@ -22,7 +22,7 @@ class _$UserDTOTearOff {
   const _$UserDTOTearOff();
 
   _UserDTO call(
-      {@primaryKey String? id,
+      {@primaryKey @StringSerializer() String? id,
       String? token,
       @DoubleSerializer() double? balance,
       @JsonKey(name: 'name') String? fullName,
@@ -65,6 +65,7 @@ const $UserDTO = _$UserDTOTearOff();
 /// @nodoc
 mixin _$UserDTO {
   @primaryKey
+  @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
   @DoubleSerializer()
@@ -102,7 +103,7 @@ abstract class $UserDTOCopyWith<$Res> {
   factory $UserDTOCopyWith(UserDTO value, $Res Function(UserDTO) then) =
       _$UserDTOCopyWithImpl<$Res>;
   $Res call(
-      {@primaryKey String? id,
+      {@primaryKey @StringSerializer() String? id,
       String? token,
       @DoubleSerializer() double? balance,
       @JsonKey(name: 'name') String? fullName,
@@ -210,7 +211,7 @@ abstract class _$UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       __$UserDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@primaryKey String? id,
+      {@primaryKey @StringSerializer() String? id,
       String? token,
       @DoubleSerializer() double? balance,
       @JsonKey(name: 'name') String? fullName,
@@ -318,7 +319,7 @@ class __$UserDTOCopyWithImpl<$Res> extends _$UserDTOCopyWithImpl<$Res>
 @Entity(tableName: UserDTO.tableName)
 class _$_UserDTO extends _UserDTO {
   const _$_UserDTO(
-      {@primaryKey this.id,
+      {@primaryKey @StringSerializer() this.id,
       this.token,
       @DoubleSerializer() this.balance,
       @JsonKey(name: 'name') this.fullName,
@@ -339,6 +340,7 @@ class _$_UserDTO extends _UserDTO {
 
   @override
   @primaryKey
+  @StringSerializer()
   final String? id;
   @override
   final String? token;
@@ -439,6 +441,7 @@ class _$_UserDTO extends _UserDTO {
 abstract class _UserDTO extends UserDTO {
   const factory _UserDTO(
       {@primaryKey
+      @StringSerializer()
           String? id,
       String? token,
       @DoubleSerializer()
@@ -471,6 +474,7 @@ abstract class _UserDTO extends UserDTO {
 
   @override
   @primaryKey
+  @StringSerializer()
   String? get id;
   @override
   String? get token;

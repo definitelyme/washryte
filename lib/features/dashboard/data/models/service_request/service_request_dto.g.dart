@@ -8,7 +8,7 @@ part of service_request_dto.dart;
 
 _$_ServiceRequestDTO _$$_ServiceRequestDTOFromJson(Map<String, dynamic> json) =>
     _$_ServiceRequestDTO(
-      id: json['id'] as String?,
+      id: const StringSerializer().fromJson(json['id']),
       customerId: json['customer_id'] as String?,
       items: json['items'] as String?,
       address: json['address'] as String?,
@@ -42,7 +42,7 @@ Map<String, dynamic> _$$_ServiceRequestDTOToJson(
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('id', const StringSerializer().toJson(instance.id));
   writeNotNull('customer_id', instance.customerId);
   writeNotNull('items', instance.items);
   writeNotNull('address', instance.address);

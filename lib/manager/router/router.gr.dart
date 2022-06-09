@@ -10,13 +10,14 @@
 //
 // ignore_for_file: type=lint
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i11;
 
 import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/material.dart' as _i7;
 import 'package:washryte/core/presentation/index.dart' as _i4;
 import 'package:washryte/features/auth/presentation/screens/index.dart' as _i2;
-import 'package:washryte/features/dashboard/domain/domain.dart' as _i9;
+import 'package:washryte/features/dashboard/domain/entities/index.dart' as _i10;
 import 'package:washryte/features/dashboard/presentation/pages/index.dart'
     as _i6;
 import 'package:washryte/features/dashboard/presentation/screens/index.dart'
@@ -102,7 +103,7 @@ class AppRouter extends _i5.RootStackRouter {
       return _i5.AdaptivePage<dynamic>(
           routeData: routeData,
           child: const _i3.OrderHistoryScreen(),
-          title: 'Edit Profile');
+          title: 'Order History');
     },
     RequestServiceRoute.name: (routeData) {
       return _i5.AdaptivePage<dynamic>(
@@ -310,7 +311,7 @@ class AppRouter extends _i5.RootStackRouter {
 /// generated route for
 /// [_i1.SplashScreen]
 class SplashRoute extends _i5.PageRouteInfo<SplashRouteArgs> {
-  SplashRoute({_i7.Key? key})
+  SplashRoute({_i9.Key? key})
       : super(SplashRoute.name, path: '/', args: SplashRouteArgs(key: key));
 
   static const String name = 'SplashRoute';
@@ -319,7 +320,7 @@ class SplashRoute extends _i5.PageRouteInfo<SplashRouteArgs> {
 class SplashRouteArgs {
   const SplashRouteArgs({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -374,7 +375,7 @@ class SocialsAuthRoute extends _i5.PageRouteInfo<void> {
 /// [_i2.PasswordResetScreen]
 class PasswordResetRoute extends _i5.PageRouteInfo<PasswordResetRouteArgs> {
   PasswordResetRoute(
-      {_i7.Key? key,
+      {_i9.Key? key,
       required String email,
       Duration duration = const Duration(minutes: 2)})
       : super(PasswordResetRoute.name,
@@ -391,7 +392,7 @@ class PasswordResetRouteArgs {
       required this.email,
       this.duration = const Duration(minutes: 2)});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   final String email;
 
@@ -452,7 +453,7 @@ class RequestServiceRoute extends _i5.PageRouteInfo<void> {
 /// generated route for
 /// [_i3.TrackingScreen]
 class TrackingRoute extends _i5.PageRouteInfo<TrackingRouteArgs> {
-  TrackingRoute({required _i9.ServiceRequest request, _i7.Key? key})
+  TrackingRoute({required _i10.ServiceRequest request, _i9.Key? key})
       : super(TrackingRoute.name,
             path: '/tracking-screen',
             args: TrackingRouteArgs(request: request, key: key));
@@ -463,9 +464,9 @@ class TrackingRoute extends _i5.PageRouteInfo<TrackingRouteArgs> {
 class TrackingRouteArgs {
   const TrackingRouteArgs({required this.request, this.key});
 
-  final _i9.ServiceRequest request;
+  final _i10.ServiceRequest request;
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -502,7 +503,7 @@ class PrivacyPolicyRoute extends _i5.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.NotConnectedScreen]
 class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
-  NotConnectedRoute({_i7.Key? key, required _i10.Future<dynamic> future})
+  NotConnectedRoute({_i9.Key? key, required _i11.Future<dynamic> future})
       : super(NotConnectedRoute.name,
             path: '/not-connected-screen',
             args: NotConnectedRouteArgs(key: key, future: future));
@@ -513,9 +514,9 @@ class NotConnectedRoute extends _i5.PageRouteInfo<NotConnectedRouteArgs> {
 class NotConnectedRouteArgs {
   const NotConnectedRouteArgs({this.key, required this.future});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
-  final _i10.Future<dynamic> future;
+  final _i11.Future<dynamic> future;
 
   @override
   String toString() {

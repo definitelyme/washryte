@@ -22,7 +22,7 @@ class _$LaundryServiceDTOTearOff {
   const _$LaundryServiceDTOTearOff();
 
   _LaundryServiceDTO call(
-      {String? id,
+      {@StringSerializer() String? id,
       @JsonKey(name: 'service_name') String? name,
       @JsonKey(name: 'service_units') @IntegerSerializer() int? quantity,
       @JsonKey(name: 'service_unit_price') @DoubleSerializer() double? price,
@@ -48,6 +48,7 @@ const $LaundryServiceDTO = _$LaundryServiceDTOTearOff();
 
 /// @nodoc
 mixin _$LaundryServiceDTO {
+  @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'service_name')
   String? get name => throw _privateConstructorUsedError;
@@ -74,7 +75,7 @@ abstract class $LaundryServiceDTOCopyWith<$Res> {
           LaundryServiceDTO value, $Res Function(LaundryServiceDTO) then) =
       _$LaundryServiceDTOCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       @JsonKey(name: 'service_name') String? name,
       @JsonKey(name: 'service_units') @IntegerSerializer() int? quantity,
       @JsonKey(name: 'service_unit_price') @DoubleSerializer() double? price,
@@ -137,7 +138,7 @@ abstract class _$LaundryServiceDTOCopyWith<$Res>
       __$LaundryServiceDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {@StringSerializer() String? id,
       @JsonKey(name: 'service_name') String? name,
       @JsonKey(name: 'service_units') @IntegerSerializer() int? quantity,
       @JsonKey(name: 'service_unit_price') @DoubleSerializer() double? price,
@@ -198,7 +199,7 @@ class __$LaundryServiceDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_LaundryServiceDTO extends _LaundryServiceDTO {
   const _$_LaundryServiceDTO(
-      {this.id,
+      {@StringSerializer() this.id,
       @JsonKey(name: 'service_name') this.name,
       @JsonKey(name: 'service_units') @IntegerSerializer() this.quantity,
       @JsonKey(name: 'service_unit_price') @DoubleSerializer() this.price,
@@ -210,6 +211,7 @@ class _$_LaundryServiceDTO extends _LaundryServiceDTO {
       _$$_LaundryServiceDTOFromJson(json);
 
   @override
+  @StringSerializer()
   final String? id;
   @override
   @JsonKey(name: 'service_name')
@@ -270,7 +272,7 @@ class _$_LaundryServiceDTO extends _LaundryServiceDTO {
 
 abstract class _LaundryServiceDTO extends LaundryServiceDTO {
   const factory _LaundryServiceDTO(
-      {String? id,
+      {@StringSerializer() String? id,
       @JsonKey(name: 'service_name') String? name,
       @JsonKey(name: 'service_units') @IntegerSerializer() int? quantity,
       @JsonKey(name: 'service_unit_price') @DoubleSerializer() double? price,
@@ -282,6 +284,7 @@ abstract class _LaundryServiceDTO extends LaundryServiceDTO {
       _$_LaundryServiceDTO.fromJson;
 
   @override
+  @StringSerializer()
   String? get id;
   @override
   @JsonKey(name: 'service_name')
