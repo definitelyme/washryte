@@ -1,7 +1,10 @@
 library insight_page.dart;
 
+import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:washryte/core/presentation/index.dart';
 import 'package:washryte/features/dashboard/domain/domain.dart';
 import 'package:washryte/features/dashboard/presentation/managers/index.dart';
 import 'package:washryte/manager/locator/locator.dart';
@@ -63,6 +66,21 @@ class _InsightPageState extends State<InsightPage> {
           onLoading: onLoadMore,
           onRefresh: onRefresh,
           slivers: [
+            SliverToBoxAdapter(
+              child: BlocBuilder<RequestCubit, RequestState>(
+                builder: (c, s) => AnimatedVisibility(
+                  visible: (!s.isLoading && s.activeRequests.isEmpty()) || s.activeRequests.isEmpty(),
+                  child: EmptyStateWidget(
+                    useScaffold: false,
+                    height: 0.8.h,
+                    width: 1.w,
+                    asset: right(AppAssets.noHistory(Size.square(0.22.w))),
+                    title: 'No Active Requests',
+                  ),
+                ),
+              ),
+            ),
+            //
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: App.sidePadding).copyWith(top: 0.01.h),
               sliver: BlocBuilder<RequestCubit, RequestState>(

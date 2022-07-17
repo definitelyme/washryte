@@ -23,7 +23,7 @@ class _$ServiceRequestDTOTearOff {
 
   _ServiceRequestDTO call(
       {@StringSerializer() String? id,
-      String? customerId,
+      @StringSerializer() String? customerId,
       String? items,
       String? address,
       String? reference,
@@ -66,6 +66,7 @@ const $ServiceRequestDTO = _$ServiceRequestDTOTearOff();
 mixin _$ServiceRequestDTO {
   @StringSerializer()
   String? get id => throw _privateConstructorUsedError;
+  @StringSerializer()
   String? get customerId => throw _privateConstructorUsedError;
   String? get items => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
@@ -100,7 +101,7 @@ abstract class $ServiceRequestDTOCopyWith<$Res> {
       _$ServiceRequestDTOCopyWithImpl<$Res>;
   $Res call(
       {@StringSerializer() String? id,
-      String? customerId,
+      @StringSerializer() String? customerId,
       String? items,
       String? address,
       String? reference,
@@ -224,7 +225,7 @@ abstract class _$ServiceRequestDTOCopyWith<$Res>
   @override
   $Res call(
       {@StringSerializer() String? id,
-      String? customerId,
+      @StringSerializer() String? customerId,
       String? items,
       String? address,
       String? reference,
@@ -336,7 +337,7 @@ class __$ServiceRequestDTOCopyWithImpl<$Res>
 class _$_ServiceRequestDTO extends _ServiceRequestDTO {
   const _$_ServiceRequestDTO(
       {@StringSerializer() this.id,
-      this.customerId,
+      @StringSerializer() this.customerId,
       this.items,
       this.address,
       this.reference,
@@ -358,6 +359,7 @@ class _$_ServiceRequestDTO extends _ServiceRequestDTO {
   @StringSerializer()
   final String? id;
   @override
+  @StringSerializer()
   final String? customerId;
   @override
   final String? items;
@@ -453,7 +455,7 @@ class _$_ServiceRequestDTO extends _ServiceRequestDTO {
 abstract class _ServiceRequestDTO extends ServiceRequestDTO {
   const factory _ServiceRequestDTO(
       {@StringSerializer() String? id,
-      String? customerId,
+      @StringSerializer() String? customerId,
       String? items,
       String? address,
       String? reference,
@@ -475,6 +477,7 @@ abstract class _ServiceRequestDTO extends ServiceRequestDTO {
   @StringSerializer()
   String? get id;
   @override
+  @StringSerializer()
   String? get customerId;
   @override
   String? get items;

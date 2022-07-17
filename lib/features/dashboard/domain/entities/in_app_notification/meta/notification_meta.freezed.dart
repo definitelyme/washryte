@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NotificationMetaTearOff {
   const _$NotificationMetaTearOff();
 
-  _NotificationRequestMeta order(ServiceRequest request) {
+  _NotificationRequestMeta order(ServiceRequest? request) {
     return _NotificationRequestMeta(
       request,
     );
@@ -29,21 +29,21 @@ const $NotificationMeta = _$NotificationMetaTearOff();
 
 /// @nodoc
 mixin _$NotificationMeta {
-  ServiceRequest get request => throw _privateConstructorUsedError;
+  ServiceRequest? get request => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServiceRequest request) order,
+    required TResult Function(ServiceRequest? request) order,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ServiceRequest request)? order,
+    TResult Function(ServiceRequest? request)? order,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServiceRequest request)? order,
+    TResult Function(ServiceRequest? request)? order,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -74,9 +74,9 @@ abstract class $NotificationMetaCopyWith<$Res> {
   factory $NotificationMetaCopyWith(
           NotificationMeta value, $Res Function(NotificationMeta) then) =
       _$NotificationMetaCopyWithImpl<$Res>;
-  $Res call({ServiceRequest request});
+  $Res call({ServiceRequest? request});
 
-  $ServiceRequestCopyWith<$Res> get request;
+  $ServiceRequestCopyWith<$Res>? get request;
 }
 
 /// @nodoc
@@ -96,13 +96,17 @@ class _$NotificationMetaCopyWithImpl<$Res>
       request: request == freezed
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
-              as ServiceRequest,
+              as ServiceRequest?,
     ));
   }
 
   @override
-  $ServiceRequestCopyWith<$Res> get request {
-    return $ServiceRequestCopyWith<$Res>(_value.request, (value) {
+  $ServiceRequestCopyWith<$Res>? get request {
+    if (_value.request == null) {
+      return null;
+    }
+
+    return $ServiceRequestCopyWith<$Res>(_value.request!, (value) {
       return _then(_value.copyWith(request: value));
     });
   }
@@ -115,10 +119,10 @@ abstract class _$NotificationRequestMetaCopyWith<$Res>
           $Res Function(_NotificationRequestMeta) then) =
       __$NotificationRequestMetaCopyWithImpl<$Res>;
   @override
-  $Res call({ServiceRequest request});
+  $Res call({ServiceRequest? request});
 
   @override
-  $ServiceRequestCopyWith<$Res> get request;
+  $ServiceRequestCopyWith<$Res>? get request;
 }
 
 /// @nodoc
@@ -141,7 +145,7 @@ class __$NotificationRequestMetaCopyWithImpl<$Res>
       request == freezed
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
-              as ServiceRequest,
+              as ServiceRequest?,
     ));
   }
 }
@@ -152,7 +156,7 @@ class _$_NotificationRequestMeta extends _NotificationRequestMeta {
   const _$_NotificationRequestMeta(this.request) : super._();
 
   @override
-  final ServiceRequest request;
+  final ServiceRequest? request;
 
   @override
   String toString() {
@@ -180,7 +184,7 @@ class _$_NotificationRequestMeta extends _NotificationRequestMeta {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServiceRequest request) order,
+    required TResult Function(ServiceRequest? request) order,
   }) {
     return order(request);
   }
@@ -188,7 +192,7 @@ class _$_NotificationRequestMeta extends _NotificationRequestMeta {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ServiceRequest request)? order,
+    TResult Function(ServiceRequest? request)? order,
   }) {
     return order?.call(request);
   }
@@ -196,7 +200,7 @@ class _$_NotificationRequestMeta extends _NotificationRequestMeta {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServiceRequest request)? order,
+    TResult Function(ServiceRequest? request)? order,
     required TResult orElse(),
   }) {
     if (order != null) {
@@ -235,12 +239,12 @@ class _$_NotificationRequestMeta extends _NotificationRequestMeta {
 }
 
 abstract class _NotificationRequestMeta extends NotificationMeta {
-  const factory _NotificationRequestMeta(ServiceRequest request) =
+  const factory _NotificationRequestMeta(ServiceRequest? request) =
       _$_NotificationRequestMeta;
   const _NotificationRequestMeta._() : super._();
 
   @override
-  ServiceRequest get request;
+  ServiceRequest? get request;
   @override
   @JsonKey(ignore: true)
   _$NotificationRequestMetaCopyWith<_NotificationRequestMeta> get copyWith =>

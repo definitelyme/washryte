@@ -9,8 +9,11 @@ part of notification_meta.dataclass.dart;
 _$_NotificationServiceMeta _$$_NotificationServiceMetaFromJson(
         Map<String, dynamic> json) =>
     _$_NotificationServiceMeta(
-      type: const NotificationTypeSerializer().fromJson(json['type'] as String),
-      order: ServiceRequestDTO.fromJson(json['order'] as Map<String, dynamic>),
+      type:
+          const NotificationTypeSerializer().fromJson(json['type'] as String?),
+      order: json['order'] == null
+          ? null
+          : ServiceRequestDTO.fromJson(json['order'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_NotificationServiceMetaToJson(
@@ -25,6 +28,6 @@ Map<String, dynamic> _$$_NotificationServiceMetaToJson(
 
   writeNotNull(
       'type', const NotificationTypeSerializer().toJson(instance.type));
-  val['order'] = instance.order.toJson();
+  writeNotNull('order', instance.order?.toJson());
   return val;
 }

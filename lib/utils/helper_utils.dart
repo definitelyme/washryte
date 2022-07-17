@@ -518,16 +518,18 @@ class Utils {
     DateTime? currentDate,
     String? errorFormatText,
     String? errorInvalidText,
+    DatePickerDateOrder? dateOrder,
+    CupertinoDatePickerMode? mode,
     Widget Function(BuildContext, Widget?)? builder,
     bool Function(DateTime)? selectableDayPredicate,
     required void Function(DateTime?) onChanged,
   }) async {
     // Set defaults
     firstDate ??= DateTime(1910);
-    lastDate ??= App.today;
-    selectedDate ??= lastDate;
+    lastDate ??= DateTime.now();
+    selectedDate ??= currentDate ?? lastDate;
 
-    switch (theme.platform) {
+    switch (Theme.of(context).platform) {
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
         return showCupertinoDatePicker(
@@ -539,8 +541,14 @@ class Utils {
           cancelText: cancelText,
           fieldHintText: fieldHintText,
           fieldLabelText: fieldLabelText,
+          dateOrder: dateOrder,
+          mode: mode,
           helpText: helpText,
           locale: locale,
+          backgroundColor: App.resolveColor(
+            CupertinoColors.lightBackgroundGray,
+            dark: CupertinoColors.darkBackgroundGray,
+          ),
           currentDate: currentDate,
           errorFormatText: errorFormatText,
           errorInvalidText: errorInvalidText,
@@ -591,26 +599,30 @@ class Utils {
     String? errorInvalidText,
     Color? backgroundColor,
     bool use24hFormat = false,
+    DatePickerDateOrder? dateOrder,
+    CupertinoDatePickerMode? mode,
     Function(BuildContext, Widget)? builder,
     required void Function(DateTime) onChanged,
   }) async {
-    return showModalBottomSheet(
+    return showCupertinoModalBottomSheet(
       context: context,
-      builder: (BuildContext builder) {
-        return Container(
-          height: MediaQuery.of(context).copyWith().size.height / 3,
-          color: Theme.of(context).primaryColor,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            backgroundColor: backgroundColor,
-            onDateTimeChanged: onChanged,
-            initialDateTime: selectedDate,
-            minimumDate: firstDate,
-            maximumDate: lastDate,
-            use24hFormat: use24hFormat,
-          ),
-        );
-      },
+      expand: false,
+      bounce: false,
+      useRootNavigator: true,
+      elevation: 4,
+      builder: (context) => SizedBox(
+        height: 0.4.h,
+        child: CupertinoDatePicker(
+          mode: mode ?? CupertinoDatePickerMode.date,
+          dateOrder: dateOrder,
+          backgroundColor: backgroundColor,
+          onDateTimeChanged: onChanged,
+          initialDateTime: selectedDate,
+          minimumDate: firstDate,
+          maximumDate: lastDate,
+          use24hFormat: use24hFormat,
+        ),
+      ),
     ) as U;
   }
 

@@ -10,5 +10,5 @@ part 'notification_meta.freezed.dart';
 class NotificationMeta with _$NotificationMeta {
   const NotificationMeta._();
 
-  const factory NotificationMeta.order(ServiceRequest request) = _NotificationRequestMeta;
+  const factory NotificationMeta.order(ServiceRequest? request) = _NotificationRequestMeta;
 }

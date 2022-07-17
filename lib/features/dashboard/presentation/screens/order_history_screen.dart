@@ -57,10 +57,12 @@ class OrderHistoryScreen extends StatelessWidget with AutoRouteWrapper {
       state.refreshCompleted(resetFooterState: true);
   }
 
-  void _pickDate(BuildContext ctx, DateTime? date) {
+  void _pickDate(BuildContext ctx, DateTime? date) async {
     final cubit = ctx.read<RequestCubit>();
 
-    App.showAdaptiveDatePicker(
+    DateTime? chosenDate;
+
+    await App.showAdaptiveDatePicker(
       ctx,
       selectedDate: date,
       firstDate: ServiceRequest.firstDate,
@@ -72,16 +74,30 @@ class OrderHistoryScreen extends StatelessWidget with AutoRouteWrapper {
       builder: (ctx, child) => Theme(
         data: Theme.of(ctx).copyWith(
           primaryColor: Palette.accent20,
+          primaryColorDark: Palette.accent20,
           buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          colorScheme: const ColorScheme.light(
-            primary: Palette.accentColor,
-            secondary: Palette.accent20,
+          colorScheme: Utils.foldTheme(
+            context: ctx,
+            light: () => const ColorScheme.light(
+              primary: Palette.accentColor,
+              secondary: Palette.accent20,
+              onPrimary: Colors.white,
+            ),
+            dark: () => ColorScheme.dark(
+              primary: Palette.accentColor,
+              secondary: Palette.accent20,
+              onPrimary: Colors.white,
+              onSurface: Colors.white,
+              surface: Palette.accentColor.shade800,
+            ),
           ),
         ),
         child: child!,
       ),
-      onChanged: (date) => cubit.state.selectedDate == date ? null : cubit.dateChanged(date),
+      onChanged: (d) => chosenDate = d,
     );
+
+    if (cubit.state.selectedDate != chosenDate) cubit.dateChanged(chosenDate);
   }
 
   @override

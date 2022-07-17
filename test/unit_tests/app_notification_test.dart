@@ -16,9 +16,14 @@ void main() {
       final _res = AppNotificationListDTO.fromJson(result as Map<String, dynamic>);
 
       _res.domain.forEach((el) {
-        Logger().w(el.meta?.map(
-          order: (it) => it.request.paymentMethod,
-        ));
+        Logger().i('''
+Title ==> ${el.title.getOrNull},
+Message ===> ${el.message.getOrNull},
+Meta Details ===> ${el.meta?.map(order: (e) => e.request?.type)},
+Created At ==> ${el.createdAt}
+Updated At ==> ${el.updatedAt}
+Deleted At ==> ${el.deletedAt}
+        ''');
       });
     },
   );

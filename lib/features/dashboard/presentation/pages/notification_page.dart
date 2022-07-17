@@ -1,7 +1,7 @@
 library notification_page.dart;
 
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart' hide State;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
@@ -78,7 +78,7 @@ class NotificationPage extends StatelessWidget {
                     height: 0.8.h,
                     width: 1.w,
                     asset: right(AppAssets.balloons),
-                    title: 'Your’e all caught up!',
+                    title: 'You’re all caught up!',
                   ),
                 ),
               ),
@@ -92,8 +92,9 @@ class NotificationPage extends StatelessWidget {
                             dateTime: entry.key,
                             count: entry.value.size,
                             verticalGap: 0.017.h,
-                            layout: (i) => entry.value.get(i).meta!.map(
-                                  order: (e) => _NotificationCard(
+                            layout: (i) => entry.value.get(i).meta!.maybeMap(
+                                  orElse: () => _NotificationCard(entry.value.get(i)),
+                                  order: (e) => _OrderNotificationCard(
                                     entry.value.get(i),
                                     model: e.request,
                                   ),
@@ -111,11 +112,11 @@ class NotificationPage extends StatelessWidget {
   }
 }
 
-class _NotificationCard extends StatelessWidget {
+class _OrderNotificationCard extends StatelessWidget {
   final InAppNotification notification;
-  final ServiceRequest model;
+  final ServiceRequest? model;
 
-  const _NotificationCard(
+  const _OrderNotificationCard(
     this.notification, {
     Key? key,
     required this.model,
@@ -130,16 +131,69 @@ class _NotificationCard extends StatelessWidget {
       tileColor: App.resolveColor(Palette.cardColorLight, dark: Palette.cardColorDark),
       borderRadius: 8.br,
       leading: Icon(
-        model.status.maybeWhen(
+        model?.status.maybeWhen(
           pending: () => Icons.paste,
           done: () => Icons.shopping_basket_outlined,
           enroute: () => Icons.pedal_bike_rounded,
           cancelled: () => Icons.cancel,
           paid: () => Icons.monetization_on_outlined,
-          orElse: () => null,
+          orElse: () => Utils.platform_(material: Icons.notifications_active_outlined, cupertino: CupertinoIcons.bell),
         ),
         color: App.resolveColor(Palette.secondaryColor, dark: Palette.cardColorLight),
         size: 20,
+      ),
+      title: AdaptiveText(
+        '${notification.title.getOrEmpty}',
+        maxLines: 1,
+        maxFontSize: 16,
+        softWrap: false,
+        fontSize: 15.sp,
+        fontWeight: FontWeight.w500,
+        textAlign: TextAlign.start,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: AdaptiveText(
+        '${notification.message.getOrEmpty}',
+        maxFontSize: 15,
+        softWrap: true,
+        wrapWords: true,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        textAlign: TextAlign.start,
+      ),
+      trailing: notification.createdAt == null
+          ? null
+          : AdaptiveText(
+              '${timeago.format(notification.createdAt!)}',
+              maxLines: 1,
+              maxFontSize: 15,
+              softWrap: false,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              textAlign: TextAlign.end,
+              overflow: TextOverflow.ellipsis,
+            ),
+    );
+  }
+}
+
+class _NotificationCard extends StatelessWidget {
+  final InAppNotification notification;
+
+  const _NotificationCard(this.notification, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveListTile(
+      dense: true,
+      noCupertinoBorder: true,
+      horizontalTitleGap: 0,
+      tileColor: App.resolveColor(Palette.cardColorLight, dark: Palette.cardColorDark),
+      borderRadius: 8.br,
+      leading: Icon(
+        Utils.platform_(material: Icons.notifications_active_outlined, cupertino: CupertinoIcons.bell),
+        color: App.resolveColor(Palette.secondaryColor, dark: Palette.cardColorLight),
+        size: 24,
       ),
       title: AdaptiveText(
         '${notification.title.getOrEmpty}',

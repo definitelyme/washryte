@@ -58,6 +58,7 @@ mixin AppAssets {
 
   // EMPTY STATES
   static const String _noConnectivity = '$DASHBOARD_SVG_DIR/no_connectivity.svg';
+  static const String _noHstory = '$DASHBOARD_SVG_DIR/no_history.svg';
 
   /////////////////////////////////////////////////////
   /////////////////////////////////////////////////////
@@ -227,6 +228,17 @@ mixin AppAssets {
 
   static SvgPicture noConnectivity([Size size = const Size(23, 23)]) => SvgPicture.asset(
         _noConnectivity,
+        height: size.height,
+        width: size.width,
+        color: App.resolveColor(
+          Palette.neutralC7,
+          dark: Colors.white70,
+        ),
+        fit: BoxFit.contain,
+      );
+
+  static SvgPicture noHistory([Size size = const Size(23, 23)]) => SvgPicture.asset(
+        _noHstory,
         height: size.height,
         width: size.width,
         color: App.resolveColor(

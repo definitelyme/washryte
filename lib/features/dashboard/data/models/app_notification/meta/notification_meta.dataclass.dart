@@ -17,17 +17,18 @@ class NotificationMetaDTO with _$NotificationMetaDTO {
 
   @FreezedUnionValue('${NotificationType.service_request}')
   const factory NotificationMetaDTO.service({
-    @NotificationTypeSerializer() required NotificationType type,
-    required ServiceRequestDTO order,
+    @NotificationTypeSerializer() NotificationType? type,
+    ServiceRequestDTO? order,
   }) = _NotificationServiceMeta;
 
   /// Maps the incoming Json to a Data Transfer Object (DTO).
   factory NotificationMetaDTO.fromJson(Map<String, dynamic> json) => _$NotificationMetaDTOFromJson(json);
 
   /// Maps the Data Transfer Object to a NotificationMeta Object.
-  NotificationMeta get domain {
-    return type.when(
-      order: () => NotificationMeta.order(mapOrNull(service: (o) => o.order.domain)!),
+  NotificationMeta? get domain {
+    return type?.maybeWhen(
+      order: () => NotificationMeta.order(mapOrNull(service: order != null ? (_) => order!.domain : null)),
+      orElse: () => null,
     );
   }
 }

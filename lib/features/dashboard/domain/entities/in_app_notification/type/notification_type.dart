@@ -11,7 +11,7 @@ class NotificationType {
 
   const NotificationType._(this.name);
 
-  static NotificationType valueOf(String name) => _$valueOf(name);
+  static NotificationType? valueOf(String? name) => _$valueOf(name);
 
   @override
   String toString() => '$name';
@@ -19,23 +19,23 @@ class NotificationType {
 
 const NotificationType _$ORDER = NotificationType._('${NotificationType.service_request}');
 
-NotificationType _$valueOf(String name) {
+NotificationType? _$valueOf(String? name) {
   switch (name) {
     case '${NotificationType.service_request}':
       return _$ORDER;
     default:
-      throw ArgumentError(name);
+      return null;
   }
 }
 
-class NotificationTypeSerializer implements JsonConverter<NotificationType, String> {
+class NotificationTypeSerializer implements JsonConverter<NotificationType?, String?> {
   const NotificationTypeSerializer();
 
   @override
-  NotificationType fromJson(String value) => NotificationType.valueOf(value);
+  NotificationType? fromJson(String? value) => NotificationType.valueOf(value);
 
   @override
-  String toJson(NotificationType instance) => instance.name;
+  String? toJson(NotificationType? instance) => instance?.name;
 }
 
 extension NotificationTypeX on NotificationType {

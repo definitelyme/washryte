@@ -5,21 +5,6 @@
             "title": "Order is being processed",
             "message": "We are currently sorting your clothes and preparing an invoice.",
             "meta": {
-                "order": {
-                    "id": "95b5aa4d-97d4-4eeb-b3e0-b32136ce41fc",
-                    "staff_id": null,
-                    "customer_id": "12345",
-                    "store_id": "894-48594-5849-5493",
-                    "service_type": "pickup",
-                    "payment_method": "pending",
-                    "items": "Rice du us r",
-                    "price": null,
-                    "address": "Did did she eggs adịghị i",
-                    "status": "processing",
-                    "reference": "4973a535e8b641aab81787026bff17d9",
-                    "created_at": "2022-02-28T18:59:48.000000Z",
-                    "updated_at": "2022-02-28T19:00:24.000000Z"
-                },
                 "type": "order.status-updated"
             },
             "created_at": "2022-02-28T18:59:48.000000Z"

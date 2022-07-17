@@ -22,8 +22,8 @@ class _$NotificationMetaDTOTearOff {
   const _$NotificationMetaDTOTearOff();
 
   _NotificationServiceMeta service(
-      {@NotificationTypeSerializer() required NotificationType type,
-      required ServiceRequestDTO order}) {
+      {@NotificationTypeSerializer() NotificationType? type,
+      ServiceRequestDTO? order}) {
     return _NotificationServiceMeta(
       type: type,
       order: order,
@@ -41,28 +41,28 @@ const $NotificationMetaDTO = _$NotificationMetaDTOTearOff();
 /// @nodoc
 mixin _$NotificationMetaDTO {
   @NotificationTypeSerializer()
-  NotificationType get type => throw _privateConstructorUsedError;
-  ServiceRequestDTO get order => throw _privateConstructorUsedError;
+  NotificationType? get type => throw _privateConstructorUsedError;
+  ServiceRequestDTO? get order => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)
+            @NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)
         service,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)?
+    TResult Function(@NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)?
         service,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)?
+    TResult Function(@NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)?
         service,
     required TResult orElse(),
   }) =>
@@ -95,10 +95,10 @@ abstract class $NotificationMetaDTOCopyWith<$Res> {
           NotificationMetaDTO value, $Res Function(NotificationMetaDTO) then) =
       _$NotificationMetaDTOCopyWithImpl<$Res>;
   $Res call(
-      {@NotificationTypeSerializer() NotificationType type,
-      ServiceRequestDTO order});
+      {@NotificationTypeSerializer() NotificationType? type,
+      ServiceRequestDTO? order});
 
-  $ServiceRequestDTOCopyWith<$Res> get order;
+  $ServiceRequestDTOCopyWith<$Res>? get order;
 }
 
 /// @nodoc
@@ -119,17 +119,21 @@ class _$NotificationMetaDTOCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as NotificationType,
+              as NotificationType?,
       order: order == freezed
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as ServiceRequestDTO,
+              as ServiceRequestDTO?,
     ));
   }
 
   @override
-  $ServiceRequestDTOCopyWith<$Res> get order {
-    return $ServiceRequestDTOCopyWith<$Res>(_value.order, (value) {
+  $ServiceRequestDTOCopyWith<$Res>? get order {
+    if (_value.order == null) {
+      return null;
+    }
+
+    return $ServiceRequestDTOCopyWith<$Res>(_value.order!, (value) {
       return _then(_value.copyWith(order: value));
     });
   }
@@ -143,11 +147,11 @@ abstract class _$NotificationServiceMetaCopyWith<$Res>
       __$NotificationServiceMetaCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@NotificationTypeSerializer() NotificationType type,
-      ServiceRequestDTO order});
+      {@NotificationTypeSerializer() NotificationType? type,
+      ServiceRequestDTO? order});
 
   @override
-  $ServiceRequestDTOCopyWith<$Res> get order;
+  $ServiceRequestDTOCopyWith<$Res>? get order;
 }
 
 /// @nodoc
@@ -171,11 +175,11 @@ class __$NotificationServiceMetaCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as NotificationType,
+              as NotificationType?,
       order: order == freezed
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as ServiceRequestDTO,
+              as ServiceRequestDTO?,
     ));
   }
 }
@@ -185,7 +189,7 @@ class __$NotificationServiceMetaCopyWithImpl<$Res>
 @FreezedUnionValue('${NotificationType.service_request}')
 class _$_NotificationServiceMeta extends _NotificationServiceMeta {
   const _$_NotificationServiceMeta(
-      {@NotificationTypeSerializer() required this.type, required this.order})
+      {@NotificationTypeSerializer() this.type, this.order})
       : super._();
 
   factory _$_NotificationServiceMeta.fromJson(Map<String, dynamic> json) =>
@@ -193,9 +197,9 @@ class _$_NotificationServiceMeta extends _NotificationServiceMeta {
 
   @override
   @NotificationTypeSerializer()
-  final NotificationType type;
+  final NotificationType? type;
   @override
-  final ServiceRequestDTO order;
+  final ServiceRequestDTO? order;
 
   @override
   String toString() {
@@ -227,8 +231,8 @@ class _$_NotificationServiceMeta extends _NotificationServiceMeta {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)
+            @NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)
         service,
   }) {
     return service(type, order);
@@ -237,8 +241,8 @@ class _$_NotificationServiceMeta extends _NotificationServiceMeta {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)?
+    TResult Function(@NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)?
         service,
   }) {
     return service?.call(type, order);
@@ -247,8 +251,8 @@ class _$_NotificationServiceMeta extends _NotificationServiceMeta {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@NotificationTypeSerializer() NotificationType type,
-            ServiceRequestDTO order)?
+    TResult Function(@NotificationTypeSerializer() NotificationType? type,
+            ServiceRequestDTO? order)?
         service,
     required TResult orElse(),
   }) {
@@ -294,8 +298,8 @@ class _$_NotificationServiceMeta extends _NotificationServiceMeta {
 
 abstract class _NotificationServiceMeta extends NotificationMetaDTO {
   const factory _NotificationServiceMeta(
-      {@NotificationTypeSerializer() required NotificationType type,
-      required ServiceRequestDTO order}) = _$_NotificationServiceMeta;
+      {@NotificationTypeSerializer() NotificationType? type,
+      ServiceRequestDTO? order}) = _$_NotificationServiceMeta;
   const _NotificationServiceMeta._() : super._();
 
   factory _NotificationServiceMeta.fromJson(Map<String, dynamic> json) =
@@ -303,9 +307,9 @@ abstract class _NotificationServiceMeta extends NotificationMetaDTO {
 
   @override
   @NotificationTypeSerializer()
-  NotificationType get type;
+  NotificationType? get type;
   @override
-  ServiceRequestDTO get order;
+  ServiceRequestDTO? get order;
   @override
   @JsonKey(ignore: true)
   _$NotificationServiceMetaCopyWith<_NotificationServiceMeta> get copyWith =>
