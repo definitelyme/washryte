@@ -202,7 +202,6 @@ class _FullNameUpdateField extends StatelessWidget {
         field: (s) => s.user.fullName,
         focus: AuthState.firstNameFocus,
         next: AuthState.lastNameFocus,
-        cupertinoPadding: EdgeInsets.zero,
         onChanged: (it, str) => it.nameChanged(str),
       ),
     );
@@ -220,7 +219,6 @@ class _EmailUpdateField extends StatelessWidget {
       disabled: (_) => true,
       readOnly: (_) => true,
       response: (s) => s.status,
-      cupertinoPadding: EdgeInsets.zero,
       // onChanged: (it, str) => it.emailChanged(str),
     );
   }
@@ -237,7 +235,6 @@ class _PhoneNumberField extends StatelessWidget {
       readOnly: (_) => true,
       field: (s) => s.user.phone,
       response: (s) => s.status,
-      cupertinoPadding: EdgeInsets.zero,
     );
   }
 }
