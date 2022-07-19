@@ -81,6 +81,7 @@ class _SignupScreenState extends State<SignupScreen> with AutomaticKeepAliveClie
     return WillPopScope(
       onWillPop: maybePop,
       child: AdaptiveScaffold(
+        overlayStyle: App.customSystemOverlay(ctx: context, android: Brightness.light, ios: Brightness.light),
         body: Stack(
           children: [
             Positioned.fill(
@@ -169,19 +170,18 @@ class _SignupScreenState extends State<SignupScreen> with AutomaticKeepAliveClie
                           //
                           VerticalSpace(height: 0.02.h),
                           //
-			  if (!App.platform.isIOS)
-                          ...[
-			    //
+                          if (!App.platform.isIOS) ...[
+                            //
                             const OrWidget(),
                             //
-			    VerticalSpace(height: 0.02.h),
+                            VerticalSpace(height: 0.02.h),
                             //
                             MyHero(
                               tag: Const.oauthBtnHeroTag,
                               type: MaterialType.transparency,
                               child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
                             ),
-			  ],
+                          ],
                           //
                           VerticalSpace(height: 0.02.h),
                           //

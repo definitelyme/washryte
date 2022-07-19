@@ -75,7 +75,7 @@ class AdaptiveTextFormInput extends StatefulWidget {
   final TextSelectionControls? selectionControls;
   final TextAlignVertical? textAlignVertical;
   final TextDirection? textDirection;
-  final bool autoDisposeController;
+  final bool? autoDisposeController;
   final Brightness? keyboardAppearance;
 
   AdaptiveTextFormInput({
@@ -138,7 +138,7 @@ class AdaptiveTextFormInput extends StatefulWidget {
     this.textAlignVertical,
     this.textDirection,
     this.onEditingComplete,
-    this.autoDisposeController = true,
+    this.autoDisposeController,
     Color? cupertinoBorderColorLight,
     Color? cupertinoBorderColorDark,
     Brightness? keyboardAppearance,
@@ -217,7 +217,7 @@ class AdaptiveTextFormInput extends StatefulWidget {
     this.textAlignVertical,
     this.textDirection,
     this.onEditingComplete,
-    this.autoDisposeController = true,
+    this.autoDisposeController,
     Color? cupertinoBorderColorLight,
     Color? cupertinoBorderColorDark,
     Brightness? keyboardAppearance,
@@ -296,7 +296,7 @@ class AdaptiveTextFormInput extends StatefulWidget {
     this.textAlignVertical,
     this.textDirection,
     this.onEditingComplete,
-    this.autoDisposeController = true,
+    this.autoDisposeController,
     Color? cupertinoBorderColorLight,
     Color? cupertinoBorderColorDark,
     Brightness? keyboardAppearance,
@@ -322,28 +322,38 @@ class AdaptiveTextFormInput extends StatefulWidget {
 
 class _AdaptiveTextFormInputState extends State<AdaptiveTextFormInput> with AutomaticKeepAliveClientMixin<AdaptiveTextFormInput> {
   late TextEditingController _textEditingController;
-  bool didUpdateInitial = false;
+  bool didUpdateController = false;
+
+  bool get autoDisposeController => widget.autoDisposeController ?? widget.controller == null;
 
   @override
   void dispose() {
-    if (widget.autoDisposeController) _textEditingController.dispose();
+    if (autoDisposeController) _textEditingController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
-    _textEditingController = widget.controller ?? TextEditingController(text: widget.initial);
+    _textEditingController = widget.controller ??
+        (widget.initial != null && widget.initial!.isNotEmpty ? TextEditingController(text: widget.initial) : TextEditingController());
 
     super.initState();
   }
 
+  Brightness _keyboardAppearance(BuildContext c) =>
+      widget.keyboardAppearance ?? Utils.foldTheme(light: () => Brightness.light, dark: () => Brightness.dark, context: c);
+
   @override
   void didUpdateWidget(covariant AdaptiveTextFormInput oldWidget) {
-    if (widget.controller == null) if (widget.initial != _textEditingController.text && !didUpdateInitial)
-      setState(() {
-        _textEditingController = TextEditingController(text: widget.initial);
-        didUpdateInitial = true;
-      });
+    // Only run if controller was initialized within this widget && initial is! null
+    if (widget.controller == null && widget.initial != null) {
+      // Ensure "initial" !- controller's text && controller hasn't been updated
+      if (widget.initial != _textEditingController.text && !didUpdateController)
+        setState(() {
+          _textEditingController = _textEditingController..text = widget.initial!;
+          didUpdateController = true;
+        });
+    }
     super.didUpdateWidget(oldWidget);
   }
 
@@ -406,7 +416,7 @@ class _AdaptiveTextFormInputState extends State<AdaptiveTextFormInput> with Auto
         cursorColor: widget.cursorColor ?? CupertinoColors.systemGrey.resolveFrom(context),
         controller: _textEditingController,
         enableInteractiveSelection: widget.enableInteractiveSelection,
-        keyboardAppearance: widget.keyboardAppearance,
+        keyboardAppearance: _keyboardAppearance(c),
         focusNode: widget.focus,
         readOnly: widget.readOnly ?? widget.disabled,
         enabled: !widget.disabled,
@@ -462,7 +472,7 @@ class _AdaptiveTextFormInputState extends State<AdaptiveTextFormInput> with Auto
             cursorColor: widget.cursorColor ?? CupertinoColors.systemGrey.resolveFrom(context),
             controller: _textEditingController,
             enableInteractiveSelection: widget.enableInteractiveSelection,
-            keyboardAppearance: widget.keyboardAppearance,
+            keyboardAppearance: _keyboardAppearance(c),
             focusNode: widget.focus,
             readOnly: widget.readOnly ?? widget.disabled,
             enabled: !widget.disabled,
@@ -521,7 +531,7 @@ class _AdaptiveTextFormInputState extends State<AdaptiveTextFormInput> with Auto
               cursorColor: widget.cursorColor ?? App.resolveColor(Palette.accentColor, dark: Colors.white70),
               keyboardType: widget.keyboardType,
               textCapitalization: widget.capitalization,
-              keyboardAppearance: widget.keyboardAppearance,
+              keyboardAppearance: _keyboardAppearance(c),
               textInputAction: widget.next == null ? widget.action ?? TextInputAction.done : widget.action ?? TextInputAction.next,
               focusNode: widget.focus,
               readOnly: widget.readOnly ?? widget.disabled,

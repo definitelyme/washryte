@@ -19,6 +19,8 @@ mixin Const {
   static const String kUserDTOPrefKey = 'user-dto-sembest-key';
   static const String userBalanceVisibilityKey = 'uuser-balance-hide-key';
 
+  static const String emailPrefKey = 'email-pref-key';
+
   static const int kPerPage = 5;
 
   static const double maxImageUploadSize = 1e+7;

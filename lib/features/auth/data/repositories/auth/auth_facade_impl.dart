@@ -52,6 +52,12 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
   Future<Either<AppHttpResponse, Option<User?>>> get currentUser async => retrieveAndCacheUpdatedUser(forceGetLocalCache: false);
 
   @override
+  Future<EmailAddress?> getCacheEmail() async {
+    final email = await preferences.getString(Const.emailPrefKey);
+    return email != null ? EmailAddress(email) : null;
+  }
+
+  @override
   Future<AppHttpResponse> confirmPasswordReset({
     required EmailAddress email,
     required OTPCode code,
@@ -68,14 +74,18 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
         confirmation: confirmation.getOrNull,
       );
 
-      final _response = await _conn.fold(
+      final result = await _conn.fold(
         // Re-Throw Exception
         (f) => throw f,
         // Attempt Authentication
         (r) async => remote.confirmPasswordReset(dto),
       );
 
-      return AppHttpResponse.fromJson(_response.data as Map<String, dynamic>);
+      final response = AppHttpResponse.fromJson(result.data as Map<String, dynamic>);
+
+      await response.response.mapOrNull(success: (_) => preferences.remove(Const.emailPrefKey));
+
+      return response;
     } on AppHttpResponse catch (ex, tr) {
       return handleFailure(e: ex, trace: tr, notify: false);
     } on AppNetworkException catch (ex, tr) {
@@ -271,14 +281,20 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
     try {
       final _conn = await checkInternetConnectivity();
 
-      final _response = await _conn.fold(
+      final result = await _conn.fold(
         // Re-Throw Exception
         (f) => throw f,
         // Attempt Authentication
         (r) async => remote.sendPasswordResetMessage(email.getOrNull),
       );
 
-      return AppHttpResponse.fromJson(_response.data as Map<String, dynamic>);
+      final response = AppHttpResponse.fromJson(result.data as Map<String, dynamic>);
+
+      await response.response.mapOrNull(
+        success: (_) => preferences.setString(key: Const.emailPrefKey, value: email.getOrNull!),
+      );
+
+      return response;
     } on AppHttpResponse catch (ex, tr) {
       return handleFailure(e: ex, trace: tr, notify: false);
     } on AppNetworkException catch (ex, tr) {
@@ -294,6 +310,8 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
     bool apple = true,
   }) async {
     try {
+      await preferences.remove(Const.emailPrefKey);
+
       // Sign user-out of all services
       await Future.wait([
         if (regular) remote.signOut(),

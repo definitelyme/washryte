@@ -34,6 +34,11 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
     if (loader) toggleLoading(false);
   }
 
+  void initReset() async {
+    final _cache = await _auth.getCacheEmail();
+    emit(state.copyWith.user(email: _cache ?? state.user.email));
+  }
+
   void initSocials() async {
     toggleLoading(true, none());
 
@@ -93,8 +98,6 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   void createAccount() async {
     toggleLoading(true, none());
 
-    AppHttpResponse? result;
-
     env.flavor.fold(
       dev: () {
         if (state.user.login.isSome()) {
@@ -114,7 +117,7 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
 
     if (state.user.signup.isNone()) {
       // Attempt Authentication
-      result = await _auth.createAccount(
+      final result = await _auth.createAccount(
         fullName: state.user.fullName,
         emailAddress: state.user.email,
         password: state.user.password,
@@ -132,8 +135,6 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   void login() async {
     toggleLoading(true, none());
 
-    AppHttpResponse? result;
-
     env.flavor.fold(
       dev: () {
         if (state.user.login.isSome()) {
@@ -149,7 +150,7 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
 
     if (state.user.login.isNone()) {
       // Attempt Authentication
-      result = await _auth.login(
+      final result = await _auth.login(
         email: state.user.email,
         password: state.user.password,
       );
@@ -158,7 +159,7 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
         status: optionOf(result?.copyWith(
           response: result.response.maybeMap(
             success: (s) => s.copyWith(pop: true),
-            orElse: () => result!.response,
+            orElse: () => result.response,
           ),
         )),
       ));
@@ -199,8 +200,6 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   void resetPassword() async {
     toggleLoading(true, none());
 
-    AppHttpResponse result;
-
     // Enable form validation
     emit(state.copyWith(validate: true, status: none()));
 
@@ -209,7 +208,7 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
         state.code.isValid &&
         state.user.confirmation.isValid &&
         state.passwordMatches) {
-      result = await _auth.confirmPasswordReset(
+      final result = await _auth.confirmPasswordReset(
         code: state.code,
         email: state.user.email,
         newPassword: state.user.password,
@@ -234,13 +233,11 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   void updateProfile() async {
     toggleLoading(true, none());
 
-    AppHttpResponse result;
-
     // Enable form validation
     emit(state.copyWith(validate: true, status: none()));
 
     if (state.user.profile.isNone()) {
-      result = await _auth.updateProfile(
+      final result = await _auth.updateProfile(
         fullName: state.user.fullName,
         email: state.user.email,
         image: state.selectedPhoto,

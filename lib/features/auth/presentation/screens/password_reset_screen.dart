@@ -24,7 +24,7 @@ class PasswordResetScreen extends StatefulWidget with AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<AuthCubit>(
-      create: (_) => getIt<AuthCubit>(),
+      create: (_) => getIt<AuthCubit>()..initReset(),
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (p, c) =>
             p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||

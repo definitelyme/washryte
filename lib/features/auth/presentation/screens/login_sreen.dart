@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> with AutomaticKeepAliveClient
     return WillPopScope(
       onWillPop: maybePop,
       child: AdaptiveScaffold(
+        overlayStyle: App.customSystemOverlay(ctx: context, android: Brightness.light, ios: Brightness.light),
         body: Stack(
           children: [
             Positioned.fill(
@@ -165,19 +166,18 @@ class _LoginScreenState extends State<LoginScreen> with AutomaticKeepAliveClient
                           //
                           VerticalSpace(height: 0.02.h),
                           //
-			  if (!App.platform.isIOS)
-                          ...[
-			    //
+                          if (!App.platform.isIOS) ...[
+                            //
                             const OrWidget(),
                             //
-			    VerticalSpace(height: 0.02.h),
+                            VerticalSpace(height: 0.02.h),
                             //
                             MyHero(
                               tag: Const.oauthBtnHeroTag,
                               type: MaterialType.transparency,
                               child: Center(child: OAuthWidgets(cubit: context.read<AuthCubit>())),
                             ),
-			  ],
+                          ],
                           //
                           VerticalSpace(height: 0.02.h),
                           //
@@ -285,7 +285,7 @@ class _FormLayout extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextFormInputLabel(
             text: 'Forgot Password?',
-            textColor: Utils.foldTheme(light: () => Colors.black, dark: () => Colors.white),
+            textColor: Colors.black,
             fontWeight: FontWeight.w600,
             onPressed: () => navigator.push(const ForgotPasswordRoute()),
           ),

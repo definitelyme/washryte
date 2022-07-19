@@ -21,6 +21,8 @@ abstract class AuthFacade {
 
   Future<Option<AppHttpResponse?>> appleAuthentication([bool notify = false]);
 
+  Future<EmailAddress?> getCacheEmail();
+
   Future<Either<AppHttpResponse, Unit>> checkInternetConnectivity() async {
     final isConnected = (await getIt<Connectivity>().checkConnectivity()) != ConnectivityResult.none;
 
