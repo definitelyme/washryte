@@ -11,11 +11,7 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (p, c) =>
             p.status.getOrElse(() => null) != c.status.getOrElse(() => null) ||
-            (c.status.getOrElse(() => null) != null &&
-                (c.status.getOrElse(() => null)!.response.maybeMap(
-                      error: (f) => f.fold(orElse: () => false),
-                      orElse: () => false,
-                    ))),
+            (c.status.getOrElse(() => null) != null && (c.status.getOrElse(() => null)!.response.maybeMap(orElse: () => false))),
         listener: (c, s) => s.status.fold(
           () => null,
           (th) => th?.response.map(
@@ -24,7 +20,7 @@ class _PasswordUpdateBottomSheet extends StatelessWidget {
             success: (s) => PopupDialog.success(
               message: s.message,
               listener: (_) => _?.fold(
-                dismissed: () => s.pop ? navigator.popUntil((r) => r.isFirst) : null,
+                dismissed: () => s.pop ? navigator.popUntilRouteWithName(DashboardRoute.name) : null,
               ),
             ).render(c),
           ),

@@ -33,15 +33,13 @@ class ReactiveAdaptiveAlertdialog<Reactive extends BlocBase<ReactiveState>, Reac
     return _type == _BlocType.create
         ? BlocProvider(
             create: (_) => bloc,
-            child: MultiBlocListener(
-              listeners: listeners,
-              child: BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)),
-            ))
+            child: listeners.isNotEmpty
+                ? MultiBlocListener(listeners: listeners, child: BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)))
+                : BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)))
         : BlocProvider.value(
             value: bloc,
-            child: MultiBlocListener(
-              listeners: listeners,
-              child: BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)),
-            ));
+            child: listeners.isNotEmpty
+                ? MultiBlocListener(listeners: listeners, child: BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)))
+                : BlocBuilder<Reactive, ReactiveState>(builder: (c, s) => dialog.call(c, s)));
   }
 }

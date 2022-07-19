@@ -281,13 +281,20 @@ class _FormLayout extends StatelessWidget {
           onChanged: (fn, str) => fn.passwordChanged(str),
           onToggle: (it) => it.togglePasswordVisibility(),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextFormInputLabel(
-            text: 'Forgot Password?',
-            textColor: Colors.black,
-            fontWeight: FontWeight.w600,
-            onPressed: () => navigator.push(const ForgotPasswordRoute()),
+        BlocSelector<AuthCubit, AuthState, bool>(
+          selector: (s) => s.isLoading,
+          builder: (c, isLoading) => Disabled(
+            disabled: isLoading,
+            opacity: isLoading ? 0.8 : 1,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: TextFormInputLabel(
+                text: 'Forgot Password?',
+                textColor: Colors.black,
+                fontWeight: FontWeight.w600,
+                onPressed: () => navigator.push(const ForgotPasswordRoute()),
+              ),
+            ),
           ),
         ),
       ],

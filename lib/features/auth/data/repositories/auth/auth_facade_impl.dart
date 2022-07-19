@@ -372,11 +372,9 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
         ),
       );
 
-      final _return = AppHttpResponse.fromJson(
-        _response.data as Map<String, dynamic>,
-      );
+      final response = AppHttpResponse.fromJson(_response.data as Map<String, dynamic>);
 
-      await _return.response.mapOrNull(
+      await response.response.mapOrNull(
         error: (_) => null,
         success: (_) async {
           final cached = await retrieveAndCacheUpdatedUser();
@@ -384,7 +382,7 @@ class AuthFacadeImpl extends AuthFacade with SocialAuthMixin {
         },
       );
 
-      return _return;
+      return response;
     } on AppHttpResponse catch (ex, tr) {
       return handleFailure(e: ex, trace: tr, notify: false);
     } on AppNetworkException catch (ex, tr) {

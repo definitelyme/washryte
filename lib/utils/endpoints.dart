@@ -17,7 +17,7 @@ mixin EndPoints {
   // RESET ASSWORD
   static const String SEND_PASSWORD_RESET_MESSAGE = '/forgot-password';
   static const String CONFIRM_PASSWORD_RESET = '/reset-password';
-  static const String UPDATE_PASSWORD = '/changepassword'; // (POST)
+  static const String UPDATE_PASSWORD = '/user/update-password'; // (POST)
   // SOCIALS AUTH
   static const String GOOGLE_SIGNIN = '/auth/social/google';
   static const String APPLE_SIGNIN = '/auth/social/apple';

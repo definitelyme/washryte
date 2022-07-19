@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -12,6 +13,8 @@ import 'package:washryte/core/data/response/index.dart';
 import 'package:washryte/core/domain/entities/entities.dart';
 import 'package:washryte/core/presentation/index.dart';
 import 'package:washryte/features/auth/domain/index.dart';
+import 'package:washryte/features/auth/presentation/managers/managers.dart';
+import 'package:washryte/features/dashboard/presentation/managers/index.dart';
 import 'package:washryte/utils/utils.dart';
 
 part 'auth_cubit.freezed.dart';
@@ -310,13 +313,11 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   void updatePassword() async {
     toggleLoading(true, none());
 
-    AppHttpResponse result;
-
     // Enable form validation
     emit(state.copyWith(validate: true, status: none()));
 
     if (state.oldPassword.isValid && state.user.password.isValid && state.user.confirmation.isValid && state.passwordMatches) {
-      result = await _auth.updatePassword(
+      final result = await _auth.updatePassword(
         current: state.oldPassword,
         newPassword: state.user.password,
         confirmation: state.user.confirmation,
@@ -340,9 +341,15 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit<AuthState>, _ImagePicker
   Future<void> deleteAccount() async {
     toggleLoading(true, none());
 
-    final result = await _auth.deleteAccount();
-
-    emit(state.copyWith(status: some(result)));
+    try {
+      final result = await _auth.deleteAccount();
+      emit(state.copyWith(status: some(result)));
+    } catch (e) {
+      await navigator.navigatorKey.currentContext?.let((it) async {
+        await it.read<AuthWatcherCubit>().signOut();
+        it.read<TabNavigationCubit>().reset();
+      });
+    }
 
     toggleLoading(false);
   }

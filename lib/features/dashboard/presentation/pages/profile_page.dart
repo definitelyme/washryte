@@ -166,48 +166,55 @@ class ProfilePage extends StatelessWidget with AutoRouteWrapper {
             ),
           ),
           //
-          SliverList(
-            delegate: SliverChildListDelegate.fixed([
-              0.03.verticalh,
-              //
-              Center(
-                child: AdaptiveText(
-                  'Manage Account',
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: Utils.letterSpacing,
-                ),
-              ),
-              //
-              0.02.verticalh,
-              //
-              ..._ProfileTile.list(context).map(
-                (e) => AdaptiveListTile(
-                  material: true,
-                  title: AdaptiveText(
-                    '${e.title}',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  horizontalTitleGap: 6,
-                  contentPadding: EdgeInsets.symmetric(horizontal: App.sidePadding),
-                  leading: Icon(e.asset, size: e.size),
-                  trailing: AnimatedVisibility(
-                    visible: e.hasTrailing,
-                    replacement: e.trailing ?? Utils.nothing,
-                    child: Material(
-                      borderRadius: 7.br,
-                      color: const Color(0xffE7F1F5),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.chevron_right_rounded),
-                      ),
+          BlocProvider(
+            create: (_) => getIt<AuthCubit>(),
+            child: Builder(
+              builder: (c) => SliverList(
+                delegate: SliverChildListDelegate.fixed([
+                  0.03.verticalh,
+                  //
+                  Center(
+                    child: AdaptiveText(
+                      'Manage Account',
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: Utils.letterSpacing,
                     ),
                   ),
-                  onTap: e.onPressed,
-                ),
+                  //
+                  0.02.verticalh,
+                  //
+                  ..._ProfileTile.list(c).map(
+                    (e) => AdaptiveListTile(
+                      material: true,
+                      title: AdaptiveText(
+                        '${e.title}',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        textColor: e.titleColor,
+                        textColorDark: e.titleColor,
+                      ),
+                      horizontalTitleGap: 6,
+                      contentPadding: EdgeInsets.symmetric(horizontal: App.sidePadding),
+                      leading: Icon(e.asset, size: e.size, color: e.iconColor),
+                      trailing: AnimatedVisibility(
+                        visible: e.hasTrailing,
+                        replacement: e.trailing ?? Utils.nothing,
+                        child: Material(
+                          borderRadius: 7.br,
+                          color: const Color(0xffE7F1F5),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.chevron_right_rounded),
+                          ),
+                        ),
+                      ),
+                      onTap: e.onPressed,
+                    ),
+                  ),
+                ]),
               ),
-            ]),
+            ),
           ),
         ],
       ),
@@ -217,7 +224,9 @@ class ProfilePage extends StatelessWidget with AutoRouteWrapper {
 
 class _ProfileTile {
   final String title;
+  final Color? titleColor;
   final IconData asset;
+  final Color? iconColor;
   final VoidCallback? onPressed;
   final double size;
   final bool hasTrailing;
@@ -226,6 +235,8 @@ class _ProfileTile {
   const _ProfileTile({
     required this.title,
     required this.asset,
+    this.titleColor,
+    this.iconColor,
     this.onPressed,
     this.size = 24,
     this.hasTrailing = true,
@@ -368,6 +379,51 @@ class _ProfileTile {
             await ctx.read<AuthWatcherCubit>().signOut();
             // Reset current Index to 0
             ctx.read<TabNavigationCubit>().reset();
+          },
+        ),
+        //
+        _ProfileTile(
+          title: 'Delete Account',
+          titleColor: Colors.red,
+          asset: Icons.delete,
+          iconColor: Colors.red,
+          hasTrailing: false,
+          trailing: BlocSelector<AuthCubit, AuthState, bool>(
+            selector: (s) => s.isLoading,
+            builder: (c, isLoading) => AnimatedVisibility(
+              visible: isLoading,
+              child: const Padding(
+                padding: EdgeInsets.all(3),
+                child: CircularProgressBar.adaptive(strokeWidth: 2, width: 25, height: 25),
+              ),
+            ),
+          ),
+          onPressed: () {
+            App.showAlertDialog(
+              context: ctx,
+              builder: (_) => ReactiveAdaptiveAlertdialog<AuthCubit, AuthState>.value(
+                bloc: getIt<AuthCubit>(),
+                dialog: (c, s) => AdaptiveAlertdialog(
+                  title: 'Delete Account',
+                  titleHeight: 0.035.h,
+                  width: 0.8.w,
+                  contentFontSize: 18.sp,
+                  titleAlignment: Utils.platform_(material: Alignment.centerLeft, cupertino: Alignment.center)!,
+                  content: 'Deleted accounts cannot be recovered! Sure you want to proceed?',
+                  contentTextAlignment: Utils.platform_(material: TextAlign.left, cupertino: TextAlign.center)!,
+                  secondButtonText: 'Cancel',
+                  firstButtonText: Utils.platform_(cupertino: 'Delete', material: 'Delete Account'),
+                  autoPopFirstButton: false,
+                  firstButtonIsLoading: s.isLoading,
+                  secondButtonDisabled: s.isLoading,
+                  isSecondDestructive: false,
+                  isFirstDestructive: true,
+                  isSecondDefaultAction: true,
+                  isFirstDefaultAction: false,
+                  onFirstPressed: c.read<AuthCubit>().deleteAccount,
+                ),
+              ),
+            );
           },
         ),
       ];
