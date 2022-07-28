@@ -1,12 +1,8 @@
 part of 'modules.dart';
 
 class _HttpClients {
-  static Uri get authBaseUri => Uri.https(EndPoints.AUTH_APP_DOMAIN, EndPoints.AUTH_API_ENDPOINT);
-
-  static Uri get baseUri => Uri.https(EndPoints.APP_DOMAIN, EndPoints.API_ENDPOINT);
-
   static BaseOptions get _authOptions => BaseOptions(
-        baseUrl: '$authBaseUri',
+        baseUrl: env.baseUri.toString(),
         contentType: 'application/json; charset=utf-8',
         headers: {
           'Accept': 'application/json',
@@ -15,7 +11,7 @@ class _HttpClients {
       );
 
   static BaseOptions get _options => BaseOptions(
-        baseUrl: '$baseUri',
+        baseUrl: env.baseUri.toString(),
         contentType: 'application/json; charset=utf-8',
         headers: {
           'Accept': 'application/json',

@@ -1,13 +1,8 @@
 mixin EndPoints {
-  // static const String AUTH_APP_DOMAIN = 'auth.waizytechengineering.com';
-  static const String AUTH_APP_DOMAIN = 'api.waizytechengineering.com';
-  static const String APP_DOMAIN = 'api.waizytechengineering.com';
-  // static const String AUTH_API_ENDPOINT = '/Customer';
-  static const String AUTH_API_ENDPOINT = '/api/v1/auth/customer';
+  static const String APP_DEV_DOMAIN = 'api.waizytechengineering.com';
+  static const String APP_PROD_DOMAIN = 'washryte.wtglaundrymgt.com';
   static const String API_ENDPOINT = '/api/v1/customer';
-  static const String BASE_URL = 'https://$APP_DOMAIN$API_ENDPOINT';
-  static const String AUTH_BASE_URL = 'https://$AUTH_APP_DOMAIN$AUTH_API_ENDPOINT';
-  static const String PUSHER_AUTH_URL = 'https://$APP_DOMAIN/broadcasting/auth';
+  static const String PUSHER_AUTH_URL = 'broadcasting/auth';
   static const String SLEEP = '/sleep';
 
   //.....///.....// AUTHENTICATION ENDPOINTS ....////././//...//

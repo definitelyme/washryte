@@ -30,24 +30,20 @@ class BuildEnvironment implements Secrets {
 
   String get paystackKey => flavor.fold(dev: () => Secrets.paystackKeyDev, prod: () => Secrets.paystackKeyProd);
 
+  static String domain([BuildFlavor? value]) => (value ?? env.flavor).fold(
+        dev: () => '${EndPoints.APP_DEV_DOMAIN}',
+        prod: () => kDebugMode ? '${EndPoints.APP_DEV_DOMAIN}' : '${EndPoints.APP_PROD_DOMAIN}',
+      );
+
   /// Sets up the top-level [env] getter on the first call only.
   static Future<void> init({required BuildFlavor flavor}) async {
-    _env ??= BuildEnvironment.factory(
-      flavor: flavor,
-      uri: Uri.https(EndPoints.APP_DOMAIN, EndPoints.API_ENDPOINT),
-    );
+    _env ??= BuildEnvironment.factory(flavor: flavor, uri: Uri.https(domain(flavor), EndPoints.API_ENDPOINT));
 
     // This app is designed only to work vertically, so we limit
     // orientations to portrait up and down.
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    await SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.edgeToEdge,
-      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
-    );
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
 
     await flavor.fold(
       dev: () async {
